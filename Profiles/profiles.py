@@ -2,10 +2,12 @@ import requests, json
 
 def allProfiles(self, returnLimit=100 ,params={}):
     """
-    Delete user profile from ID
+    Return all user profiles
 
     Arguments:
-        userID -- User profile ID
+        returnLimit -- The index and amount of results to return, if not provided is defaulted to 0 and 100
+
+        params -- Any parameters to filter the returned profile by
 
     Returns:
         Base response object
@@ -193,13 +195,6 @@ def sendWelcomeEmail(self, profileID):
     
     Arguments:
         profileID -- The profileId of the profile you want to update
-        
-        profileObject -- User profile JSON object
-        e.g.
-        {
-            "firstName":"Fred",
-            "imageUrl":"https://images.example.org/profileimages/fredsmith/image.png"
-        }
                 
     Returns:
         Base response object"""

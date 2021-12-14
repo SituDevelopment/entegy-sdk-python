@@ -2,6 +2,8 @@ import requests
 import json
 from requests.structures import CaseInsensitiveDict
 
+from Profiles.profileCustom import deleteProfileCustom
+
 APIEndpoints = {
     "AU": "https://api.entegy.com.au",
     "US": "https://api-us.entegy.com.au",
@@ -19,8 +21,12 @@ class EntegyAPI():
     APIEndpoint = ""
 
     # Import methods
-    from Profiles.profiles import allProfiles, createProfile, getProfile, deleteProfile, syncProfiles
 
+    # Profiles
+    from Profiles.profiles import allProfiles, createProfile, getProfile, deleteProfile, syncProfiles, sendWelcomeEmail
+    from Profiles.profileTypes import getProfileType, createProfileType, updateProfileType, deleteProfileType, allProfileTypes
+    from Profiles.profileCustom import getProfileCustom, createProfileCustom, updateProfileCustom, deleteProfileCustom, allProfileCustom
+    from Profiles.profileLinks import selectedProfileLinks, pageProfileLinks, selectProfileLink, multiSelectProfileLinks, deSelectProfileLinks, clearProfileLinks
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):
         """

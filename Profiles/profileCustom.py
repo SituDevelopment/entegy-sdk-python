@@ -139,7 +139,7 @@ def deleteProfileCustom(self, key):
     output = resp.json()
     return output
 
-def alldeleteProfileCustom(self):
+def allProfileCustom(self):
     """
     This request will return all custom fields
     
