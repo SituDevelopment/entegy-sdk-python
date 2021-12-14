@@ -27,6 +27,8 @@ class EntegyAPI():
     from Profiles.profileTypes import getProfileType, createProfileType, updateProfileType, deleteProfileType, allProfileTypes
     from Profiles.profileCustom import getProfileCustom, createProfileCustom, updateProfileCustom, deleteProfileCustom, allProfileCustom
     from Profiles.profileLinks import selectedProfileLinks, pageProfileLinks, selectProfileLink, multiSelectProfileLinks, deSelectProfileLinks, clearProfileLinks
+    from Profiles.profilePayments import addProfilePayment
+    
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):
         """
