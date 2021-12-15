@@ -29,6 +29,12 @@ class EntegyAPI():
     from Profiles.profileLinks import selectedProfileLinks, pageProfileLinks, selectProfileLink, multiSelectProfileLinks, deSelectProfileLinks, clearProfileLinks
     from Profiles.profilePayments import addProfilePayment
     
+    # Content
+    from Content.content import getContent, getScheduleContent, createContent, addChildrenContent, updateContent, deleteContent
+    from Content.categories import availableCategories, selectCategories, deselectCategories, createCategories, createChildCategories, updateCategories, deleteCategories
+    from Content.documents import addDocuments, addExternalContentDocuments
+    from Content.multiLink import getMultiLinks, addMultiLinks, removeMultiLink, removeAllMultiLinks
+
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):
         """
