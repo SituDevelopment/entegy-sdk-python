@@ -1,3 +1,4 @@
+from hamcrest import none
 import requests, json
 
 def getContent(self, templateType, moduleId, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
@@ -30,7 +31,7 @@ def getContent(self, templateType, moduleId, includeCategories = False, includeD
     output = resp.json()
     return output
 
-def getScheduleContent(self, moduleId, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+def getScheduleContent(self, moduleId=None, extRef = None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
     """
     Returns an entire schedule.
 
@@ -43,7 +44,6 @@ def getScheduleContent(self, moduleId, includeCategories = False, includeDocumen
     data = {
         "projectId":self.projectID,
         "apiKey": self.apiKey,
-        "moduleId": moduleId,
         "includeCategories": includeCategories,
         "includeDocuments": includeDocuments, 
         "includeLinks": includeLinks,
@@ -51,6 +51,10 @@ def getScheduleContent(self, moduleId, includeCategories = False, includeDocumen
         "includePageSettings": includePageSettings
     }
 
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if extRef != None:
+        data.update({"externalReference": extRef})
     resp = requests.post(self.APIEndpoint+"/v2/Content/Schedule", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
@@ -90,7 +94,7 @@ def createContent(self, content, contentGroup = "Default"):
     output = resp.json()
     return output
 
-def addChildrenContent(self, templateType, moduleId, childTemplateType, children):
+def addChildrenContent(self, templateType, childTemplateType, children, moduleId = None, extRef = None):
     """
     Adds children to templateType
 
@@ -143,18 +147,21 @@ def addChildrenContent(self, templateType, moduleId, childTemplateType, children
         "projectId":self.projectID,
         "apiKey": self.apiKey,
         "templateType": templateType,
-        "moduleId": moduleId,
         "childTemplateType": childTemplateType,
         "children": children
     }
-
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if extRef != None:
+        data.update({"externalReference": extRef})
+        
     resp = requests.post(self.APIEndpoint+"/v2/Content/AddChildren", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def updateContent(self, templateType, moduleId, content):
+def updateContent(self, templateType,content, moduleId = None, extRef = None):
     """
     Updates data within a content item
 
@@ -184,9 +191,12 @@ def updateContent(self, templateType, moduleId, content):
         "projectId":self.projectID,
         "apiKey": self.apiKey,
         "templateType": templateType,
-        "moduleId": moduleId,
         "content": content
     }
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if extRef != None:
+        data.update({"externalReference": extRef})
 
     resp = requests.post(self.APIEndpoint+"/v2/Content/Update", headers=self.headers, data=json.dumps(data))
     if resp == None:
@@ -194,7 +204,7 @@ def updateContent(self, templateType, moduleId, content):
     output = resp.json()
     return output
 
-def deleteContent(self, templateType, moduleId, content):
+def deleteContent(self, templateType, moduleId= None, extRef = None):
     """
     Allows you to delete a content resource from the Entegy System. Any content deleted is unrecoverable.
 
@@ -211,9 +221,12 @@ def deleteContent(self, templateType, moduleId, content):
     data = {
         "projectId":self.projectID,
         "apiKey": self.apiKey,
-        "templateType": templateType,
-        "moduleId": moduleId
+        "templateType": templateType
     }
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if extRef != None:
+        data.update({"externalReference": extRef})
 
     resp = requests.delete(self.APIEndpoint+"/v2/Content/Delete", headers=self.headers, data=json.dumps(data))
     if resp == None:

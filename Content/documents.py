@@ -1,4 +1,5 @@
-import requests, json
+import requests, json, os, sys
+sys.path.append(os.path.dirname(__file__))
 from icons import icon
 
 def addDocuments(self, templateType ,moduleId, fileDocuments):

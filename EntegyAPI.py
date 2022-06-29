@@ -1,7 +1,10 @@
 import requests
 import json
+import sys
+import os
 from requests.structures import CaseInsensitiveDict
 
+sys.path.append(os.path.dirname(__file__))
 from Profiles.profileCustom import deleteProfileCustom
 
 APIEndpoints = {
