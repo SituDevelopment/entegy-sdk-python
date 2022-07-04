@@ -1,4 +1,3 @@
-from hamcrest import none
 import requests, json
 
 def getContent(self, templateType, moduleId, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
