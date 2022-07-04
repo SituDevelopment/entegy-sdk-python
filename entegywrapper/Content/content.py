@@ -1,6 +1,6 @@
 import requests, json
 
-def getContent(self, templateType, moduleId= None, extRef = None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+def getContent(self, moduleId="",extRef=None, templateType=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
     """
     Return all user profiles
 
@@ -26,7 +26,6 @@ def getContent(self, templateType, moduleId= None, extRef = None, includeCategor
         data.update({"moduleId": moduleId})
     if extRef != None:
         data.update({"externalReference": extRef})
-    print(data)
     resp = requests.post(self.APIEndpoint+"/v2/Content", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
@@ -156,7 +155,7 @@ def addChildrenContent(self, templateType, childTemplateType, children, moduleId
         data.update({"moduleId": moduleId})
     if extRef != None:
         data.update({"externalReference": extRef})
-
+        
     resp = requests.post(self.APIEndpoint+"/v2/Content/AddChildren", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
