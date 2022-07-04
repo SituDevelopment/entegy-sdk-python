@@ -1,6 +1,6 @@
 import requests, json
 
-def getContent(self, moduleId="",extRef=None, templateType=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+def getContent(self,  templateType=None, moduleId="",extRef=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
     """
     Return all user profiles
 
