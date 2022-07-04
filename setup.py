@@ -9,7 +9,7 @@ setup(
     author_email='cameron@situ.com.au',
     license='BSD 2-clause',
     packages=['entegywrapper','entegywrapper/Content','entegywrapper/Profiles'],
-    install_requires=['requests', 'hamcrest'                    
+    install_requires=['requests'                 
                       ],
 
     classifiers=[
