@@ -5,7 +5,7 @@ import os
 from requests.structures import CaseInsensitiveDict
 
 sys.path.append(os.path.dirname(__file__))
-from Profiles.profileCustom import deleteProfileCustom
+from .Profiles.profileCustom import deleteProfileCustom
 
 APIEndpoints = {
     "AU": "https://api.entegy.com.au",
@@ -26,17 +26,17 @@ class EntegyAPI():
     # Import methods
 
     # Profiles
-    from Profiles.profiles import allProfiles, createProfile, getProfile, deleteProfile, syncProfiles, sendWelcomeEmail
-    from Profiles.profileTypes import getProfileType, createProfileType, updateProfileType, deleteProfileType, allProfileTypes
-    from Profiles.profileCustom import getProfileCustom, createProfileCustom, updateProfileCustom, deleteProfileCustom, allProfileCustom
-    from Profiles.profileLinks import selectedProfileLinks, pageProfileLinks, selectProfileLink, multiSelectProfileLinks, deSelectProfileLinks, clearProfileLinks
-    from Profiles.profilePayments import addProfilePayment
+    from .Profiles.profiles import allProfiles, createProfile, getProfile, deleteProfile, syncProfiles, sendWelcomeEmail
+    from .Profiles.profileTypes import getProfileType, createProfileType, updateProfileType, deleteProfileType, allProfileTypes
+    from .Profiles.profileCustom import getProfileCustom, createProfileCustom, updateProfileCustom, deleteProfileCustom, allProfileCustom
+    from .Profiles.profileLinks import selectedProfileLinks, pageProfileLinks, selectProfileLink, multiSelectProfileLinks, deSelectProfileLinks, clearProfileLinks
+    from .Profiles.profilePayments import addProfilePayment
     
     # Content
-    from Content.content import getContent, getScheduleContent, createContent, addChildrenContent, updateContent, deleteContent
-    from Content.categories import availableCategories, selectCategories, deselectCategories, createCategories, createChildCategories, updateCategories, deleteCategories
-    from Content.documents import addDocuments, addExternalContentDocuments
-    from Content.multiLink import getMultiLinks, addMultiLinks, removeMultiLink, removeAllMultiLinks
+    from .Content.content import getContent, getScheduleContent, createContent, addChildrenContent, updateContent, deleteContent
+    from .Content.categories import availableCategories, selectCategories, deselectCategories, createCategories, createChildCategories, updateCategories, deleteCategories
+    from .Content.documents import addDocuments, addExternalContentDocuments
+    from .Content.multiLink import getMultiLinks, addMultiLinks, removeMultiLink, removeAllMultiLinks
 
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):

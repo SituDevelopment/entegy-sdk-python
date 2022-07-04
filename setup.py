@@ -8,7 +8,7 @@ setup(
     author='Cameron Jensen',
     author_email='cameron@situ.com.au',
     license='BSD 2-clause',
-    packages=['entegywrapper'],
+    packages=['entegywrapper','entegywrapper/Content','entegywrapper/Profiles'],
     install_requires=['requests'                    
                       ],
 
