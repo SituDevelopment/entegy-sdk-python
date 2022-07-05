@@ -38,6 +38,8 @@ class EntegyAPI():
     from .Content.documents import addDocuments, addExternalContentDocuments
     from .Content.multiLink import getMultiLinks, addMultiLinks, removeMultiLink, removeAllMultiLinks
 
+    # Points
+    from .Points.pointManagement import awardPoints, getPointLeaderboard, getPoints
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):
         """
