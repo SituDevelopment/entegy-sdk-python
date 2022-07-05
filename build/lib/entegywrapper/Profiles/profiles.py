@@ -29,12 +29,14 @@ def allProfiles(self, returnLimit=100 ,params={}):
     output = resp.json()
     return output
 
-def getProfile(self, userID):
+def getProfile(self, userID="", externalReference = None, badgeReference = None, internalReference = None,params={}):
     """
     Get user profile from ID
 
     Arguments:
         userID -- User profile ID
+
+        params -- Any parameters to filter the returned profile by
 
     Returns:
         User profile JSON output
@@ -44,6 +46,15 @@ def getProfile(self, userID):
         "apiKey": self.apiKey,
         "profileId": userID
     }
+    if externalReference != None:
+        data.update({"externalReference": userID})
+    if badgeReference != None:
+        data.update({"badgeReference": userID})
+    if internalReference != None:
+        data.update({"internalReference": userID})
+        
+
+    data.update(params)
 
     resp = requests.post(self.APIEndpoint+"/v2/Profile/", headers=self.headers, data=json.dumps(data))
     if resp == None:
@@ -96,7 +107,6 @@ def createProfile(self, profileObject):
         "apiKey": self.apiKey,
         "profile": profileObject
     }
-    print(data)
     resp = requests.post(self.APIEndpoint+"/v2/Profile/Create", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
@@ -126,7 +136,6 @@ def updateProfile(self, profileID, profileObject):
         "profileID": profileID,
         "profile": profileObject
     }
-    print(data)
     resp = requests.post(self.APIEndpoint+"/v2/Profile/Update", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
@@ -182,7 +191,6 @@ def syncProfiles(self, updateReferenceType, profiles, groupByFirstProfile = Fals
         "updateReferenceType": updateReferenceType,
         "profiles": profiles
     }
-    print(data)
     resp = requests.post(self.APIEndpoint+"/v2/Profile/Sync", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")
@@ -204,7 +212,6 @@ def sendWelcomeEmail(self, profileID):
         "apiKey": self.apiKey,
         "profileID": profileID
     }
-    print(data)
     resp = requests.post(self.APIEndpoint+"/v2/Profile/SendWelcomeEmail", headers=self.headers, data=json.dumps(data))
     if resp == None:
         raise Exception("No reponse received from API")

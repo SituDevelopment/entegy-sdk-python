@@ -5,7 +5,7 @@
 Import via
 
 ```python
-from EntegyAPI import EntegyAPI
+from entegyWrapper import EntegyAPI
 ```
 
 ### Currently Ported Modules
@@ -21,3 +21,5 @@ from EntegyAPI import EntegyAPI
     - [Categories](https://situ.entegysuite.com.au/Docs/Api/category-available)
     - [Documents](https://situ.entegysuite.com.au/Docs/Api/document-addfile)
     - [MultiLinks](https://situ.entegysuite.com.au/Docs/Api/multilink-get)
+- Points & Achievement
+    - [Point Management](https://situ.entegysuite.com.au/Docs/Api/point-award)
