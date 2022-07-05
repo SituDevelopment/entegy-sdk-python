@@ -40,6 +40,7 @@ class EntegyAPI():
 
     # Points
     from .Points.pointManagement import awardPoints, getPointLeaderboard, getPoints
+
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region = 'AU'):
         """
