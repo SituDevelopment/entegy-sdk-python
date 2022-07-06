@@ -1,6 +1,6 @@
 import requests, json
 
-def getContent(self, templateType, moduleId="", externalReference=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+def getContent(self, templateType, moduleId=None, externalReference=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
     """
     Return all user profiles
 
@@ -16,13 +16,14 @@ def getContent(self, templateType, moduleId="", externalReference=None, includeC
         "projectId":self.projectID,
         "apiKey": self.apiKey,
         "templateType": templateType,
-        "moduleId": moduleId,
         "includeCategories": includeCategories,
         "includeDocuments": includeDocuments, 
         "includeLinks": includeLinks,
         "includeMultiLinks": includeMultiLinks,
         "includePageSettings": includePageSettings
     }
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
     resp = requests.post(self.APIEndpoint+"/v2/Content", headers=self.headers, data=json.dumps(data))
