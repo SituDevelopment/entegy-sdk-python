@@ -1,5 +1,6 @@
 import requests, json
 
+
 def selectedProfileLinks(self, profileId, returnLimit=100):
     """
     Return all the profile links the profile ha
@@ -12,17 +13,18 @@ def selectedProfileLinks(self, profileId, returnLimit=100):
     Returns:
         Base response object
     """
-    data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "profileID":profileId
-    }
+    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileID": profileId}
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/Selected/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/Selected/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def pageProfileLinks(self, templateType, moduleId, returnLimit=100):
     """
@@ -39,17 +41,22 @@ def pageProfileLinks(self, templateType, moduleId, returnLimit=100):
         Pagination response and list of profile objects
     """
     data = {
-        "projectId":self.projectID,
+        "projectId": self.projectID,
         "apiKey": self.apiKey,
         "templateType": templateType,
-        "moduleId":moduleId
+        "moduleId": moduleId,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/Page/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/Page/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def selectProfileLink(self, profileId, link):
     """
@@ -71,17 +78,22 @@ def selectProfileLink(self, profileId, link):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
+        "projectId": self.projectID,
         "apiKey": self.apiKey,
-        "profileID":profileId,
-        "link": link
+        "profileID": profileId,
+        "link": link,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/Select/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/Select/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def multiSelectProfileLinks(self, profiles):
     """
@@ -128,17 +140,18 @@ def multiSelectProfileLinks(self, profiles):
     Returns:
         Base response object
     """
-    data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "profiles":profiles
-    }
+    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profiles": profiles}
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/MultiSelect/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/MultiSelect/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def deSelectProfileLinks(self, profileId, link):
     """
@@ -160,17 +173,22 @@ def deSelectProfileLinks(self, profileId, link):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
+        "projectId": self.projectID,
         "apiKey": self.apiKey,
         "profileId": profileId,
-        "link": link
+        "link": link,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/Deselect/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/Deselect/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def clearProfileLinks(self, profileId, templateType):
     """
@@ -185,13 +203,17 @@ def clearProfileLinks(self, profileId, templateType):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
+        "projectId": self.projectID,
         "apiKey": self.apiKey,
         "profileId": profileId,
-        "templateType": templateType
+        "templateType": templateType,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfileLink/Clear/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfileLink/Clear/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()

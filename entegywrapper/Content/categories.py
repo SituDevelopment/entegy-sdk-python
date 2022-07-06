@@ -1,5 +1,6 @@
 import requests, json
 
+
 def availableCategories(self, templateType, moduleId):
     """
     This returns a list of the available categories for the page in question.
@@ -13,17 +14,21 @@ def availableCategories(self, templateType, moduleId):
         List of available categories
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
-        "moduleId": moduleId
+        "projectId": self.projectID,
+        "templateType": templateType,
+        "moduleId": moduleId,
     }
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/Available", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/Available",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def selectCategories(self, templateType, moduleId, categories):
     """
@@ -33,7 +38,7 @@ def selectCategories(self, templateType, moduleId, categories):
         templateType -- The template type of the page you want
 
         moduleId -- 	The moduleId of the page you want
-    
+
         categories -- The categories you want to select
 
         e.g.
@@ -63,18 +68,22 @@ def selectCategories(self, templateType, moduleId, categories):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "templateType": templateType,
         "moduleId": moduleId,
-        "categories": categories
+        "categories": categories,
     }
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/Select", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/Select",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def deselectCategories(self, templateType, moduleId, categories):
     """
@@ -84,7 +93,7 @@ def deselectCategories(self, templateType, moduleId, categories):
         templateType -- The template type of the page you want
 
         moduleId -- 	The moduleId of the page you want
-    
+
         categories -- The categories you want to select
 
         e.g.
@@ -114,18 +123,22 @@ def deselectCategories(self, templateType, moduleId, categories):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "templateType": templateType,
         "moduleId": moduleId,
-        "categories": categories
+        "categories": categories,
     }
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/Deselect", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/Deselect",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def createCategories(self, templateType, moduleId, categories):
     """
@@ -135,7 +148,7 @@ def createCategories(self, templateType, moduleId, categories):
         templateType -- The template type of the page you want
 
         moduleId -- 	The moduleId of the page you want
-    
+
         categories -- The categories you want to select
 
         e.g.
@@ -171,18 +184,22 @@ def createCategories(self, templateType, moduleId, categories):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "templateType": templateType,
         "moduleId": moduleId,
-        "categories": categories
+        "categories": categories,
     }
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/Create", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/Create",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def createChildCategories(self, templateType, externalReference, categories):
     """
@@ -192,7 +209,7 @@ def createChildCategories(self, templateType, externalReference, categories):
         templateType -- The template type of the page you want
 
         externalReference -- The externalReference of the page you want
-    
+
         categories -- The categories you want to select
 
         e.g.
@@ -216,18 +233,22 @@ def createChildCategories(self, templateType, externalReference, categories):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "templateType": templateType,
         "externalReference": externalReference,
-        "categories": categories
+        "categories": categories,
     }
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/CreateChild", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/CreateChild",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def updateCategories(self, moduleId, name):
     """
@@ -235,24 +256,24 @@ def updateCategories(self, moduleId, name):
 
     Arguments:
         moduleId -- The moduleId of the category
-    
+
         name -- The new name of the category
 
     Returns:
         Base response object
     """
-    data = {
-        "projectId":self.projectID,
-        "moduleId":moduleId,
-        "name": name
-    }
+    data = {"projectId": self.projectID, "moduleId": moduleId, "name": name}
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Categories/Update", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Categories/Update",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def deleteCategories(self, templateType, moduleId, categories):
     """
@@ -262,7 +283,7 @@ def deleteCategories(self, templateType, moduleId, categories):
         templateType -- The template type of the page you want
 
         moduleId -- The moduleId of the page you want
-    
+
         categories -- The categories you want to select
 
         e.g.
@@ -286,14 +307,17 @@ def deleteCategories(self, templateType, moduleId, categories):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "templateType": templateType,
         "moduleId": moduleId,
-        "categories": categories
+        "categories": categories,
     }
 
-
-    resp = requests.delete(self.APIEndpoint+"/v2/Categories/Delete", headers=self.headers, data=json.dumps(data))
+    resp = requests.delete(
+        self.APIEndpoint + "/v2/Categories/Delete",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()

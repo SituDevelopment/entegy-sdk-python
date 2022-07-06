@@ -1,6 +1,18 @@
+<div align="center">
+<a href="https://www.python.org/"><img src="https://forthebadge.com/images/badges/made-with-python.svg"></a>
+<a href="https://github.com/psf/black"><img src="readmeimages/code-format-black.svg"></a>
+<a href="https://www.python.org/downloads/release/python-3100/"><img src="readmeimages/python-3.10.svg"></a>
+</div>
+
 # Python Wrapper For Entegy APIv2
 
 [Entegy API Documentation](https://situ.entegysuite.com.au/Docs/Api/)
+
+Install with
+
+```bash
+pip install git+https://github.com/SituDevelopment/python3-entegy-API-wrapper.git
+```
 
 Import via
 

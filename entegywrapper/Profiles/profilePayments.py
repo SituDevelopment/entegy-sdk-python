@@ -1,5 +1,6 @@
 import requests, json
 
+
 def addProfilePayment(self, profileId, paymentInfo):
     """
     Return all the profile links the profile ha
@@ -31,13 +32,17 @@ def addProfilePayment(self, profileId, paymentInfo):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
+        "projectId": self.projectID,
         "apiKey": self.apiKey,
-        "profileID":profileId,
+        "profileID": profileId,
     }
     data.update(paymentInfo)
 
-    resp = requests.post(self.APIEndpoint+"/v2/ProfilePayment/Add/", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/ProfilePayment/Add/",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
