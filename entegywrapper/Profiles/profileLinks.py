@@ -13,7 +13,7 @@ def selectedProfileLinks(self, profileId, returnLimit=100):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileID": profileId}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileID": profileId}
 
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Selected/",
@@ -42,7 +42,7 @@ def pageProfileLinks(self, templateType, moduleId, returnLimit=100):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
     }
@@ -79,7 +79,7 @@ def selectProfileLink(self, profileId, link):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileID": profileId,
         "link": link,
     }
@@ -140,7 +140,7 @@ def multiSelectProfileLinks(self, profiles):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profiles": profiles}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profiles": profiles}
 
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/MultiSelect/",
@@ -174,7 +174,7 @@ def deSelectProfileLinks(self, profileId, link):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileId": profileId,
         "link": link,
     }
@@ -204,7 +204,7 @@ def clearProfileLinks(self, profileId, templateType):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileId": profileId,
         "templateType": templateType,
     }

@@ -24,7 +24,7 @@ def awardPoints(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileId": userID,
         "pointEvent": pointEvent,
         "points": points,
@@ -61,7 +61,7 @@ def getPoints(
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileId": userID}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
 
     if externalReference != None:
         data.update({"externalReference": userID})
@@ -89,7 +89,7 @@ def getPointLeaderboard(self):
     Returns:
         Leaderboard object
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey}
+    data = {"projectId": self.projectID, "apiKey": self.getKey()}
 
     resp = requests.post(
         self.APIEndpoint + "/v2/Point/Leaderboard",

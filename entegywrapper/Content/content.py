@@ -25,7 +25,7 @@ def getContent(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "includeCategories": includeCategories,
         "includeDocuments": includeDocuments,
@@ -67,7 +67,7 @@ def getScheduleContent(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "includeCategories": includeCategories,
         "includeDocuments": includeDocuments,
         "includeLinks": includeLinks,
@@ -110,7 +110,7 @@ def createContent(self, content, contentGroup="Default"):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "contentGroup": contentGroup,
         "content": content,
     }
@@ -184,7 +184,7 @@ def addChildrenContent(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "childTemplateType": childTemplateType,
         "children": children,
@@ -233,7 +233,7 @@ def updateContent(self, templateType, content, moduleId=None, externalReference=
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "content": content,
     }
@@ -269,7 +269,7 @@ def deleteContent(self, templateType, moduleId=None, externalReference=None):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
     }
     if moduleId != None:

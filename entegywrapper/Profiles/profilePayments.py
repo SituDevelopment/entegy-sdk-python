@@ -33,7 +33,7 @@ def addProfilePayment(self, profileId, paymentInfo):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileID": profileId,
     }
     data.update(paymentInfo)

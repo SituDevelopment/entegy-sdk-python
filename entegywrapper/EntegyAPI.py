@@ -1,3 +1,4 @@
+from random import randint
 import requests
 import json
 import sys
@@ -93,26 +94,46 @@ class EntegyAPI:
         Contruct an EntegyAPI wrapper
 
         Arguments:
-            apiKey -- Entegy API key
+            apiKey -- Entegy API key (Can either be a string, or an array of strings)
 
-            apiSecret -- Entegy API secret key
+            apiSecret -- Entegy API secret key (Can either be a string, or an array of strings the same size as apiKey)
 
             projectID -- Entegy project ID
 
             region -- 'AU', 'US', 'EU' (Default = 'AU')
         """
 
+        # If multiple API keys were given, ensure that equal amounts of each were given
+        if isinstance(self.apiKey, list):
+            if(len(self.apiKey) != len(self.apiSecret)):
+                raise IndexError("Invalid amount of API Keys to Secrets. Number of each must be equal!")
+
         # Set public variables
         self.apiKey = apiKey
         self.apiSecret = apiSecret
         self.projectID = projectID
 
+        # Set API header
+        self.headers["Content-Type"] = "application/json"
+
         # Set API endpoint
         self.APIEndpoint = APIEndpoints[region]
 
-        # Set API header
-        self.headers["Content-Type"] = "application/json"
-        self.headers["Authorization"] = f"ApiKey {apiSecret}"
+    def getKey(self):
+        """Return API Key
+
+        Returns:
+            string: API Key
+        """
+        # If the initially provided key was not an array, return `self.apiKey` 
+        if not isinstance(self.apiKey, list):
+            self.headers["Authorization"] = f"ApiKey {self.apiSecret}"
+            return self.apiKey
+        
+        randKeyNum = randint(0,len(self.apiKey) -1)
+
+        self.headers["Authorization"] = f"ApiKey {self.apiSecret[randKeyNum]}"
+        return self.apiKey[randKeyNum]
 
     def getEndpoint(self):
         """

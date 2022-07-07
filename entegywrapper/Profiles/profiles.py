@@ -15,7 +15,7 @@ def allProfiles(self, returnLimit=100, params={}):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "pagination": {"start": 0, "limit": returnLimit},
     }
 
@@ -51,7 +51,7 @@ def getProfile(
     Returns:
         User profile JSON output
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileId": userID}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
     if externalReference != None:
         data.update({"externalReference": userID})
     if badgeReference != None:
@@ -80,7 +80,7 @@ def deleteProfile(self, userID):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileId": userID}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Profile/Delete",
@@ -113,7 +113,7 @@ def createProfile(self, profileObject):
 
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profile": profileObject,
     }
     resp = requests.post(
@@ -146,7 +146,7 @@ def updateProfile(self, profileID, profileObject):
 
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileID": profileID,
         "profile": profileObject,
     }
@@ -206,7 +206,7 @@ def syncProfiles(self, updateReferenceType, profiles, groupByFirstProfile=False)
 
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "updateReferenceType": updateReferenceType,
         "profiles": profiles,
     }
@@ -231,7 +231,7 @@ def sendWelcomeEmail(self, profileID):
     Returns:
         Base response object"""
 
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "profileID": profileID}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileID": profileID}
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,

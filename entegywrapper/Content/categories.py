@@ -15,6 +15,7 @@ def availableCategories(self, templateType, moduleId):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
     }
@@ -69,6 +70,7 @@ def selectCategories(self, templateType, moduleId, categories):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "categories": categories,
@@ -124,6 +126,7 @@ def deselectCategories(self, templateType, moduleId, categories):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "categories": categories,
@@ -185,6 +188,7 @@ def createCategories(self, templateType, moduleId, categories):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "categories": categories,
@@ -234,6 +238,7 @@ def createChildCategories(self, templateType, externalReference, categories):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "externalReference": externalReference,
         "categories": categories,
@@ -308,6 +313,7 @@ def deleteCategories(self, templateType, moduleId, categories):
     """
     data = {
         "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "categories": categories,

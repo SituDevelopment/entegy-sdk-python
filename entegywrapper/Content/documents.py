@@ -37,7 +37,7 @@ def addDocuments(self, templateType, moduleId, fileDocuments):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "fileDocuments": fileDocuments,
@@ -82,7 +82,7 @@ def addExternalContentDocuments(self, templateType, moduleId, externalContentIte
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "moduleId": moduleId,
         "externalContentItems": externalContentItems,

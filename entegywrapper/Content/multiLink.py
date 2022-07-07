@@ -17,7 +17,7 @@ def getMultiLinks(self, templateType, moduleId=None, externalReference=None):
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
     }
     if moduleId != None:
@@ -65,7 +65,7 @@ def addMultiLinks(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "multiLinks": multiLinks,
     }
@@ -123,7 +123,7 @@ def removeMultiLink(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "targetTemplateType": targetTemplateType,
     }
@@ -164,7 +164,7 @@ def removeAllMultiLinks(
     """
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "templateType": templateType,
     }
 

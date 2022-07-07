@@ -1,8 +1,10 @@
 import requests, json, os, sys
+
 sys.path.append(os.path.dirname(__file__))
 from icons import icon
 
-def addDocuments(self, templateType ,moduleId, fileDocuments):
+
+def addDocuments(self, templateType, moduleId, fileDocuments):
     """
     Return all user profiles
 
@@ -34,20 +36,25 @@ def addDocuments(self, templateType ,moduleId, fileDocuments):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "templateType": templateType,
         "moduleId": moduleId,
-        "fileDocuments": fileDocuments
+        "fileDocuments": fileDocuments,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/Document/AddFile", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Document/AddFile",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def addExternalContentDocuments(self, templateType ,moduleId, externalContentItems):
+
+def addExternalContentDocuments(self, templateType, moduleId, externalContentItems):
     """
     Return all user profiles
 
@@ -74,14 +81,18 @@ def addExternalContentDocuments(self, templateType ,moduleId, externalContentIte
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "templateType":templateType,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "templateType": templateType,
         "moduleId": moduleId,
-        "externalContentItems": externalContentItems
+        "externalContentItems": externalContentItems,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/Document/AddExternalContent", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Document/AddExternalContent",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()

@@ -1,8 +1,19 @@
 import requests, json
 
-def getContent(self, templateType, moduleId=None, externalReference=None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+
+def getContent(
+    self,
+    templateType,
+    moduleId=None,
+    externalReference=None,
+    includeCategories=False,
+    includeDocuments=False,
+    includeLinks=False,
+    includeMultiLinks=False,
+    includePageSettings=False,
+):
     """
-    Return content for given moduleID or externalReference
+    Return all user profiles
 
     Arguments:
         templateType -- The type of the template you want content from
@@ -13,26 +24,38 @@ def getContent(self, templateType, moduleId=None, externalReference=None, includ
         The content response differs depending on what type of content you request.
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "includeCategories": includeCategories,
-        "includeDocuments": includeDocuments, 
+        "includeDocuments": includeDocuments,
         "includeLinks": includeLinks,
         "includeMultiLinks": includeMultiLinks,
-        "includePageSettings": includePageSettings
+        "includePageSettings": includePageSettings,
     }
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(self.APIEndpoint+"/v2/Content", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Content", headers=self.headers, data=json.dumps(data)
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def getScheduleContent(self, moduleId=None, externalReference = None, includeCategories = False, includeDocuments = False, includeLinks = False, includeMultiLinks = False, includePageSettings = False):
+
+def getScheduleContent(
+    self,
+    moduleId=None,
+    externalReference=None,
+    includeCategories=False,
+    includeDocuments=False,
+    includeLinks=False,
+    includeMultiLinks=False,
+    includePageSettings=False,
+):
     """
     Returns an entire schedule.
 
@@ -43,24 +66,29 @@ def getScheduleContent(self, moduleId=None, externalReference = None, includeCat
         Content Schedule object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "includeCategories": includeCategories,
-        "includeDocuments": includeDocuments, 
+        "includeDocuments": includeDocuments,
         "includeLinks": includeLinks,
         "includeMultiLinks": includeMultiLinks,
         "includePageSettings": includePageSettings,
-        "moduleId":moduleId
+        "moduleId": moduleId,
     }
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(self.APIEndpoint+"/v2/Content/Schedule", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Content/Schedule",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def createContent(self, content, contentGroup = "Default"):
+
+def createContent(self, content, contentGroup="Default"):
     """
     Creates a root content item. You can only create Template Types that are listed as root content.
 
@@ -81,19 +109,31 @@ def createContent(self, content, contentGroup = "Default"):
         The moduleId of the page you just created
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "contentGroup": contentGroup,
-        "content": content
+        "content": content,
     }
 
-    resp = requests.post(self.APIEndpoint+"/v2/Content/Create", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Content/Create",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def addChildrenContent(self, templateType, childTemplateType, children, moduleId = None, externalReference = None):
+
+def addChildrenContent(
+    self,
+    templateType,
+    childTemplateType,
+    children,
+    moduleId=None,
+    externalReference=None,
+):
     """
     Adds children to templateType
 
@@ -143,24 +183,29 @@ def addChildrenContent(self, templateType, childTemplateType, children, moduleId
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
         "childTemplateType": childTemplateType,
-        "children": children
+        "children": children,
     }
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-        
-    resp = requests.post(self.APIEndpoint+"/v2/Content/AddChildren", headers=self.headers, data=json.dumps(data))
+
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Content/AddChildren",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def updateContent(self, templateType,content, moduleId = None, externalReference = None):
+
+def updateContent(self, templateType, content, moduleId=None, externalReference=None):
     """
     Updates data within a content item
 
@@ -187,23 +232,28 @@ def updateContent(self, templateType,content, moduleId = None, externalReference
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "templateType": templateType,
-        "content": content
+        "content": content,
     }
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.post(self.APIEndpoint+"/v2/Content/Update", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Content/Update",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def deleteContent(self, templateType, moduleId= None, externalReference = None):
+
+def deleteContent(self, templateType, moduleId=None, externalReference=None):
     """
     Allows you to delete a content resource from the Entegy System. Any content deleted is unrecoverable.
 
@@ -218,16 +268,20 @@ def deleteContent(self, templateType, moduleId= None, externalReference = None):
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "templateType": templateType
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "templateType": templateType,
     }
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.delete(self.APIEndpoint+"/v2/Content/Delete", headers=self.headers, data=json.dumps(data))
+    resp = requests.delete(
+        self.APIEndpoint + "/v2/Content/Delete",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()

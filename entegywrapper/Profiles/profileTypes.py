@@ -11,7 +11,7 @@ def getProfileType(self, name):
     Returns:
         The requested profile"""
 
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "name": name}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "name": name}
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType",
@@ -42,7 +42,7 @@ def createProfileType(self, profileType):
 
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "profileType": profileType,
     }
     print(data)
@@ -77,7 +77,7 @@ def updateProfileType(self, name, profileType):
 
     data = {
         "projectId": self.projectID,
-        "apiKey": self.apiKey,
+        "apiKey": self.getKey(),
         "name": name,
         "profileType": profileType,
     }
@@ -103,7 +103,7 @@ def deleteProfileType(self, name):
     Returns:
         Base response object"""
 
-    data = {"projectId": self.projectID, "apiKey": self.apiKey, "name": name}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "name": name}
     print(data)
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileType/Delete",
@@ -123,7 +123,7 @@ def allProfileTypes(self):
     Returns:
         All profileTypes"""
 
-    data = {"projectId": self.projectID, "apiKey": self.apiKey}
+    data = {"projectId": self.projectID, "apiKey": self.getKey()}
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType/All",
