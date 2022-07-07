@@ -13,7 +13,11 @@ def selectedProfileLinks(self, profileId, returnLimit=100):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileID": profileId}
+    data = {
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "profileID": profileId,
+    }
 
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Selected/",
