@@ -35,3 +35,5 @@ from entegyWrapper import EntegyAPI
     - [MultiLinks](https://situ.entegysuite.com.au/Docs/Api/multilink-get)
 - Points & Achievement
     - [Point Management](https://situ.entegysuite.com.au/Docs/Api/point-award)
+- External Authentication
+    - [External Authentication](https://situ.entegysuite.com.au/Docs/Api/plugins-authenticate-external)
