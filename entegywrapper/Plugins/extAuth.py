@@ -3,7 +3,7 @@ import requests, json
 
 def externalAuthentication(self, profileID: str, deviceID: str, requestVersion: int = 1):
     """
-    Return all user profiles
+    Authenticate a user's login via an external system
 
     Arguments:
         profileID -- The profile ID of the user
