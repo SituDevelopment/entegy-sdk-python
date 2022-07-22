@@ -231,7 +231,11 @@ def sendWelcomeEmail(self, profileID):
     Returns:
         Base response object"""
 
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileID": profileID}
+    data = {
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "profileID": profileID,
+    }
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,

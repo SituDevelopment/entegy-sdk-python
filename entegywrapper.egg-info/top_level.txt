@@ -1,3 +1,5 @@
 entegywrapper
 entegywrapper/Content
+entegywrapper/Plugins
+entegywrapper/Points
 entegywrapper/Profiles

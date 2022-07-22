@@ -105,8 +105,10 @@ class EntegyAPI:
 
         # If multiple API keys were given, ensure that equal amounts of each were given
         if isinstance(self.apiKey, list):
-            if(len(self.apiKey) != len(self.apiSecret)):
-                raise IndexError("Invalid amount of API Keys to Secrets. Number of each must be equal!")
+            if len(self.apiKey) != len(self.apiSecret):
+                raise IndexError(
+                    "Invalid amount of API Keys to Secrets. Number of each must be equal!"
+                )
 
         # Set public variables
         self.apiKey = apiKey
@@ -125,12 +127,12 @@ class EntegyAPI:
         Returns:
             string: API Key
         """
-        # If the initially provided key was not an array, return `self.apiKey` 
+        # If the initially provided key was not an array, return `self.apiKey`
         if not isinstance(self.apiKey, list):
             self.headers["Authorization"] = f"ApiKey {self.apiSecret}"
             return self.apiKey
-        
-        randKeyNum = randint(0,len(self.apiKey) -1)
+
+        randKeyNum = randint(0, len(self.apiKey) - 1)
 
         self.headers["Authorization"] = f"ApiKey {self.apiSecret[randKeyNum]}"
         return self.apiKey[randKeyNum]

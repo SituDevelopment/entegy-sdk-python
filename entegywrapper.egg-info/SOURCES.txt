@@ -13,6 +13,10 @@ entegywrapper/Content/content.py
 entegywrapper/Content/documents.py
 entegywrapper/Content/icons.py
 entegywrapper/Content/multiLink.py
+entegywrapper/Plugins/__init__.py
+entegywrapper/Plugins/extAuth.py
+entegywrapper/Points/__init__.py
+entegywrapper/Points/pointManagement.py
 entegywrapper/Profiles/__init__.py
 entegywrapper/Profiles/profileCustom.py
 entegywrapper/Profiles/profileLinks.py

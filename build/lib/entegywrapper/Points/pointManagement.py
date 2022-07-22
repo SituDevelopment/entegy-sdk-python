@@ -1,6 +1,15 @@
 import requests, json
 
-def awardPoints(self, pointEvent:str, points:int, userID="", externalReference = None, badgeReference = None, internalReference = None):
+
+def awardPoints(
+    self,
+    pointEvent: str,
+    points: int,
+    userID="",
+    externalReference=None,
+    badgeReference=None,
+    internalReference=None,
+):
 
     """
     Give points to a profile
@@ -14,11 +23,11 @@ def awardPoints(self, pointEvent:str, points:int, userID="", externalReference =
         Base response object
     """
     data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
         "profileId": userID,
-        "pointEvent":pointEvent,
-        "points":points
+        "pointEvent": pointEvent,
+        "points": points,
     }
 
     if externalReference != None:
@@ -28,13 +37,20 @@ def awardPoints(self, pointEvent:str, points:int, userID="", externalReference =
     if internalReference != None:
         data.update({"internalReference": userID})
 
-    resp = requests.post(self.APIEndpoint+"/v2/Point/Award", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Point/Award",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
 
-def getPoints(self, userID="", externalReference = None, badgeReference = None, internalReference = None):
+
+def getPoints(
+    self, userID="", externalReference=None, badgeReference=None, internalReference=None
+):
 
     """
     Get the amount of points a profile has
@@ -45,11 +61,7 @@ def getPoints(self, userID="", externalReference = None, badgeReference = None, 
     Returns:
         Base response object
     """
-    data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey,
-        "profileId": userID
-    }
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
 
     if externalReference != None:
         data.update({"externalReference": userID})
@@ -58,12 +70,16 @@ def getPoints(self, userID="", externalReference = None, badgeReference = None, 
     if internalReference != None:
         data.update({"internalReference": userID})
 
-
-    resp = requests.post(self.APIEndpoint+"/v2/Point/Earned", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Point/Earned",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
     return output
+
 
 def getPointLeaderboard(self):
 
@@ -73,12 +89,13 @@ def getPointLeaderboard(self):
     Returns:
         Leaderboard object
     """
-    data = {
-        "projectId":self.projectID,
-        "apiKey": self.apiKey
-    }
+    data = {"projectId": self.projectID, "apiKey": self.getKey()}
 
-    resp = requests.post(self.APIEndpoint+"/v2/Point/Leaderboard", headers=self.headers, data=json.dumps(data))
+    resp = requests.post(
+        self.APIEndpoint + "/v2/Point/Leaderboard",
+        headers=self.headers,
+        data=json.dumps(data),
+    )
     if resp == None:
         raise Exception("No reponse received from API")
     output = resp.json()
