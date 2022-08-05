@@ -32,6 +32,7 @@ class EntegyAPI:
         createProfile,
         getProfile,
         deleteProfile,
+        updateProfile,
         syncProfiles,
         sendWelcomeEmail,
     )
