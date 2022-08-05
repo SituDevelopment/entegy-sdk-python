@@ -53,11 +53,11 @@ def getProfile(
     """
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
     if externalReference != None:
-        data.update({"externalReference": userID})
+        data.update({"externalReference": externalReference})
     if badgeReference != None:
-        data.update({"badgeReference": userID})
+        data.update({"badgeReference": badgeReference})
     if internalReference != None:
-        data.update({"internalReference": userID})
+        data.update({"internalReference": internalReference})
 
     data.update(params)
 
