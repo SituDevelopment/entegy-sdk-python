@@ -92,6 +92,9 @@ class EntegyAPI:
     # Plugins
     from .Plugins.extAuth import externalAuthentication
 
+    # Notifications
+    from .Notification.notification import sendNotification, sendBulkNotification
+
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region="AU"):
         """

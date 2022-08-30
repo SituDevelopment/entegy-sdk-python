@@ -2,11 +2,11 @@ from setuptools import setup
 
 setup(
     name="entegywrapper",
-    version="0.1.8",
+    version="0.1.9",
     description="A Python 3.10 wrapper for the Entegy API",
     url="https://github.com/SituDevelopment/python3-entegy-API-wrapper",
-    author="Cameron Jensen",
-    author_email="cameron@situ.com.au",
+    author="William Sawyer",
+    author_email="william@situ.com.au",
     license="BSD 2-clause",
     packages=[
         "entegywrapper",
@@ -14,6 +14,7 @@ setup(
         "entegywrapper/Content",
         "entegywrapper/Profiles",
         "entegywrapper/Plugins",
+        "entegywrapper/Notification",
     ],
     install_requires=["requests"],
     classifiers=[
