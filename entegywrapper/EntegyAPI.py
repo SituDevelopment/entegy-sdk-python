@@ -26,7 +26,7 @@ class EntegyAPI:
     apiKey = ""
     apiSecret = ""
     projectID = ""
-    headers = CaseInsensitiveDict()
+    headers = []
     APIEndpoint = ""
 
     # Import methods
@@ -135,7 +135,7 @@ class EntegyAPI:
             headers -- API headers; defaults to the empty list
         """
         resp = None
-        headers = headers + self.headers
+        headers.concat(self.headers)
         while resp == None:
             resp = requests.post(
                 endpoint,
