@@ -1,4 +1,3 @@
-from icons import icon
 import json
 import os
 import sys
