@@ -146,7 +146,7 @@ class EntegyAPI:
                 raise Exception("No reponse received from API")
 
             # If there is a rate limit issue, wait the remaining time and try again
-            if resp.json()['reponse'] == 489:
+            if resp.json()['response'] == 489:
                 time.sleep(resp.json()["resetDuration"] + 2)
                 resp = None
 
