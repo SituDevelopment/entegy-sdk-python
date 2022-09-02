@@ -1,12 +1,15 @@
-from random import randint
-import requests
 import json
-import sys
 import os
+import sys
+import time
+from random import randint
+
+import requests
 from requests.structures import CaseInsensitiveDict
 
-sys.path.append(os.path.dirname(__file__))
 from .Profiles.profileCustom import deleteProfileCustom
+
+sys.path.append(os.path.dirname(__file__))
 
 APIEndpoints = {
     "AU": "https://api.entegy.com.au",
@@ -15,6 +18,8 @@ APIEndpoints = {
 }
 
 # API Constructor
+
+
 class EntegyAPI:
 
     # Public variables
@@ -27,73 +32,40 @@ class EntegyAPI:
     # Import methods
 
     # Profiles
-    from .Profiles.profiles import (
-        allProfiles,
-        createProfile,
-        getProfile,
-        deleteProfile,
-        updateProfile,
-        syncProfiles,
-        sendWelcomeEmail,
-    )
-    from .Profiles.profileTypes import (
-        getProfileType,
-        createProfileType,
-        updateProfileType,
-        deleteProfileType,
-        allProfileTypes,
-    )
-    from .Profiles.profileCustom import (
-        getProfileCustom,
-        createProfileCustom,
-        updateProfileCustom,
-        deleteProfileCustom,
-        allProfileCustom,
-    )
-    from .Profiles.profileLinks import (
-        selectedProfileLinks,
-        pageProfileLinks,
-        selectProfileLink,
-        multiSelectProfileLinks,
-        deSelectProfileLinks,
-        clearProfileLinks,
-    )
-    from .Profiles.profilePayments import addProfilePayment
-
+    from .Content.categories import (availableCategories, createCategories,
+                                     createChildCategories, deleteCategories,
+                                     deselectCategories, selectCategories,
+                                     updateCategories)
     # Content
-    from .Content.content import (
-        getContent,
-        getScheduleContent,
-        createContent,
-        addChildrenContent,
-        updateContent,
-        deleteContent,
-    )
-    from .Content.categories import (
-        availableCategories,
-        selectCategories,
-        deselectCategories,
-        createCategories,
-        createChildCategories,
-        updateCategories,
-        deleteCategories,
-    )
+    from .Content.content import (addChildrenContent, createContent,
+                                  deleteContent, getContent,
+                                  getScheduleContent, updateContent)
     from .Content.documents import addDocuments, addExternalContentDocuments
-    from .Content.multiLink import (
-        getMultiLinks,
-        addMultiLinks,
-        removeMultiLink,
-        removeAllMultiLinks,
-    )
-
-    # Points
-    from .Points.pointManagement import awardPoints, getPointLeaderboard, getPoints
-
+    from .Content.multiLink import (addMultiLinks, getMultiLinks,
+                                    removeAllMultiLinks, removeMultiLink)
+    # Notifications
+    from .Notification.notification import (sendBulkNotification,
+                                            sendNotification)
     # Plugins
     from .Plugins.extAuth import externalAuthentication
-
-    # Notifications
-    from .Notification.notification import sendNotification, sendBulkNotification
+    # Points
+    from .Points.pointManagement import (awardPoints, getPointLeaderboard,
+                                         getPoints)
+    from .Profiles.profileCustom import (allProfileCustom, createProfileCustom,
+                                         deleteProfileCustom, getProfileCustom,
+                                         updateProfileCustom)
+    from .Profiles.profileLinks import (clearProfileLinks,
+                                        deSelectProfileLinks,
+                                        multiSelectProfileLinks,
+                                        pageProfileLinks, selectedProfileLinks,
+                                        selectProfileLink)
+    from .Profiles.profilePayments import addProfilePayment
+    from .Profiles.profiles import (allProfiles, createProfile, deleteProfile,
+                                    getProfile, sendWelcomeEmail, syncProfiles,
+                                    updateProfile)
+    from .Profiles.profileTypes import (allProfileTypes, createProfileType,
+                                        deleteProfileType, getProfileType,
+                                        updateProfileType)
 
     # Contruct api class with given params
     def __init__(self, apiKey, apiSecret, projectID, region="AU"):
@@ -150,3 +122,32 @@ class EntegyAPI:
         API endpoint URL
         """
         return self.APIEndpoint
+
+    def post(self, endpoint, data, headers=[]):
+        """
+        Post the given `data` to the given `endpoint` of the Entegy API.
+
+        Arguments:
+            endpoint -- API endpoint to post to
+
+            data -- Data to post
+
+            headers -- API headers; defaults to the empty list
+        """
+        resp = None
+        headers = headers + self.headers
+        while resp == None:
+            resp = requests.post(
+                endpoint,
+                headers=headers,
+                data=json.dumps(data)
+            )
+            if resp == None:
+                raise Exception("No reponse received from API")
+
+            # If there is a rate limit issue, wait the remaining time and try again
+            if resp.json()['reponse'] == 489:
+                time.sleep(resp.json()["resetDuration"] + 2)
+                resp = None
+
+        return resp

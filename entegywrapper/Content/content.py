@@ -1,4 +1,5 @@
-import requests, json
+import requests
+import json
 
 
 def getContent(
@@ -37,8 +38,8 @@ def getContent(
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(
-        self.APIEndpoint + "/v2/Content", headers=self.headers, data=json.dumps(data)
+    resp = self.post(
+        self.APIEndpoint + "/v2/Content", data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -77,10 +78,9 @@ def getScheduleContent(
     }
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Schedule",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -115,10 +115,9 @@ def createContent(self, content, contentGroup="Default"):
         "content": content,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Create",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -194,10 +193,9 @@ def addChildrenContent(
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/AddChildren",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -242,10 +240,9 @@ def updateContent(self, templateType, content, moduleId=None, externalReference=
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Update",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -279,8 +276,7 @@ def deleteContent(self, templateType, moduleId=None, externalReference=None):
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Content/Delete",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

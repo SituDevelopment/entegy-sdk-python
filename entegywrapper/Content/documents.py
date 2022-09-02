@@ -1,7 +1,10 @@
-import requests, json, os, sys
+from icons import icon
+import json
+import os
+import sys
+
 
 sys.path.append(os.path.dirname(__file__))
-from icons import icon
 
 
 def addDocuments(self, templateType, moduleId, fileDocuments):
@@ -43,10 +46,9 @@ def addDocuments(self, templateType, moduleId, fileDocuments):
         "fileDocuments": fileDocuments,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Document/AddFile",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -88,10 +90,9 @@ def addExternalContentDocuments(self, templateType, moduleId, externalContentIte
         "externalContentItems": externalContentItems,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Document/AddExternalContent",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

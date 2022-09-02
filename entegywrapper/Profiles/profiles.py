@@ -1,4 +1,5 @@
-import requests, json
+import requests
+import json
 
 
 def allProfiles(self, returnLimit=100, params={}):
@@ -21,10 +22,9 @@ def allProfiles(self, returnLimit=100, params={}):
 
     data.update(params)
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/All",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -51,7 +51,8 @@ def getProfile(
     Returns:
         User profile JSON output
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
+    data = {"projectId": self.projectID,
+            "apiKey": self.getKey(), "profileId": userID}
     if externalReference != None:
         data.update({"externalReference": externalReference})
     if badgeReference != None:
@@ -61,8 +62,8 @@ def getProfile(
 
     data.update(params)
 
-    resp = requests.post(
-        self.APIEndpoint + "/v2/Profile/", headers=self.headers, data=json.dumps(data)
+    resp = self.post(
+        self.APIEndpoint + "/v2/Profile/", data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -80,12 +81,12 @@ def deleteProfile(self, userID):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
+    data = {"projectId": self.projectID,
+            "apiKey": self.getKey(), "profileId": userID}
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Profile/Delete",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -116,10 +117,9 @@ def createProfile(self, profileObject):
         "apiKey": self.getKey(),
         "profile": profileObject,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Create",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -150,10 +150,9 @@ def updateProfile(self, profileID, profileObject):
         "profileID": profileID,
         "profile": profileObject,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Update",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -210,10 +209,9 @@ def syncProfiles(self, updateReferenceType, profiles, groupByFirstProfile=False)
         "updateReferenceType": updateReferenceType,
         "profiles": profiles,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Sync",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -236,10 +234,9 @@ def sendWelcomeEmail(self, profileID):
         "apiKey": self.getKey(),
         "profileID": profileID,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

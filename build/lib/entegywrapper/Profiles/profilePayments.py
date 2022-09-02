@@ -1,4 +1,4 @@
-import requests, json
+import json
 
 
 def addProfilePayment(self, profileId, paymentInfo):
@@ -38,10 +38,9 @@ def addProfilePayment(self, profileId, paymentInfo):
     }
     data.update(paymentInfo)
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfilePayment/Add/",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

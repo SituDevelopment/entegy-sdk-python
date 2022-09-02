@@ -1,4 +1,5 @@
-import requests, json
+import requests
+import json
 
 
 def getProfileType(self, name):
@@ -13,10 +14,9 @@ def getProfileType(self, name):
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "name": name}
     print(data)
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -46,10 +46,9 @@ def createProfileType(self, profileType):
         "profileType": profileType,
     }
     print(data)
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/Create",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -82,10 +81,9 @@ def updateProfileType(self, name, profileType):
         "profileType": profileType,
     }
     print(data)
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/Update",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -107,8 +105,7 @@ def deleteProfileType(self, name):
     print(data)
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileType/Delete",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -125,10 +122,9 @@ def allProfileTypes(self):
 
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
     print(data)
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/All",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

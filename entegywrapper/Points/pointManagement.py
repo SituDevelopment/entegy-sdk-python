@@ -1,4 +1,4 @@
-import requests, json
+import json
 
 
 def awardPoints(
@@ -10,7 +10,6 @@ def awardPoints(
     badgeReference=None,
     internalReference=None,
 ):
-
     """
     Give points to a profile
 
@@ -37,10 +36,9 @@ def awardPoints(
     if internalReference != None:
         data.update({"internalReference": userID})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Award",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -51,7 +49,6 @@ def awardPoints(
 def getPoints(
     self, userID="", externalReference=None, badgeReference=None, internalReference=None
 ):
-
     """
     Get the amount of points a profile has
 
@@ -61,7 +58,8 @@ def getPoints(
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
+    data = {"projectId": self.projectID,
+            "apiKey": self.getKey(), "profileId": userID}
 
     if externalReference != None:
         data.update({"externalReference": userID})
@@ -70,10 +68,9 @@ def getPoints(
     if internalReference != None:
         data.update({"internalReference": userID})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Earned",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -82,7 +79,6 @@ def getPoints(
 
 
 def getPointLeaderboard(self):
-
     """
     Get the entire leaderboard for the given project
 
@@ -91,10 +87,9 @@ def getPointLeaderboard(self):
     """
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Leaderboard",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")

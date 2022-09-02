@@ -1,4 +1,5 @@
-import requests, json
+import requests
+import json
 
 
 def availableCategories(self, templateType, moduleId):
@@ -20,13 +21,9 @@ def availableCategories(self, templateType, moduleId):
         "moduleId": moduleId,
     }
 
-    resp = requests.post(
-        self.APIEndpoint + "/v2/Categories/Available",
-        headers=self.headers,
-        data=json.dumps(data),
-    )
-    if resp == None:
-        raise Exception("No reponse received from API")
+    resp = self.post(self.APIEndpoint +
+                     "/v2/Categories/Available", data=json.dumps(data))
+
     output = resp.json()
     return output
 
@@ -76,10 +73,9 @@ def selectCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Select",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -132,10 +128,9 @@ def deselectCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Deselect",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -194,10 +189,9 @@ def createCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Create",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -244,10 +238,9 @@ def createChildCategories(self, templateType, externalReference, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/CreateChild",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -269,10 +262,9 @@ def updateCategories(self, moduleId, name):
     """
     data = {"projectId": self.projectID, "moduleId": moduleId, "name": name}
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Update",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -321,8 +313,7 @@ def deleteCategories(self, templateType, moduleId, categories):
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Categories/Delete",
-        headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
