@@ -1,3 +1,4 @@
+import requests
 import json
 
 
@@ -63,8 +64,9 @@ def sendNotification(
     if targetPage != None:
         data.update({"targetPage": targetPage})
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Notification/SendBulk",
+        headers=self.headers,
         data=json.dumps(data)
     )
     if resp == None:
@@ -123,8 +125,9 @@ def sendBulkNotification(
     if targetPage != None:
         data.update({"targetPage": targetPage})
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Notification/SendBulk",
+        headers=self.headers,
         data=json.dumps(data)
     )
     if resp == None:

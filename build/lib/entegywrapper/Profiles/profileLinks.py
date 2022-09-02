@@ -1,4 +1,4 @@
-import json
+import requests, json
 
 
 def selectedProfileLinks(self, profileId, returnLimit=100):
@@ -19,9 +19,10 @@ def selectedProfileLinks(self, profileId, returnLimit=100):
         "profileID": profileId,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Selected/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -50,9 +51,10 @@ def pageProfileLinks(self, templateType, moduleId, returnLimit=100):
         "moduleId": moduleId,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Page/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -86,9 +88,10 @@ def selectProfileLink(self, profileId, link):
         "link": link,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Select/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -141,12 +144,12 @@ def multiSelectProfileLinks(self, profiles):
     Returns:
         Base response object
     """
-    data = {"projectId": self.projectID,
-            "apiKey": self.getKey(), "profiles": profiles}
+    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profiles": profiles}
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/MultiSelect/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -180,9 +183,10 @@ def deSelectProfileLinks(self, profileId, link):
         "link": link,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Deselect/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -209,9 +213,10 @@ def clearProfileLinks(self, profileId, templateType):
         "templateType": templateType,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileLink/Clear/",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")

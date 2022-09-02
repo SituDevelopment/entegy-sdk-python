@@ -1,5 +1,4 @@
-import requests
-import json
+import requests, json
 
 
 def getProfileCustom(self, key):
@@ -14,9 +13,10 @@ def getProfileCustom(self, key):
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
     print(data)
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileCustomField",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -64,9 +64,10 @@ def createProfileCustom(self, customField):
         "customField": customField,
     }
     print(data)
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileCustomField/Create",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -113,9 +114,10 @@ def updateProfileCustom(self, key, customField):
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
     print(data)
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileCustomField/Update",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -137,7 +139,8 @@ def deleteProfileCustom(self, key):
     print(data)
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileCustomField/Delete",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -154,9 +157,10 @@ def allProfileCustom(self):
 
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
     print(data)
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/ProfileCustomField/All",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")

@@ -1,5 +1,4 @@
-import json
-
+import requests, json
 
 from Content.content import updateContent
 
@@ -26,8 +25,8 @@ def getMultiLinks(self, templateType, moduleId=None, externalReference=None):
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/MultiLink", data=json.dumps(data)
+    resp = requests.post(
+        self.APIEndpoint + "/v2/MultiLink", headers=self.headers, data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -74,9 +73,10 @@ def addMultiLinks(
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/MultiLink/Add",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -135,9 +135,10 @@ def removeMultiLink(
         data.update({"targetExternalReference": targetExternalReference})
     if targetModuleId != None:
         data.update({"targetModuleId": targetModuleId})
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/MultiLink/Remove",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -176,9 +177,10 @@ def removeAllMultiLinks(
         updateData = {"linkTemplateType": linkTemplateType}
         data.update(updateData)
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/MultiLink/RemoveAll",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")

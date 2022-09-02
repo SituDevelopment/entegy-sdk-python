@@ -1,4 +1,4 @@
-import json
+import requests, json
 
 
 def externalAuthentication(
@@ -23,9 +23,10 @@ def externalAuthentication(
         "deviceId": deviceID,
         "requestVersion": requestVersion,
     }
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Authentication/ExternalProfile",
-        data=json.dumps(data)
+        headers=self.headers,
+        data=json.dumps(data),
     )
     if resp == None:
         raise Exception("No reponse received from API")
