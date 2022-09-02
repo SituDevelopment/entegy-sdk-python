@@ -136,7 +136,7 @@ class EntegyAPI:
         while resp == None:
             resp = requests.post(
                 endpoint,
-                headers=headers,
+                headers=self.headers,
                 data=json.dumps(data)
             )
             if resp == None:
