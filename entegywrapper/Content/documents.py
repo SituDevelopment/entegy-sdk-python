@@ -43,7 +43,7 @@ def addDocuments(self, templateType, moduleId, fileDocuments):
         "fileDocuments": fileDocuments,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Document/AddFile",
         headers=self.headers,
         data=json.dumps(data),
@@ -88,7 +88,7 @@ def addExternalContentDocuments(self, templateType, moduleId, externalContentIte
         "externalContentItems": externalContentItems,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Document/AddExternalContent",
         headers=self.headers,
         data=json.dumps(data),

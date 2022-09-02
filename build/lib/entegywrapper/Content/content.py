@@ -37,7 +37,7 @@ def getContent(
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content", headers=self.headers, data=json.dumps(data)
     )
     if resp == None:
@@ -77,7 +77,7 @@ def getScheduleContent(
     }
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Schedule",
         headers=self.headers,
         data=json.dumps(data),
@@ -115,7 +115,7 @@ def createContent(self, content, contentGroup="Default"):
         "content": content,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Create",
         headers=self.headers,
         data=json.dumps(data),
@@ -194,7 +194,7 @@ def addChildrenContent(
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/AddChildren",
         headers=self.headers,
         data=json.dumps(data),
@@ -242,7 +242,7 @@ def updateContent(self, templateType, content, moduleId=None, externalReference=
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Content/Update",
         headers=self.headers,
         data=json.dumps(data),

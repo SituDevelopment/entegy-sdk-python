@@ -37,7 +37,7 @@ def awardPoints(
     if internalReference != None:
         data.update({"internalReference": userID})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Award",
         headers=self.headers,
         data=json.dumps(data),
@@ -70,7 +70,7 @@ def getPoints(
     if internalReference != None:
         data.update({"internalReference": userID})
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Earned",
         headers=self.headers,
         data=json.dumps(data),
@@ -91,7 +91,7 @@ def getPointLeaderboard(self):
     """
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Point/Leaderboard",
         headers=self.headers,
         data=json.dumps(data),

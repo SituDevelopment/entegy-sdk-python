@@ -21,7 +21,7 @@ def allProfiles(self, returnLimit=100, params={}):
 
     data.update(params)
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/All",
         headers=self.headers,
         data=json.dumps(data),
@@ -61,7 +61,7 @@ def getProfile(
 
     data.update(params)
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/", headers=self.headers, data=json.dumps(data)
     )
     if resp == None:
@@ -116,7 +116,7 @@ def createProfile(self, profileObject):
         "apiKey": self.getKey(),
         "profile": profileObject,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Create",
         headers=self.headers,
         data=json.dumps(data),
@@ -150,7 +150,7 @@ def updateProfile(self, profileID, profileObject):
         "profileID": profileID,
         "profile": profileObject,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Update",
         headers=self.headers,
         data=json.dumps(data),
@@ -210,7 +210,7 @@ def syncProfiles(self, updateReferenceType, profiles, groupByFirstProfile=False)
         "updateReferenceType": updateReferenceType,
         "profiles": profiles,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/Sync",
         headers=self.headers,
         data=json.dumps(data),
@@ -236,7 +236,7 @@ def sendWelcomeEmail(self, profileID):
         "apiKey": self.getKey(),
         "profileID": profileID,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,
         data=json.dumps(data),

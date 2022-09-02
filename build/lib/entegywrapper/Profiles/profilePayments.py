@@ -38,7 +38,7 @@ def addProfilePayment(self, profileId, paymentInfo):
     }
     data.update(paymentInfo)
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfilePayment/Add/",
         headers=self.headers,
         data=json.dumps(data),

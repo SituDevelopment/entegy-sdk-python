@@ -13,6 +13,8 @@ entegywrapper/Content/content.py
 entegywrapper/Content/documents.py
 entegywrapper/Content/icons.py
 entegywrapper/Content/multiLink.py
+entegywrapper/Notification/__init__.py
+entegywrapper/Notification/notification.py
 entegywrapper/Plugins/__init__.py
 entegywrapper/Plugins/extAuth.py
 entegywrapper/Points/__init__.py

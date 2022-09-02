@@ -20,7 +20,7 @@ def availableCategories(self, templateType, moduleId):
         "moduleId": moduleId,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Available",
         headers=self.headers,
         data=json.dumps(data),
@@ -76,7 +76,7 @@ def selectCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Select",
         headers=self.headers,
         data=json.dumps(data),
@@ -132,7 +132,7 @@ def deselectCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Deselect",
         headers=self.headers,
         data=json.dumps(data),
@@ -194,7 +194,7 @@ def createCategories(self, templateType, moduleId, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Create",
         headers=self.headers,
         data=json.dumps(data),
@@ -244,7 +244,7 @@ def createChildCategories(self, templateType, externalReference, categories):
         "categories": categories,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/CreateChild",
         headers=self.headers,
         data=json.dumps(data),
@@ -269,7 +269,7 @@ def updateCategories(self, moduleId, name):
     """
     data = {"projectId": self.projectID, "moduleId": moduleId, "name": name}
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Categories/Update",
         headers=self.headers,
         data=json.dumps(data),

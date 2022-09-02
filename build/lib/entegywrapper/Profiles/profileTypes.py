@@ -12,10 +12,10 @@ def getProfileType(self, name):
         The requested profile"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "name": name}
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType",
-        
+        headers=self.headers,
         data=json.dumps(data),
     )
     if resp == None:
@@ -45,10 +45,10 @@ def createProfileType(self, profileType):
         "apiKey": self.getKey(),
         "profileType": profileType,
     }
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/Create",
-        
+        headers=self.headers,
         data=json.dumps(data),
     )
     if resp == None:
@@ -81,10 +81,10 @@ def updateProfileType(self, name, profileType):
         "name": name,
         "profileType": profileType,
     }
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/Update",
-        
+        headers=self.headers,
         data=json.dumps(data),
     )
     if resp == None:
@@ -104,10 +104,10 @@ def deleteProfileType(self, name):
         Base response object"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "name": name}
-    print(data)
+    
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileType/Delete",
-        
+        headers=self.headers,
         data=json.dumps(data),
     )
     if resp == None:
@@ -124,10 +124,10 @@ def allProfileTypes(self):
         All profileTypes"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileType/All",
-        
+        headers=self.headers,
         data=json.dumps(data),
     )
     if resp == None:

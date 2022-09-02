@@ -12,8 +12,8 @@ def getProfileCustom(self, key):
         The requested customField object"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileCustomField",
         headers=self.headers,
         data=json.dumps(data),
@@ -63,8 +63,8 @@ def createProfileCustom(self, customField):
         "apiKey": self.getKey(),
         "customField": customField,
     }
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileCustomField/Create",
         headers=self.headers,
         data=json.dumps(data),
@@ -113,8 +113,8 @@ def updateProfileCustom(self, key, customField):
         The requested customField object"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileCustomField/Update",
         headers=self.headers,
         data=json.dumps(data),
@@ -136,7 +136,7 @@ def deleteProfileCustom(self, key):
         Base response object"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
-    print(data)
+    
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileCustomField/Delete",
         headers=self.headers,
@@ -156,8 +156,8 @@ def allProfileCustom(self):
         List of all customFields"""
 
     data = {"projectId": self.projectID, "apiKey": self.getKey()}
-    print(data)
-    resp = requests.post(
+    
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileCustomField/All",
         headers=self.headers,
         data=json.dumps(data),

@@ -19,7 +19,7 @@ def selectedProfileLinks(self, profileId, returnLimit=100):
         "profileID": profileId,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/Selected/",
         headers=self.headers,
         data=json.dumps(data),
@@ -51,7 +51,7 @@ def pageProfileLinks(self, templateType, moduleId, returnLimit=100):
         "moduleId": moduleId,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/Page/",
         headers=self.headers,
         data=json.dumps(data),
@@ -88,7 +88,7 @@ def selectProfileLink(self, profileId, link):
         "link": link,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/Select/",
         headers=self.headers,
         data=json.dumps(data),
@@ -146,7 +146,7 @@ def multiSelectProfileLinks(self, profiles):
     """
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "profiles": profiles}
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/MultiSelect/",
         headers=self.headers,
         data=json.dumps(data),
@@ -183,7 +183,7 @@ def deSelectProfileLinks(self, profileId, link):
         "link": link,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/Deselect/",
         headers=self.headers,
         data=json.dumps(data),
@@ -213,7 +213,7 @@ def clearProfileLinks(self, profileId, templateType):
         "templateType": templateType,
     }
 
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/ProfileLink/Clear/",
         headers=self.headers,
         data=json.dumps(data),

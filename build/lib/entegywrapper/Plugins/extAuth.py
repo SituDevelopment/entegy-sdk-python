@@ -23,7 +23,7 @@ def externalAuthentication(
         "deviceId": deviceID,
         "requestVersion": requestVersion,
     }
-    resp = requests.post(
+    resp = self.post(
         self.APIEndpoint + "/v2/Authentication/ExternalProfile",
         headers=self.headers,
         data=json.dumps(data),
