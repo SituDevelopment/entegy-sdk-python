@@ -15,7 +15,7 @@ def getProfileType(self, name):
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -48,7 +48,7 @@ def createProfileType(self, profileType):
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType/Create",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -84,7 +84,7 @@ def updateProfileType(self, name, profileType):
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType/Update",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -107,7 +107,7 @@ def deleteProfileType(self, name):
     print(data)
     resp = requests.delete(
         self.APIEndpoint + "/v2/ProfileType/Delete",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -127,7 +127,7 @@ def allProfileTypes(self):
     print(data)
     resp = requests.post(
         self.APIEndpoint + "/v2/ProfileType/All",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:

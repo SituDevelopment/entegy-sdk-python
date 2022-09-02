@@ -23,7 +23,7 @@ def allProfiles(self, returnLimit=100, params={}):
 
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/All",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -62,7 +62,7 @@ def getProfile(
     data.update(params)
 
     resp = requests.post(
-        self.APIEndpoint + "/v2/Profile/", headers=self.headers, data=json.dumps(data)
+        self.APIEndpoint + "/v2/Profile/",  data=json.dumps(data)
     )
     if resp == None:
         raise Exception("No reponse received from API")
@@ -84,7 +84,7 @@ def deleteProfile(self, userID):
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Profile/Delete",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -118,7 +118,7 @@ def createProfile(self, profileObject):
     }
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/Create",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -152,7 +152,7 @@ def updateProfile(self, profileID, profileObject):
     }
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/Update",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -212,7 +212,7 @@ def syncProfiles(self, updateReferenceType, profiles, groupByFirstProfile=False)
     }
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/Sync",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:
@@ -238,7 +238,7 @@ def sendWelcomeEmail(self, profileID):
     }
     resp = requests.post(
         self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
-        headers=self.headers,
+        
         data=json.dumps(data),
     )
     if resp == None:

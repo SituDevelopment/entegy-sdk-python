@@ -26,7 +26,7 @@ class EntegyAPI:
     apiKey = ""
     apiSecret = ""
     projectID = ""
-    headers = []
+    headers = CaseInsensitiveDict()
     APIEndpoint = ""
 
     # Import methods
@@ -123,7 +123,7 @@ class EntegyAPI:
         """
         return self.APIEndpoint
 
-    def post(self, endpoint, data, headers=[]):
+    def post(self, endpoint, data):
         """
         Post the given `data` to the given `endpoint` of the Entegy API.
 
@@ -131,11 +131,8 @@ class EntegyAPI:
             endpoint -- API endpoint to post to
 
             data -- Data to post
-
-            headers -- API headers; defaults to the empty list
         """
         resp = None
-        headers.concat(self.headers)
         while resp == None:
             resp = requests.post(
                 endpoint,
