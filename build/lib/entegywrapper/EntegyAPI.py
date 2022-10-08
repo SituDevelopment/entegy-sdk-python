@@ -1,3 +1,4 @@
+from .Profiles.profileCustom import deleteProfileCustom
 from random import randint
 import time
 import requests
@@ -7,7 +8,6 @@ import os
 from requests.structures import CaseInsensitiveDict
 
 sys.path.append(os.path.dirname(__file__))
-from .Profiles.profileCustom import deleteProfileCustom
 
 APIEndpoints = {
     "AU": "https://api.entegy.com.au",
@@ -15,9 +15,8 @@ APIEndpoints = {
     "EU": "https://api-eu.entegy.com.au",
 }
 
-# API Constructor
-class EntegyAPI:
 
+class EntegyAPI:
     # Public variables
     apiKey = ""
     apiSecret = ""
@@ -98,18 +97,22 @@ class EntegyAPI:
     from .Notification.notification import sendNotification, sendBulkNotification
 
     # Contruct api class with given params
-    def __init__(self, apiKey, apiSecret, projectID, region="AU"):
+    def __init__(
+        self,
+        apiKey: str | list[str],
+        apiSecret: str | list[str],
+        projectID: str,
+        region: str = "AU"
+    ):
         """
-        Contruct an EntegyAPI wrapper
+        Creates a new EntegyAPI wrapper object.
 
-        Arguments:
-            apiKey -- Entegy API key (Can either be a string, or an array of strings)
-
-            apiSecret -- Entegy API secret key (Can either be a string, or an array of strings the same size as apiKey)
-
-            projectID -- Entegy project ID
-
-            region -- 'AU', 'US', 'EU' (Default = 'AU')
+        Parameters
+        ----------
+            `apiKey` (`str | list[str]`): Entegy API key
+            `apiSecret` (`str | list[str]`): Entegy API secret key
+            `projectID` (`str`): Entegy project ID
+            `region` (`str`): project region: one of'AU', 'US', 'EU'; defaults to 'AU'
         """
 
         # If multiple API keys were given, ensure that equal amounts of each were given
@@ -131,10 +134,12 @@ class EntegyAPI:
         self.APIEndpoint = APIEndpoints[region]
 
     def getKey(self):
-        """Return API Key
+        """
+        Returns the API Key.
 
-        Returns:
-            string: API Key
+        Returns
+        -------
+            `str`: API Key
         """
         # If the initially provided key was not an array, return `self.apiKey`
         if not isinstance(self.apiKey, list):
@@ -143,56 +148,65 @@ class EntegyAPI:
 
         self.headers["Authorization"] = f"ApiKey {self.apiSecret[self.currentKeyPair]}"
         return self.apiKey[self.currentKeyPair]
-    
+
     def cycleKey(self):
         """
-        Cycle through the API keys provided in the constructor
+        Cycles to the next API keypair, wrapping to the first where necessary.
         """
-
         self.currentKeyPair += 1
         if self.currentKeyPair >= len(self.apiKey):
             self.currentKeyPair = 0
 
     def getEndpoint(self):
         """
-        Returns:
-        API endpoint URL
+        Returns the endpoint URL.
+
+        Returns
+        -------
+            `str`: API endpoint URL
         """
         return self.APIEndpoint
 
-    def post(self, endpoint, data, headers=[]):
+    def post(self, endpoint: str, data: dict[str, any], headers: list = []):
         """
         Post the given `data` to the given `endpoint` of the Entegy API.
 
-        Arguments:
-            endpoint -- API endpoint to post to
+        Parameters
+        ----------
+            `endpoint` (`str`): API endpoint to post to
+            `data` (`dict[str, any]`): data to post
+            `headers` (`list`): request headers; defaults to the empty list
 
-            data -- Data to post
-
-            headers -- API headers; defaults to the empty list
+        Returns
+        -------
+            `dict`: response data
         """
         resp = None
         retryCount = 0
         permErrorCount = 0
+
         while resp == None:
             resp = requests.post(
                 endpoint,
                 headers=headers,
                 data=data
             )
+
             if resp == None:
                 raise Exception("No reponse received from API")
+
             if resp.json()['response'] == 403:
                 time.sleep(0.5)
                 permErrorCount += 1
                 if permErrorCount >= 5:
                     raise Exception("Invalid API Key")
                 resp == None
-            # If there is a rate limit issue, wait the remaining time and try again
             elif resp.json()['response'] == 489:
-                # Turn 'data' string back into a dictionary, then revert it back after changing the apiKey
+                # If there is a rate limit issue, wait the remaining time and try again
+                # Turn `data` string back into a dictionary, then revert it back after changing the apiKey
                 if retryCount >= len(self.apiKey):
-                    print("Rate limit reached, waiting " + str(resp.json()['resetDuration']) + " seconds")
+                    print("Rate limit reached, waiting " +
+                          str(resp.json()['resetDuration']) + " seconds")
                     time.sleep(resp.json()["resetDuration"] + 2)
                     print("Continuing...")
                     resp = None
@@ -201,9 +215,11 @@ class EntegyAPI:
                     data = json.loads(data)
                     data["apiKey"] = self.getKey()
                     headers = self.headers
-                    print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
+                    print(
+                        f"Rate limit reached, trying alternate key: {data['apiKey']}")
                     data = json.dumps(data)
-                    retryCount+=1
+                    retryCount += 1
                     resp = None
 
-        return resp
+        output = resp.json()
+        return output

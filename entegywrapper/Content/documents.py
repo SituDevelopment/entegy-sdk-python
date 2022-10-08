@@ -1,22 +1,27 @@
-import requests, json, os, sys
-
-sys.path.append(os.path.dirname(__file__))
 from icons import icon
 
+import json
+import os
+import sys
 
-def addDocuments(self, templateType, moduleId, fileDocuments):
+sys.path.append(os.path.dirname(__file__))
+
+Document: type = dict[str, any]
+ExternalContent: type = dict[str, any]
+
+
+def addDocuments(self, templateType: str, moduleId: int, fileDocuments: list[Document]):
     """
-    Return all user profiles
+    Adds documents to a page.
 
-    Arguments:
-        templateType -- The template type of the page you're adding the documents to
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you're adding the documents to
+        `moduleId` (`int`): the moduleId of the page you're adding the documents to
+        `fileDocuments` (`list[Document]`): the file documents you want to add
 
-        moduleId -- The moduleId of the page you're adding the documents to
-
-        fileDocuments -- The file documents you want to add
-
-        e.g.
-
+    The format of `` is as follows:
+    ```python
         [
             {
                 "name":"Power Point",
@@ -31,9 +36,11 @@ def addDocuments(self, templateType, moduleId, fileDocuments):
                 "fileUrl":"https://example.org/powerpoints/session/44444/demonstrationvideo.mp4"
             }
         ]
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -48,25 +55,26 @@ def addDocuments(self, templateType, moduleId, fileDocuments):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def addExternalContentDocuments(self, templateType, moduleId, externalContentItems):
+def addExternalContentDocuments(self, templateType: str, moduleId: int, externalContentItems: list[ExternalContent]):
     """
-    Return all user profiles
+    Adds external content documents to a page.
 
-    Arguments:
-        templateType -- The template type of the page you're adding the documents to
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you're adding the documents to
+        `moduleId` (`int`): the moduleId of the page you're adding the documents to
+        `externalContentItems` (`list[ExternalContent]`): the external content documents you want to add
 
-        moduleId -- The moduleId of the page you're adding the documents to
-
-        externalContentItems -- The external content documents you want to add
-
-        e.g.
-
+    The format of `` is as follows:
+    ```python
         [
             {
                 "name": "Test External Content",
@@ -76,9 +84,11 @@ def addExternalContentDocuments(self, templateType, moduleId, externalContentIte
                 "type": "YouTube"
             }
         ]
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -93,7 +103,9 @@ def addExternalContentDocuments(self, templateType, moduleId, externalContentIte
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output

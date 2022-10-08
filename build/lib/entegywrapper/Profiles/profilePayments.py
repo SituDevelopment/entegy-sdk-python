@@ -1,17 +1,17 @@
-import requests, json
+import json
 
 
-def addProfilePayment(self, profileId, paymentInfo):
+def addProfilePayment(self, profileId: str, paymentInfo: dict[str, str | int]):
     """
     Return all the profile links the profile ha
 
-    Arguments:
-        profileId -- User profile ID
+    Parameters
+    ----------
+        `profileId` (`str`): the profileId of the profile
+        `paymentInfo` (`dict[str, str | int`): all payment information in JSON format
 
-        paymentInfo -- All payment information in JSON format
-
-        e.g.
-
+    The format of `paymentInfo` is as follows:
+    ```python
         {
             "amount": 1000,
             "amountTax": 100,
@@ -27,15 +27,18 @@ def addProfilePayment(self, profileId, paymentInfo):
             "method": "CreditCard",
             "status": "Paid"
         }
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "profileID": profileId,
     }
+
     data.update(paymentInfo)
 
     resp = self.post(
@@ -43,7 +46,9 @@ def addProfilePayment(self, profileId, paymentInfo):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output

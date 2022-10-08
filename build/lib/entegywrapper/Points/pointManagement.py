@@ -1,102 +1,129 @@
-import requests, json
+import json
 
 
 def awardPoints(
     self,
     pointEvent: str,
     points: int,
-    userID="",
-    externalReference=None,
-    badgeReference=None,
-    internalReference=None,
+    profileId: str = "",
+    externalReference: str = None,
+    badgeReference: str = None,
+    internalReference: str = None,
 ):
-
     """
-    Give points to a profile
+    Allows you to give points to a profile.
 
-    Arguments:
-        pointEvent -- The types of points you're assigning (https://situ.entegysuite.com.au/Docs/Api/point-constants#pointtypes)
-        points -- The amount of points you're assigning
-        userID -- User profile ID
+    Parameters
+    ----------
+        `pointEvent` (`str`): the types of points you're assigning
+        `points` (`int`): the amount of points you're assigning
+        `profileId` (`str`): the profileId for the profile
+        `externalReference` (`str`): the externalReference of the profile
+        `badgeReference` (`str`): the badgeReference of the profile
+        `internalReference` (`str`): the internalReference of the profile
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
-        "profileId": userID,
+        "profileId": profileId,
         "pointEvent": pointEvent,
         "points": points,
     }
 
     if externalReference != None:
-        data.update({"externalReference": userID})
+        data.update({"externalReference": profileId})
     if badgeReference != None:
-        data.update({"badgeReference": userID})
+        data.update({"badgeReference": profileId})
     if internalReference != None:
-        data.update({"internalReference": userID})
+        data.update({"internalReference": profileId})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Point/Award",
         headers=self.headers,
         data=json.dumps(data),
     )
+    
     if resp == None:
         raise Exception("No reponse received from API")
+    
     output = resp.json()
     return output
 
 
 def getPoints(
-    self, userID="", externalReference=None, badgeReference=None, internalReference=None
+    self,
+    profileId: str = "",
+    externalReference: str = None,
+    badgeReference: str = None,
+    internalReference: str = None
 ):
-
     """
-    Get the amount of points a profile has
+    Returns the amount of points a profile has.
 
-    Arguments:
-        userID -- User profile ID
+    Parameters
+    ----------
+        `profileId` (`str`): the profileId for the profile
+        `externalReference` (`str`): the externalReference of the profile
+        `badgeReference` (`str`): the badgeReference of the profile
+        `internalReference` (`str`): the internalReference of the profile
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "profileId": userID}
+    data = {
+        "projectId": self.projectID,
+        "apiKey": self.getKey(),
+        "profileId": profileId
+    }
 
     if externalReference != None:
-        data.update({"externalReference": userID})
+        data.update({"externalReference": profileId})
     if badgeReference != None:
-        data.update({"badgeReference": userID})
+        data.update({"badgeReference": profileId})
     if internalReference != None:
-        data.update({"internalReference": userID})
+        data.update({"internalReference": profileId})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Point/Earned",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
         raise Exception("No reponse received from API")
+
     output = resp.json()
     return output
 
 
 def getPointLeaderboard(self):
-
     """
-    Get the entire leaderboard for the given project
+    Allows you to see the leaderboard for the project. The response is sorted
+    by the profiles response and includes their position with ties correctly
+    handled.
 
-    Returns:
-        Leaderboard object
+    Returns
+    -------
+        `dict`: the leaderboard
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey()}
+    data = {
+        "projectId": self.projectID,
+        "apiKey": self.getKey()
+    }
 
     resp = self.post(
         self.APIEndpoint + "/v2/Point/Leaderboard",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
         raise Exception("No reponse received from API")
+
     output = resp.json()
     return output

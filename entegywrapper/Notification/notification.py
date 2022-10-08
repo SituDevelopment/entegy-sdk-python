@@ -13,35 +13,43 @@ def sendNotification(
     targetPage: dict[str, str | int] = None
 ):
     """
-    Sends a notification to the specified profile. Only one of the profile
-    references: profileId, externalReference, badgeReference, internalReference;
-    will be used. if none are specified, an `Exception` is raised; otherwise,
-    the first (in the previous list) specified is used.
+    Send a direct notification to all the devices registered to a list of
+    profiles. This does not record a view or display in the core. An array of
+    profile references must be specified.
 
-    Arguments:
-        title -- The title of the notification
+    By default the popup only shows a close button, however an optional page can
+    be specified in the input which will add a View button to the dialog, which
+    will take you to the page. As per all content references, the `templateType`
+    is required and you can provide either the `externalReference` or
+    `moduleId`.
 
-        message -- The message of the notification
+    Parameters
+    ----------
+        `title` (`str`): the title of the notification
+        `message` (`str`): the message of the notification
+        `profileId` (`str`): the profile ID of the profile to send the notification to
+        `externalReference` (`str`): the external reference of the profile to send the notification to
+        `badgeReference` (`str`): the badge reference of the profile to send the notification to
+        `internalReference` (`str`): the internal reference of the profile to send the notification to
+        `targetPage` (`dict[str, str | int]`): the page to view when the notification is clicked
 
-        profileId: -- The profile ID of the profile to send the notification to
-        externalReference -- The external reference of the profile to send the notification to
-        badgeReference -- The badge reference of the profile to send the notification to
-        internalReference -- The internal reference of the profile to send the notification to
 
-        targetPage -- The page to view when the notification is clicked
-
-        e.g. NOTE: can use either `moduleId` or `externalReference`
-
+    The format of `targetPage` is as follows:
+    ```python
         {
             "templateType": "Exhibitors",
             "moduleId": 1
         }
+    ```
+    NOTE: can use either `moduleId` or `externalReference`
 
-    Raises:
-        `Exception` -- If no profile reference is specified
+    Raises
+    ------
+        `Exception`: if no profile reference is specified
 
-    Returns:
-        The response from the API
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -50,6 +58,7 @@ def sendNotification(
         "message": message,
         "alertMessage": "This is an alert message"
     }
+    
     if profileId != None:
         data.update({"profileReferences": [{"profileId": profileId}]})
     elif externalReference != None:
@@ -69,8 +78,10 @@ def sendNotification(
         headers=self.headers,
         data=json.dumps(data)
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
@@ -85,33 +96,35 @@ def sendBulkNotification(
     """
     Sends a notification to the specified profiles.
 
-    Arguments:
-        title -- The title of the notification
+    Parameters
+    ----------
+        `title` (`str`): the title of the notification
+        `message` (`str`): the message of the notification
+        `profileReferences` (`list[dict[str, str]]`): the profile references to send the notification to
+        `targetPage` (`dict[str, str | int]`): the page to view when the notification is clicked
 
-        message -- The message of the notification
-
-        profileReferences -- The profile references to send the notification to
-
-        e.g.
-
+    The format of `` is as follows:
+    ```python
         [
             { "profileId": "1234567890" },
             { "externalReference": "1234567890" },
             { "badgeReference": "1234567890" },
             { "internalReference": "1234567890" }
         ]
+    ```
 
-        targetPage -- The page to view when the notification is clicked
-
-        e.g. NOTE: can use either `moduleId` or `externalReference`
-
+    The format of `` is as follows:
+    ```python
         {
             "templateType": "Exhibitors",
             "moduleId": 1
         }
+    ```
+    NOTE: can use either `moduleId` or `externalReference`
 
-    Returns:
-        The response from the API
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -130,7 +143,9 @@ def sendBulkNotification(
         headers=self.headers,
         data=json.dumps(data)
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output

@@ -1,25 +1,35 @@
-import requests, json
+import json
+import requests
 
 from Content.content import updateContent
 
+Link: type = dict[str, str | int]
 
-def getMultiLinks(self, templateType, moduleId=None, externalReference=None):
+
+def getMultiLinks(
+    self,
+    templateType: str,
+    moduleId: int = None,
+    externalReference: str = None
+):
     """
-    Returns all the multi links associated with the content page
+    Returns all the multi links associated with the content page.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want
+        `moduleId` (`int`): the moduleId of the page you want
 
-        moduleId -- The moduleId of the page you want
-
-    Returns:
-        The multi links the content page has
+    Returns
+    -------
+        `dict`: the multi links the content page has
     """
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
@@ -28,27 +38,32 @@ def getMultiLinks(self, templateType, moduleId=None, externalReference=None):
     resp = self.post(
         self.APIEndpoint + "/v2/MultiLink", headers=self.headers, data=json.dumps(data)
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
 def addMultiLinks(
-    self, templateType, multiLinks, moduleId=None, externalReference=None
+    self,
+    templateType: str,
+    multiLinks: list[Link],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     Add multi links to a content page.
 
-    Arguments:
-        templateType -- The template type of the page you want to add links to
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want to add links to
+        `moduleId` (`int`): the moduleId of the page you want to add links to
+        `multiLinks` (`list[Link]`): the links you want to add
 
-        moduleId -- The moduleId of the page you want to add links to
-
-        multiLinks -- The links you want to add
-
-        e.g.
-
+    The format of `` is as follows:
+    ```python
         [
             {
                 "templateType":"Speaker",
@@ -59,9 +74,11 @@ def addMultiLinks(
                 "externalReference":"au-speaker-1546895"
             }
         ]
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -69,17 +86,21 @@ def addMultiLinks(
         "templateType": templateType,
         "multiLinks": multiLinks,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
+
     resp = self.post(
         self.APIEndpoint + "/v2/MultiLink/Add",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
@@ -88,25 +109,25 @@ def removeMultiLink(
     self,
     templateType,
     targetTemplateType,
-    moduleId=None,
-    externalReference=None,
-    targetModuleId=None,
-    targetExternalReference=None,
+    moduleId: int = None,
+    externalReference: str = None,
+    targetModuleId: int = None,
+    targetExternalReference: str = None,
 ):
     """
-    Removes a single multi link from a page
+    Removes a single multi link from a page.
 
-    Arguments:
-        templateType -- The template type of the page you want to remove links from
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want to remove links from
+        `moduleId` (`int`): the moduleId of the page you want to remove links from
+        `externalReference` (`str`): the externalReference of the page you want to remove links from
+        `targetTemplateType` (`str`): the template type of the multi link you want to remove
+        `targetModuleId` (`int`): the moduleId of the multi link you want to remove
+        `targetExternalReference` (`str`): the externalReference of the multi link you want to remove
 
-        moduleId -- The moduleId of the page you want to remove links from
-
-        targetTemplateType -- The template type of the multi link you want to remove
-
-        targetModuleId -- The moduleId of the multi link you want to remove
-
-        e.g.
-
+    The format of `` is as follows:
+    ```python
         [
             {
                 "templateType":"Speaker",
@@ -117,9 +138,11 @@ def removeMultiLink(
                 "externalReference":"au-speaker-1546895"
             }
         ]
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -127,6 +150,7 @@ def removeMultiLink(
         "templateType": templateType,
         "targetTemplateType": targetTemplateType,
     }
+    
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
@@ -135,32 +159,40 @@ def removeMultiLink(
         data.update({"targetExternalReference": targetExternalReference})
     if targetModuleId != None:
         data.update({"targetModuleId": targetModuleId})
+    
     resp = self.post(
         self.APIEndpoint + "/v2/MultiLink/Remove",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
 def removeAllMultiLinks(
-    self, templateType, moduleId=None, externalReference=None, linkTemplateType=None
+    self,
+    templateType: str,
+    moduleId: int = None,
+    externalReference: str = None,
+    linkTemplateType: str = None
 ):
     """
-    Removes all the multi links from a page
+    Removes all the multi links from a page.
 
-    Arguments:
-        templateType -- The template type of the page you want to remove links from
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want
+        `moduleId` (`int`): the moduleId of the page you want
+        `externalReference` (`str`): the externalReference of the page you want
+        `linkTemplateType` (`str`): the template type of the page you want
 
-        moduleId -- The moduleId of the page you want to remove links from
-
-        linkTemplateType -- The template type of the multi links you want to remove
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -182,7 +214,9 @@ def removeAllMultiLinks(
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output

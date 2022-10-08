@@ -1,17 +1,21 @@
-import requests, json
+import json
+import requests
+
+Category: type = dict["moduleId" | "name" | "externalReference", str | int]
 
 
-def availableCategories(self, templateType, moduleId):
+def availableCategories(self, templateType: str, moduleId: int):
     """
     This returns a list of the available categories for the page in question.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want
+        `moduleId`     (`int`): the moduleId of the page you want
 
-        moduleId -- 	The moduleId of the page you want
-
-    Returns:
-        List of available categories
+    Returns
+    -------
+        `list[Category]`: the available categories
     """
     data = {
         "projectId": self.projectID,
@@ -25,48 +29,33 @@ def availableCategories(self, templateType, moduleId):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def selectCategories(self, templateType, moduleId, categories):
+def selectCategories(self, templateType: str, moduleId: int, categories: list[Category]):
     """
-    Allows you to select multiple categories of a template type
+    You can select a category with either an `externalReference`, `moduleId` or
+    `name`.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    If you have duplicate names, one of the them will be selected. If this
+    is a problem either use externalReference or moduleId or have unique names.
+    You cannot select a category that has child categories. This method will
+    succeed provided at least one of the categories supplied is valid.
 
-        moduleId -- 	The moduleId of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page selecting the categories
+        `moduleId` (`int`): the moduleId of the page selecting the categories
+        `categories` (`list[Category]`): the categories you want to select
 
-        categories -- The categories you want to select
-
-        e.g.
-
-        [
-            {
-                "name":"Keynote",
-            },
-            {
-                "externalReference":"plenary"
-            },
-            {
-                "moduleId":5,
-            },
-            {
-                "name":"Panel",
-            },
-            {
-                "externalReference":"chair"
-            },
-            {
-                "moduleId":6
-            }
-        ]
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -81,48 +70,27 @@ def selectCategories(self, templateType, moduleId, categories):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def deselectCategories(self, templateType, moduleId, categories):
+def deselectCategories(self, templateType: str, moduleId: int, categories: list[Category]):
     """
-    You can unselect a category with either an externalReference or moduleId.
+    You can unselect a category with either an `externalReference` or `moduleId`.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you're unselecting the categories from
+        `moduleId` (`int`): the moduleId of the page you're unselecting the categories from
+        `categories` (`list[Category]`): the categories you want to select
 
-        moduleId -- 	The moduleId of the page you want
-
-        categories -- The categories you want to select
-
-        e.g.
-
-        [
-            {
-                "name":"Keynote",
-            },
-            {
-                "externalReference":"plenary"
-            },
-            {
-                "moduleId":5,
-            },
-            {
-                "name":"Panel",
-            },
-            {
-                "externalReference":"chair"
-            },
-            {
-                "moduleId":6
-            }
-        ]
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -137,54 +105,32 @@ def deselectCategories(self, templateType, moduleId, categories):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def createCategories(self, templateType, moduleId, categories):
+def createCategories(self, templateType: str, moduleId: int, categories: list[Category]):
     """
     Allows you to create categories under a root page.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    You cannot create child / sub categories with this endpoint. You will need
+    to use the create child categories endpoint. It is highly recommended you
+    use unique names for each category list. Using unique names allows you to
+    select categories with just the name.
 
-        moduleId -- 	The moduleId of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page holding the categories
+        `moduleId` (`int`): the moduleId of the page holding the categories
+        `categories` (`list[Category]`): the categories you want to create
 
-        categories -- The categories you want to select
-
-        e.g.
-
-        [
-            {
-                "name":"Keynote",
-                "externalReference":"keynote"
-            },
-            {
-                "name":"Plenary",
-                "externalReference":"plenary"
-            },
-            {
-                "name":"Breakout",
-                "externalReference":"breakout"
-            },
-            {
-                "name":"Panel",
-                "externalReference":"panel"
-            },
-            {
-                "name":"Chair",
-                "externalReference":"chair"
-            },
-            {
-                "name":"Sponsored",
-                "externalReference":"sponsored"
-            }
-        ]
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -199,47 +145,35 @@ def createCategories(self, templateType, moduleId, categories):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def createChildCategories(self, templateType, externalReference, categories):
+def createChildCategories(self, externalReference: int, categories: list[Category]):
     """
     Allows you to create categories under another category.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    Adding categories under a category prevents the parent category from being
+    selected by a page. It is highly recommended you use unique names for each
+    category list. Using unique names allows you to reliably select categories
+    with just the name.
 
-        externalReference -- The externalReference of the page you want
+    Parameters
+    ----------
+        `externalReference` (`int`): the externalReference of the page holding the categories
+        `categories` (`list[Category]`): the categories you want to create
 
-        categories -- The categories you want to select
-
-        e.g.
-
-        [
-            {
-                "name":"Stream 1",
-                "externalReference":"stream1"
-            },
-            {
-                "name":"Stream 2",
-                "externalReference":"stream2"
-            },
-            {
-                "name":"Stream 3",
-                "externalReference":"stream3"
-            }
-        ]
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
-        "templateType": templateType,
         "externalReference": externalReference,
         "categories": categories,
     }
@@ -249,67 +183,59 @@ def createChildCategories(self, templateType, externalReference, categories):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def updateCategories(self, moduleId, name):
+def updateCategories(self, moduleId: int, name: str):
     """
     Allows you to change the name of a category.
 
-    Arguments:
-        moduleId -- The moduleId of the category
+    Parameters
+    ----------
+        `moduleId` (`int`): the moduleId of the category
+        `name` (`str`): the new name of the category
 
-        name -- The new name of the category
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
-    data = {"projectId": self.projectID, "moduleId": moduleId, "name": name}
+    data = {
+        "projectId": self.projectID,
+        "moduleId": moduleId,
+        "name": name
+    }
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Update",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def deleteCategories(self, templateType, moduleId, categories):
+def deleteCategories(self, templateType: str, moduleId: int, categories: list[Category]):
     """
     Allows you to create categories under another category.
 
-    Arguments:
-        templateType -- The template type of the page you want
+    Parameters
+    ----------
+        `templateType` (`str`): the template type of the page you want
+        `moduleId` (`int`): the moduleId of the page you want
+        `categories` (`list[Category]`): the categories you want to delete
 
-        moduleId -- The moduleId of the page you want
-
-        categories -- The categories you want to select
-
-        e.g.
-
-        [
-            {
-                "externalReference":"plenary"
-            },
-            {
-                "moduleId":5,
-            },
-            {
-                "externalReference":"chair"
-            },
-            {
-                "moduleId":6
-            }
-        ]
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -324,7 +250,9 @@ def deleteCategories(self, templateType, moduleId, categories):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output

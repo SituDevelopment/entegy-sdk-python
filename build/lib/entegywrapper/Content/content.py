@@ -1,27 +1,39 @@
-import requests, json
+import json
+import requests
 
 
 def getContent(
     self,
-    templateType,
-    moduleId=None,
-    externalReference=None,
-    includeCategories=False,
-    includeDocuments=False,
-    includeLinks=False,
-    includeMultiLinks=False,
-    includePageSettings=False,
+    templateType: str,
+    moduleId: int = None,
+    externalReference: str = None,
+    includeCategories: bool = False,
+    includeDocuments: bool = False,
+    includeLinks: bool = False,
+    includeMultiLinks: bool = False,
+    includePageSettings: bool = False,
 ):
     """
-    Return all user profiles
+    Returns an entire schedule.
 
-    Arguments:
-        templateType -- The type of the template you want content from
+    You can expand the response returned by optionally asking for categories,
+    documents, links and multilinks. You should only request these if you need
+    them as they will slow down the request.
 
-        moduleId -- The moduleId of the page you want content from
+    Parameters
+    ----------
+        `templateType` (`str`): the type of the template you want content from
+        `moduleId` (`int`): the instance of the data you're after
+        `externalReference` (`str`): the external reference for the content you want
+        `includeCategories` (`bool`): whether you want Categories in the response; defaults to False
+        `includeDocuments` (`bool`): whether you want Documents in the response; defaults to False
+        `includeLinks` (`bool`): whether you want Links in the response; defaults to False
+        `includeMultiLinks` (`bool`): whether you want MultiLinks in the response; defaults to False
+        `includePageSettings` (`bool`): whether you want PageSettings in the response; defaults to False
 
-    Returns:
-        The content response differs depending on what type of content you request.
+    Returns
+    -------
+        `dict`: a content response object
     """
     data = {
         "projectId": self.projectID,
@@ -33,37 +45,53 @@ def getContent(
         "includeMultiLinks": includeMultiLinks,
         "includePageSettings": includePageSettings,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = self.post(
+
+    resp = requests.post(
         self.APIEndpoint + "/v2/Content", headers=self.headers, data=json.dumps(data)
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
 def getScheduleContent(
     self,
-    moduleId=None,
-    externalReference=None,
-    includeCategories=False,
-    includeDocuments=False,
-    includeLinks=False,
-    includeMultiLinks=False,
-    includePageSettings=False,
+    moduleId: int = None,
+    externalReference: str = None,
+    includeCategories: bool = False,
+    includeDocuments: bool = False,
+    includeLinks: bool = False,
+    includeMultiLinks: bool = False,
+    includePageSettings: bool = False,
 ):
     """
     Returns an entire schedule.
 
-    Arguments:
-        moduleId -- Any parameters to filter the returned profile by
+    You can expand the response returned by optionally asking for categories,
+    documents, links and multilinks. You should only request these if you need
+    them as they will slow down the request.
 
-    Returns:
-        Content Schedule object
+    Parameters
+    ----------
+        `moduleId` (`int`): the instance of the data you're after
+        `externalReference` (`str`): the external reference for the content you want
+        `includeCategories` (`bool`): whether you want Categories in the response; defaults to False
+        `includeDocuments` (`bool`): whether you want Documents in the response; defaults to False
+        `includeLinks` (`bool`): whether you want Links in the response; defaults to False
+        `includeMultiLinks` (`bool`): whether you want MultiLinks in the response; defaults to False
+        `includePageSettings` (`bool`): whether you want PageSettings in the response; defaults to False
+
+    Returns
+    -------
+        `dict`: a content response object
     """
     data = {
         "projectId": self.projectID,
@@ -75,38 +103,45 @@ def getScheduleContent(
         "includePageSettings": includePageSettings,
         "moduleId": moduleId,
     }
+
     if externalReference != None:
         data.update({"externalReference": externalReference})
-    resp = self.post(
+
+    resp = requests.post(
         self.APIEndpoint + "/v2/Content/Schedule",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def createContent(self, content, contentGroup="Default"):
+def createContent(self, content: dict, contentGroup: str = "Default"):
     """
-    Creates a root content item. You can only create Template Types that are listed as root content.
+    Creates a root content item. You can only create Template Types that are
+    listed as root content.
 
-    Arguments:
-        content -- The content you are creating, supports templateType, name, mainImage and externalReference
+    Parameters
+    ----------
+        `content` (`dict`): the content you are creating, supports templateType, name, mainImage and externalReference
+        `contentGroup` (`str`) the content group in the core this new root content should go in; defaults to "Default"
 
-        e.g.
-
+    The format of `content` is as follows:
+    ```python
         {
             "templateType":"Schedule",
             "name":"Conference Program",
             "externalReference":""
         }
+    ```
 
-        moduleId -- The content group in the core this new root content should go in, leave blank for default
-
-    Returns:
-        The moduleId of the page you just created
+    Returns
+    -------
+        `dict`: the moduleId of the page you just created
     """
     data = {
         "projectId": self.projectID,
@@ -115,39 +150,40 @@ def createContent(self, content, contentGroup="Default"):
         "content": content,
     }
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Content/Create",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
 def addChildrenContent(
     self,
-    templateType,
-    childTemplateType,
-    children,
-    moduleId=None,
-    externalReference=None,
+    templateType: str,
+    childTemplateType: str,
+    children: list,
+    moduleId: int = None,
+    externalReference: str = None,
 ):
     """
-    Adds children to templateType
+    Adds children to templateType.
 
-    Arguments:
-        templateType -- The template type the children are being added to
+    Parameters
+    ----------
+        `templateType` (`string`): the template type the children are being added to
+        `moduleId` (`int`): the name for the page
+        `externalReference` (`str`): the externalReference for the page
+        `childTemplateType` (`string`): the templateType for the children you're creating
+        `children` (`list`): the page data you want to add to the root templateType
 
-        moduleId -- The name for the page
-
-        childTemplateType -- The templateType for the children you're creating
-
-        children -- The page data you want to add to the root templateType
-
-        e.g.
-
+    The format of `children` is as follows:
+    ```python
         [
             {
                 "externalReference":"au-speaker-545415842",
@@ -178,9 +214,11 @@ def addChildrenContent(
                 "sortOrder" : 5
             }
         ]
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -189,35 +227,37 @@ def addChildrenContent(
         "childTemplateType": childTemplateType,
         "children": children,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Content/AddChildren",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def updateContent(self, templateType, content, moduleId=None, externalReference=None):
+def updateContent(self, templateType: str, content: list, moduleId: int = None, externalReference: str = None):
     """
-    Updates data within a content item
+    Updates data within a content item.
 
-    Arguments:
-        templateType -- The templateType you're updating
+    Parameters
+    ----------
+        `templateType` (`str`): the templateType you're updating
+        `moduleId` (`int`): the moduleId of the page you're updating
+        `content` (`list`): the content you're updating, supports the name, sort order, mainImage, strings and links
 
-        moduleId -- The moduleId of the page you're updating
-
-        content -- The content you're updating, supports the name, sort order, mainImage, strings and links
-
-        e.g.
-
+    The format of `content` is as follows:
+    ```python
         {
             "name":"Mr John Smith",
             "sortOrder":1
@@ -227,9 +267,11 @@ def updateContent(self, templateType, content, moduleId=None, externalReference=
                     "companyAndPosition":"XYZ Widgets || Director"
                 }
         }
+    ```
 
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
@@ -237,41 +279,50 @@ def updateContent(self, templateType, content, moduleId=None, externalReference=
         "templateType": templateType,
         "content": content,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
         data.update({"externalReference": externalReference})
 
-    resp = self.post(
+    resp = requests.post(
         self.APIEndpoint + "/v2/Content/Update",
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
 
 
-def deleteContent(self, templateType, moduleId=None, externalReference=None):
+def deleteContent(self, templateType: str, moduleId: int = None, externalReference: str = None):
     """
-    Allows you to delete a content resource from the Entegy System. Any content deleted is unrecoverable.
+    Allows you to delete a content resource from the Entegy System. Any content
+    deleted is unrecoverable.
 
-    -= WARNING =- Deleting root content will result in all child pages being deleted!
+    WARNING
+    -------
+        Deleting root content will result in all child pages being deleted.
 
-    Arguments:
-        templateType -- The templateType of the resource you're deleting
+    Parameters
+    ----------
+        `templateType` (`str`): the templateType of the resource you're deleting
+        `moduleId` (`int`): the moduleId of the page you're deleting
+        `externalReference` (`str`): the externalReference of the page you're deleting
 
-        moduleId -- The moduleId of the page you're deleting
-
-    Returns:
-        Base response object
+    Returns
+    -------
+        `dict`: a base response
     """
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
     }
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
@@ -282,7 +333,9 @@ def deleteContent(self, templateType, moduleId=None, externalReference=None):
         headers=self.headers,
         data=json.dumps(data),
     )
+
     if resp == None:
-        raise Exception("No reponse received from API")
+        raise Exception("No response received from Entegy API")
+
     output = resp.json()
     return output
