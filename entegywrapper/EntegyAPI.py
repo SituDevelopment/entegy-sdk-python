@@ -24,6 +24,7 @@ class EntegyAPI:
     projectID = ""
     headers = CaseInsensitiveDict()
     APIEndpoint = ""
+    currentKeyPair = 0
 
     # Import methods
 
@@ -140,10 +141,17 @@ class EntegyAPI:
             self.headers["Authorization"] = f"ApiKey {self.apiSecret}"
             return self.apiKey
 
-        randKeyNum = randint(0, len(self.apiKey) - 1)
+        self.headers["Authorization"] = f"ApiKey {self.apiSecret[self.currentKeyPair]}"
+        return self.apiKey[self.currentKeyPair]
+    
+    def cycleKey(self):
+        """
+        Cycle through the API keys provided in the constructor
+        """
 
-        self.headers["Authorization"] = f"ApiKey {self.apiSecret[randKeyNum]}"
-        return self.apiKey[randKeyNum]
+        self.currentKeyPair += 1
+        if self.currentKeyPair >= len(self.apiKey):
+            self.currentKeyPair = 0
 
     def getEndpoint(self):
         """
@@ -164,6 +172,8 @@ class EntegyAPI:
             headers -- API headers; defaults to the empty list
         """
         resp = None
+        retryCount = 0
+        permErrorCount = 0
         while resp == None:
             resp = requests.post(
                 endpoint,
@@ -172,11 +182,28 @@ class EntegyAPI:
             )
             if resp == None:
                 raise Exception("No reponse received from API")
-                
+            if resp.json()['response'] == 403:
+                time.sleep(0.5)
+                permErrorCount += 1
+                if permErrorCount >= 5:
+                    raise Exception("Invalid API Key")
+                resp == None
             # If there is a rate limit issue, wait the remaining time and try again
-            if resp.json()['response'] == 489:
-                print("Rate limit reached, waiting " + str(resp.json()['resetDuration']) + " seconds")
-                time.sleep(resp.json()["resetDuration"] + 2)
-                resp = None
+            elif resp.json()['response'] == 489:
+                # Turn 'data' string back into a dictionary, then revert it back after changing the apiKey
+                if retryCount >= len(self.apiKey):
+                    print("Rate limit reached, waiting " + str(resp.json()['resetDuration']) + " seconds")
+                    time.sleep(resp.json()["resetDuration"] + 2)
+                    print("Continuing...")
+                    resp = None
+                else:
+                    self.cycleKey()
+                    data = json.loads(data)
+                    data["apiKey"] = self.getKey()
+                    headers = self.headers
+                    print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
+                    data = json.dumps(data)
+                    retryCount+=1
+                    resp = None
 
         return resp
