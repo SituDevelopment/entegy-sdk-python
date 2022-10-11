@@ -1,11 +1,11 @@
-from .Profiles.profileCustom import deleteProfileCustom
-from random import randint
+from typing import Literal
+from requests.structures import CaseInsensitiveDict
+
 import time
 import requests
 import json
 import sys
 import os
-from requests.structures import CaseInsensitiveDict
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -14,6 +14,8 @@ APIEndpoints = {
     "US": "https://api-us.entegy.com.au",
     "EU": "https://api-eu.entegy.com.au",
 }
+
+Identifier: type = Literal["externalReference", "moduleId", "name"]
 
 
 class EntegyAPI:

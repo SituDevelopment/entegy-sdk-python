@@ -1,7 +1,9 @@
 import json
 import requests
 
-Category: type = dict["moduleId" | "name" | "externalReference", str | int]
+from entegywrapper.EntegyAPI import Identifier
+
+Category: type = dict[Identifier, str | int]
 
 
 def availableCategories(self, templateType: str, moduleId: int):
