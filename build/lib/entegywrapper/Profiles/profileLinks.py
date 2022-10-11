@@ -1,5 +1,3 @@
-from profiles import Profile
-
 import json
 
 Link: type = dict

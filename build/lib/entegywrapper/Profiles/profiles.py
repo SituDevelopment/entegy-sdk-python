@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 
 Profile: type = dict[str, any]
 

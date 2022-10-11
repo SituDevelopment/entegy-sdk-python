@@ -1,5 +1,4 @@
 import json
-import requests
 
 from Content.content import updateContent
 

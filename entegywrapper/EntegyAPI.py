@@ -1,11 +1,11 @@
-from typing import Literal
 from requests.structures import CaseInsensitiveDict
+from typing import Literal
 
-import time
-import requests
 import json
-import sys
 import os
+import requests
+import sys
+import time
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -61,7 +61,9 @@ class EntegyAPI:
         deSelectProfileLinks,
         clearProfileLinks,
     )
-    from .Profiles.profilePayments import addProfilePayment
+    from .Profiles.profilePayments import (
+        addProfilePayment
+    )
 
     # Content
     from .Content.content import (
@@ -81,7 +83,10 @@ class EntegyAPI:
         updateCategories,
         deleteCategories,
     )
-    from .Content.documents import addDocuments, addExternalContentDocuments
+    from .Content.documents import (
+        addDocuments,
+        addExternalContentDocuments
+    )
     from .Content.multiLink import (
         getMultiLinks,
         addMultiLinks,
@@ -90,13 +95,22 @@ class EntegyAPI:
     )
 
     # Points
-    from .Points.pointManagement import awardPoints, getPointLeaderboard, getPoints
+    from .Points.pointManagement import (
+        awardPoints,
+        getPointLeaderboard,
+        getPoints
+    )
 
     # Plugins
-    from .Plugins.extAuth import externalAuthentication
+    from .Plugins.extAuth import (
+        externalAuthentication
+    )
 
     # Notifications
-    from .Notification.notification import sendNotification, sendBulkNotification
+    from .Notification.notification import (
+        sendNotification,
+        sendBulkNotification
+    )
 
     # Contruct api class with given params
     def __init__(

@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 
 ProfileType: type = dict[str, str | int | bool]
 
