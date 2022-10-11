@@ -25,7 +25,7 @@ def selectedProfileLinks(self, profileId: str, returnLimit: int = 100):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -100,7 +100,7 @@ def selectProfileLink(self, profileId: str, link: Link):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -155,7 +155,7 @@ def multiSelectProfileLinks(self, profiles: list[str, str | list[Link]]):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -187,7 +187,7 @@ def deSelectProfileLinks(self, profileId: str, link: Link):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -220,7 +220,7 @@ def clearProfileLinks(self, profileId, templateType):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

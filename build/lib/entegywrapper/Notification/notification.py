@@ -49,7 +49,7 @@ def sendNotification(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -58,7 +58,7 @@ def sendNotification(
         "message": message,
         "alertMessage": "This is an alert message"
     }
-    
+
     if profileId != None:
         data.update({"profileReferences": [{"profileId": profileId}]})
     elif externalReference != None:
@@ -124,7 +124,7 @@ def sendBulkNotification(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

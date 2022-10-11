@@ -22,7 +22,7 @@ def getMultiLinks(
 
     Returns
     -------
-        `dict`: the multi links the content page has
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -78,7 +78,7 @@ def addMultiLinks(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -142,7 +142,7 @@ def removeMultiLink(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -150,7 +150,7 @@ def removeMultiLink(
         "templateType": templateType,
         "targetTemplateType": targetTemplateType,
     }
-    
+
     if moduleId != None:
         data.update({"moduleId": moduleId})
     if externalReference != None:
@@ -159,7 +159,7 @@ def removeMultiLink(
         data.update({"targetExternalReference": targetExternalReference})
     if targetModuleId != None:
         data.update({"targetModuleId": targetModuleId})
-    
+
     resp = self.post(
         self.APIEndpoint + "/v2/MultiLink/Remove",
         headers=self.headers,
@@ -192,7 +192,7 @@ def removeAllMultiLinks(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

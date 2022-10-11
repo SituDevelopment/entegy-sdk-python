@@ -16,7 +16,7 @@ def externalAuthentication(
 
     Returns
     -------
-        `bool`: indicates whether this is the first time this profile has logged into the Entegy system
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

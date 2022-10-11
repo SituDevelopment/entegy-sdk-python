@@ -24,7 +24,7 @@ def awardPoints(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -46,10 +46,10 @@ def awardPoints(
         headers=self.headers,
         data=json.dumps(data),
     )
-    
+
     if resp == None:
         raise Exception("No reponse received from API")
-    
+
     output = resp.json()
     return output
 
@@ -73,7 +73,7 @@ def getPoints(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -109,7 +109,7 @@ def getPointLeaderboard(self):
 
     Returns
     -------
-        `dict`: the leaderboard
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

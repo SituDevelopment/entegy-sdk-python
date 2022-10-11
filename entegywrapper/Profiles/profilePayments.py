@@ -31,7 +31,7 @@ def addProfilePayment(self, profileId: str, paymentInfo: dict[str, str | int]):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

@@ -15,7 +15,7 @@ def allProfiles(self, returnLimit: int = 100, params: dict = {}):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -62,7 +62,7 @@ def getProfile(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -103,7 +103,7 @@ def deleteProfile(self, profileId: str):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -134,7 +134,7 @@ def createProfile(self, profileObject: Profile):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -172,7 +172,7 @@ def updateProfile(self, profileID: str, profileObject: Profile):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -219,7 +219,7 @@ def syncProfiles(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -251,7 +251,7 @@ def sendWelcomeEmail(self, profileID):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

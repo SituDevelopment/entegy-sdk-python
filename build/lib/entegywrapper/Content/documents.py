@@ -40,7 +40,7 @@ def addDocuments(self, templateType: str, moduleId: int, fileDocuments: list[Doc
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -88,7 +88,7 @@ def addExternalContentDocuments(self, templateType: str, moduleId: int, external
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

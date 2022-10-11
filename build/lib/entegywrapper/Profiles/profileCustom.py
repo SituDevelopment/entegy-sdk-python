@@ -14,7 +14,7 @@ def getProfileCustom(self, key: str):
 
     Returns
     -------
-        `dict`: the requested profile
+        `dict`: API response JSON
     """
     data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
 
@@ -67,7 +67,7 @@ def createProfileCustom(self, customField: CustomField):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -134,7 +134,7 @@ def updateProfileCustom(self, key: str, customField: CustomField):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
 
     data = {
@@ -167,7 +167,7 @@ def deleteProfileCustom(self, key: str):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -194,7 +194,7 @@ def allProfileCustom(self):
 
     Returns
     -------
-        `dict`: custom fields
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

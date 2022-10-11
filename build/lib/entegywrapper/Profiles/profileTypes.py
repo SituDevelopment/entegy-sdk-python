@@ -14,7 +14,7 @@ def getProfileType(self, name: str):
 
     Returns
     -------
-        `dict`: the requested profile
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -45,7 +45,7 @@ def createProfileType(self, profileType: ProfileType):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -77,7 +77,7 @@ def updateProfileType(self, name: str, profileType: ProfileType):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -109,7 +109,7 @@ def deleteProfileType(self, name):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -136,7 +136,7 @@ def allProfileTypes(self):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

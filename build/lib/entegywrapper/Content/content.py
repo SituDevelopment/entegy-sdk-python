@@ -33,7 +33,7 @@ def getContent(
 
     Returns
     -------
-        `dict`: a content response object
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -91,7 +91,7 @@ def getScheduleContent(
 
     Returns
     -------
-        `dict`: a content response object
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -141,7 +141,7 @@ def createContent(self, content: dict, contentGroup: str = "Default"):
 
     Returns
     -------
-        `dict`: the moduleId of the page you just created
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -218,7 +218,7 @@ def addChildrenContent(
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -271,7 +271,7 @@ def updateContent(self, templateType: str, content: list, moduleId: int = None, 
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -315,7 +315,7 @@ def deleteContent(self, templateType: str, moduleId: int = None, externalReferen
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,

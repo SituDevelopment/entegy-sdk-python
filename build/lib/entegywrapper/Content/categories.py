@@ -1,7 +1,9 @@
 import json
 import requests
 
-Category: type = dict["moduleId" | "name" | "externalReference", str | int]
+from entegywrapper.EntegyAPI import Identifier
+
+Category: type = dict[Identifier, str | int]
 
 
 def availableCategories(self, templateType: str, moduleId: int):
@@ -55,7 +57,7 @@ def selectCategories(self, templateType: str, moduleId: int, categories: list[Ca
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -90,7 +92,7 @@ def deselectCategories(self, templateType: str, moduleId: int, categories: list[
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -130,7 +132,7 @@ def createCategories(self, templateType: str, moduleId: int, categories: list[Ca
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -169,7 +171,7 @@ def createChildCategories(self, externalReference: int, categories: list[Categor
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -202,7 +204,7 @@ def updateCategories(self, moduleId: int, name: str):
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
@@ -235,7 +237,7 @@ def deleteCategories(self, templateType: str, moduleId: int, categories: list[Ca
 
     Returns
     -------
-        `dict`: a base response
+        `dict`: API response JSON
     """
     data = {
         "projectId": self.projectID,
