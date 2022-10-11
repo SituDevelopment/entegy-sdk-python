@@ -10,7 +10,12 @@ Document: type = dict[str, any]
 ExternalContent: type = dict[str, any]
 
 
-def addDocuments(self, templateType: str, moduleId: int, fileDocuments: list[Document]):
+def addDocuments(
+    self,
+    templateType: str,
+    moduleId: int,
+    fileDocuments: list[Document]
+):
     """
     Adds documents to a page.
 
@@ -63,7 +68,12 @@ def addDocuments(self, templateType: str, moduleId: int, fileDocuments: list[Doc
     return output
 
 
-def addExternalContentDocuments(self, templateType: str, moduleId: int, externalContentItems: list[ExternalContent]):
+def addExternalContentDocuments(
+    self,
+    templateType: str,
+    moduleId: int,
+    externalContentItems: list[ExternalContent]
+):
     """
     Adds external content documents to a page.
 

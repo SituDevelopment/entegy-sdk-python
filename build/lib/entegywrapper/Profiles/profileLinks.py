@@ -12,7 +12,11 @@ The format of a `Link` is as follows:
 """
 
 
-def selectedProfileLinks(self, profileId: str, returnLimit: int = 100):
+def selectedProfileLinks(
+    self,
+    profileId: str,
+    returnLimit: int = 100
+):
     """
     Return all the profile links the profile has.
 
@@ -48,7 +52,12 @@ def selectedProfileLinks(self, profileId: str, returnLimit: int = 100):
     return output
 
 
-def pageProfileLinks(self, templateType: str, moduleId: str, returnLimit: int = 100):
+def pageProfileLinks(
+    self,
+    templateType: str,
+    moduleId: str,
+    returnLimit: int = 100
+):
     """
     Gets all the profiles linked to a Content Page.
 
@@ -86,7 +95,11 @@ def pageProfileLinks(self, templateType: str, moduleId: str, returnLimit: int = 
     return output
 
 
-def selectProfileLink(self, profileId: str, link: Link):
+def selectProfileLink(
+    self,
+    profileId: str,
+    link: Link
+):
     """
     Allows you to select a link for a profile
 
@@ -120,7 +133,10 @@ def selectProfileLink(self, profileId: str, link: Link):
     return output
 
 
-def multiSelectProfileLinks(self, profiles: list[str, str | list[Link]]):
+def multiSelectProfileLinks(
+    self,
+    profiles: list[str, str | list[Link]]
+):
     """
     Allows you to select multiple pages on multiple profiles at once
 
@@ -174,7 +190,11 @@ def multiSelectProfileLinks(self, profiles: list[str, str | list[Link]]):
     return output
 
 
-def deSelectProfileLinks(self, profileId: str, link: Link):
+def deSelectProfileLinks(
+    self,
+    profileId: str,
+    link: Link
+):
     """
     Allows you to deselect a link for a profile.
 
@@ -207,7 +227,11 @@ def deSelectProfileLinks(self, profileId: str, link: Link):
     return output
 
 
-def clearProfileLinks(self, profileId, templateType):
+def clearProfileLinks(
+    self,
+    profileId,
+    templateType
+):
     """
     Allows you to clear all the selected links of a templateType on a single profile
 

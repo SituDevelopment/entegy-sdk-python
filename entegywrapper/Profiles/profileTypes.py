@@ -4,7 +4,10 @@ import requests
 ProfileType: type = dict[str, str | int | bool]
 
 
-def getProfileType(self, name: str):
+def getProfileType(
+    self,
+    name: str
+):
     """
     Returns a single profile type.
 
@@ -35,7 +38,10 @@ def getProfileType(self, name: str):
     return output
 
 
-def createProfileType(self, profileType: ProfileType):
+def createProfileType(
+    self,
+    profileType: ProfileType
+):
     """
     Creates a ProfileType with the data passed in the profileType
 
@@ -66,7 +72,11 @@ def createProfileType(self, profileType: ProfileType):
     return output
 
 
-def updateProfileType(self, name: str, profileType: ProfileType):
+def updateProfileType(
+    self,
+    name: str,
+    profileType: ProfileType
+):
     """
     Updates the ProfileType with the data passed in the profileType
 
@@ -99,7 +109,10 @@ def updateProfileType(self, name: str, profileType: ProfileType):
     return output
 
 
-def deleteProfileType(self, name):
+def deleteProfileType(
+    self,
+    name
+):
     """
     Deletes a profile type. The type cannot be in use.
 
@@ -130,7 +143,9 @@ def deleteProfileType(self, name):
     return output
 
 
-def allProfileTypes(self):
+def allProfileTypes(
+    self
+):
     """
     Returns all profile types.
 

@@ -6,7 +6,11 @@ from entegywrapper.EntegyAPI import Identifier
 Category: type = dict[Identifier, str | int]
 
 
-def availableCategories(self, templateType: str, moduleId: int):
+def availableCategories(
+    self,
+    templateType: str,
+    moduleId: int
+):
     """
     This returns a list of the available categories for the page in question.
 
@@ -39,7 +43,12 @@ def availableCategories(self, templateType: str, moduleId: int):
     return output
 
 
-def selectCategories(self, templateType: str, moduleId: int, categories: list[Category]):
+def selectCategories(
+    self,
+    templateType: str,
+    moduleId: int,
+    categories: list[Category]
+):
     """
     You can select a category with either an `externalReference`, `moduleId` or
     `name`.
@@ -80,7 +89,12 @@ def selectCategories(self, templateType: str, moduleId: int, categories: list[Ca
     return output
 
 
-def deselectCategories(self, templateType: str, moduleId: int, categories: list[Category]):
+def deselectCategories(
+    self,
+    templateType: str,
+    moduleId: int,
+    categories: list[Category]
+):
     """
     You can unselect a category with either an `externalReference` or `moduleId`.
 
@@ -115,7 +129,12 @@ def deselectCategories(self, templateType: str, moduleId: int, categories: list[
     return output
 
 
-def createCategories(self, templateType: str, moduleId: int, categories: list[Category]):
+def createCategories(
+    self,
+    templateType: str,
+    moduleId: int,
+    categories: list[Category]
+):
     """
     Allows you to create categories under a root page.
 
@@ -155,7 +174,11 @@ def createCategories(self, templateType: str, moduleId: int, categories: list[Ca
     return output
 
 
-def createChildCategories(self, externalReference: int, categories: list[Category]):
+def createChildCategories(
+    self,
+    externalReference: int,
+    categories: list[Category]
+):
     """
     Allows you to create categories under another category.
 
@@ -193,7 +216,11 @@ def createChildCategories(self, externalReference: int, categories: list[Categor
     return output
 
 
-def updateCategories(self, moduleId: int, name: str):
+def updateCategories(
+    self,
+    moduleId: int,
+    name: str
+):
     """
     Allows you to change the name of a category.
 
@@ -225,7 +252,12 @@ def updateCategories(self, moduleId: int, name: str):
     return output
 
 
-def deleteCategories(self, templateType: str, moduleId: int, categories: list[Category]):
+def deleteCategories(
+    self,
+    templateType: str,
+    moduleId: int,
+    categories: list[Category]
+):
     """
     Allows you to create categories under another category.
 

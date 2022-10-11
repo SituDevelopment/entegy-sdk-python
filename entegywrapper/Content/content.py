@@ -120,7 +120,11 @@ def getScheduleContent(
     return output
 
 
-def createContent(self, content: dict, contentGroup: str = "Default"):
+def createContent(
+    self,
+    content: dict,
+    contentGroup: str = "Default"
+):
     """
     Creates a root content item. You can only create Template Types that are
     listed as root content.
@@ -246,7 +250,13 @@ def addChildrenContent(
     return output
 
 
-def updateContent(self, templateType: str, content: list, moduleId: int = None, externalReference: str = None):
+def updateContent(
+    self,
+    templateType: str,
+    content: list,
+    moduleId: int = None,
+    externalReference: str = None
+):
     """
     Updates data within a content item.
 
@@ -298,7 +308,12 @@ def updateContent(self, templateType: str, content: list, moduleId: int = None, 
     return output
 
 
-def deleteContent(self, templateType: str, moduleId: int = None, externalReference: str = None):
+def deleteContent(
+    self,
+    templateType: str,
+    moduleId: int = None,
+    externalReference: str = None
+):
     """
     Allows you to delete a content resource from the Entegy System. Any content
     deleted is unrecoverable.

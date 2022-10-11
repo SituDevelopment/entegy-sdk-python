@@ -4,7 +4,10 @@ import json
 CustomField: type = dict[str, str | int | bool]
 
 
-def getProfileCustom(self, key: str):
+def getProfileCustom(
+    self,
+    key: str
+):
     """
     Returns a single custom field.
 
@@ -31,7 +34,10 @@ def getProfileCustom(self, key: str):
     return output
 
 
-def createProfileCustom(self, customField: CustomField):
+def createProfileCustom(
+    self,
+    customField: CustomField
+):
     """
     Creates a new Custom Field for Profiles.
 
@@ -88,7 +94,11 @@ def createProfileCustom(self, customField: CustomField):
     return output
 
 
-def updateProfileCustom(self, key: str, customField: CustomField):
+def updateProfileCustom(
+    self,
+    key: str,
+    customField: CustomField
+):
     """
     Updates custom profile field `key` with `customField`'s data.
 
@@ -157,7 +167,10 @@ def updateProfileCustom(self, key: str, customField: CustomField):
     return output
 
 
-def deleteProfileCustom(self, key: str):
+def deleteProfileCustom(
+    self,
+    key: str
+):
     """
     Deletes a custom field.
 
@@ -188,7 +201,9 @@ def deleteProfileCustom(self, key: str):
     return output
 
 
-def allProfileCustom(self):
+def allProfileCustom(
+    self
+):
     """
     Returns all custom fields.
 

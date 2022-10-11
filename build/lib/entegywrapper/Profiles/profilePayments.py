@@ -1,7 +1,11 @@
 import json
 
 
-def addProfilePayment(self, profileId: str, paymentInfo: dict[str, str | int]):
+def addProfilePayment(
+    self,
+    profileId: str,
+    paymentInfo: dict[str, str | int]
+):
     """
     Return all the profile links the profile ha
 

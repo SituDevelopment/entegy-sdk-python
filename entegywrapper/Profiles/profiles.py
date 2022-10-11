@@ -4,7 +4,11 @@ import requests
 Profile: type = dict[str, any]
 
 
-def allProfiles(self, returnLimit: int = 100, params: dict = {}):
+def allProfiles(
+    self,
+    returnLimit: int = 100,
+    params: dict = {}
+):
     """
     Return all user profiles
 
@@ -92,7 +96,10 @@ def getProfile(
     return output
 
 
-def deleteProfile(self, profileId: str):
+def deleteProfile(
+    self,
+    profileId: str
+):
     """
     Deletes a profile. Once deleted this data is unrecoverable. Any data
     associated with the profile such as profile links will also be deleted.
@@ -124,7 +131,10 @@ def deleteProfile(self, profileId: str):
     return output
 
 
-def createProfile(self, profileObject: Profile):
+def createProfile(
+    self,
+    profileObject: Profile
+):
     """
     Creates a profile in the Entegy system.
 
@@ -155,7 +165,11 @@ def createProfile(self, profileObject: Profile):
     return output
 
 
-def updateProfile(self, profileID: str, profileObject: Profile):
+def updateProfile(
+    self,
+    profileID: str,
+    profileObject: Profile
+):
     """
     Update (modify) an existing profile in the system. To update an existing
     profile, you must provide one valid reference to a profile and a Profile
@@ -241,7 +255,10 @@ def syncProfiles(
     return output
 
 
-def sendWelcomeEmail(self, profileID):
+def sendWelcomeEmail(
+    self,
+    profileID
+):
     """
     Re-sends the welcome email for a given profile on a given project.
 

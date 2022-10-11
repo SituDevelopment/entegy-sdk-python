@@ -2,7 +2,10 @@ import json
 
 
 def externalAuthentication(
-    self, profileID: str, deviceID: str, requestVersion: int = 1
+    self,
+    profileID: str,
+    deviceID: str,
+    requestVersion: int = 1
 ):
     """
     Authenticate a user's login via an external system.

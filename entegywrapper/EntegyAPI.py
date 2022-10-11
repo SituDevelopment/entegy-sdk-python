@@ -149,7 +149,9 @@ class EntegyAPI:
         # Set API endpoint
         self.APIEndpoint = APIEndpoints[region]
 
-    def getKey(self):
+    def getKey(
+        self
+    ):
         """
         Returns the API Key.
 
@@ -165,7 +167,9 @@ class EntegyAPI:
         self.headers["Authorization"] = f"ApiKey {self.apiSecret[self.currentKeyPair]}"
         return self.apiKey[self.currentKeyPair]
 
-    def cycleKey(self):
+    def cycleKey(
+        self
+    ):
         """
         Cycles to the next API keypair, wrapping to the first where necessary.
         """
@@ -173,7 +177,9 @@ class EntegyAPI:
         if self.currentKeyPair >= len(self.apiKey):
             self.currentKeyPair = 0
 
-    def getEndpoint(self):
+    def getEndpoint(
+        self
+    ):
         """
         Returns the endpoint URL.
 
@@ -183,7 +189,12 @@ class EntegyAPI:
         """
         return self.APIEndpoint
 
-    def post(self, endpoint: str, data: dict[str, any], headers: list = []):
+    def post(
+        self,
+        endpoint: str,
+        data: dict[str, any],
+        headers: list = []
+    ):
         """
         Post the given `data` to the given `endpoint` of the Entegy API.
 

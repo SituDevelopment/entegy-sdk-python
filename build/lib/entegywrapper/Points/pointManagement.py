@@ -101,7 +101,9 @@ def getPoints(
     return output
 
 
-def getPointLeaderboard(self):
+def getPointLeaderboard(
+    self
+):
     """
     Allows you to see the leaderboard for the project. The response is sorted
     by the profiles response and includes their position with ties correctly
