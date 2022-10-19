@@ -34,6 +34,8 @@ def getProfileType(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -68,6 +70,8 @@ def createProfileType(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -105,6 +109,8 @@ def updateProfileType(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -139,6 +145,8 @@ def deleteProfileType(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -167,5 +175,7 @@ def allProfileTypes(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

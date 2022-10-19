@@ -41,6 +41,8 @@ def allProfiles(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -92,6 +94,8 @@ def getProfile(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -127,6 +131,8 @@ def deleteProfile(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -161,6 +167,8 @@ def createProfile(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -204,6 +212,8 @@ def updateProfile(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -251,6 +261,8 @@ def syncProfiles(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -285,5 +297,7 @@ def sendWelcomeEmail(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

@@ -1,4 +1,4 @@
-from icons import icon
+from .icons import icon
 
 import json
 import os
@@ -64,6 +64,8 @@ def addDocuments(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -117,5 +119,7 @@ def addExternalContentDocuments(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

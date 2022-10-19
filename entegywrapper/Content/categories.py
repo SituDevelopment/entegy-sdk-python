@@ -45,6 +45,8 @@ def availableCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -97,6 +99,8 @@ def selectCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -143,6 +147,8 @@ def deselectCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -194,6 +200,8 @@ def createCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -242,6 +250,8 @@ def createChildCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -284,6 +294,8 @@ def updateCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -330,5 +342,7 @@ def deleteCategories(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

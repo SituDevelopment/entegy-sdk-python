@@ -58,6 +58,8 @@ def getContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -116,6 +118,8 @@ def getScheduleContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -163,6 +167,8 @@ def createContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -246,6 +252,8 @@ def addChildrenContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -304,6 +312,8 @@ def updateContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -352,5 +362,7 @@ def deleteContent(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

@@ -247,6 +247,6 @@ class EntegyAPI:
                     data = json.dumps(data)
                     retryCount += 1
                     resp = None
-
+        
         output = resp.json()
         return output

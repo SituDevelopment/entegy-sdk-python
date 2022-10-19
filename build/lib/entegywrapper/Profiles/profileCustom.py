@@ -30,6 +30,8 @@ def getProfileCustom(
     if resp == None:
         raise Exception("No reponse received from API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -89,6 +91,8 @@ def createProfileCustom(
 
     if resp == None:
         raise Exception("No reponse received from API")
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
 
     return output
@@ -162,6 +166,8 @@ def updateProfileCustom(
 
     if resp == None:
         raise Exception("No reponse received from API")
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
 
     return output
@@ -197,6 +203,8 @@ def deleteProfileCustom(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -225,5 +233,7 @@ def allProfileCustom(
     if resp == None:
         raise Exception("No response received from Entegy API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output

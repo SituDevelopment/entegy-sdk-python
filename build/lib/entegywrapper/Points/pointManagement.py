@@ -50,6 +50,8 @@ def awardPoints(
     if resp == None:
         raise Exception("No reponse received from API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -97,6 +99,8 @@ def getPoints(
     if resp == None:
         raise Exception("No reponse received from API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
 
@@ -127,5 +131,7 @@ def getPointLeaderboard(
     if resp == None:
         raise Exception("No reponse received from API")
 
+    if isinstance(resp, dict):
+        return resp
     output = resp.json()
     return output
