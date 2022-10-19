@@ -8,8 +8,9 @@ Category: type = dict[Identifier, str | int]
 
 def availableCategories(
     self,
-    templateType: str,
-    moduleId: int
+    templateType: str, 
+    moduleId: int = None,
+    externalReference: str = None,
 ):
     """
     This returns a list of the available categories for the page in question.
@@ -18,6 +19,7 @@ def availableCategories(
     ----------
         `templateType` (`str`): the template type of the page you want
         `moduleId`     (`int`): the moduleId of the page you want
+        `externalReference` (`str`): the externalReference of the page you want
 
     Returns
     -------
@@ -26,9 +28,13 @@ def availableCategories(
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
-        "templateType": templateType,
-        "moduleId": moduleId,
+        "templateType": templateType
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Available",
@@ -46,8 +52,9 @@ def availableCategories(
 def selectCategories(
     self,
     templateType: str,
-    moduleId: int,
-    categories: list[Category]
+    categories: list[Category],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     You can select a category with either an `externalReference`, `moduleId` or
@@ -61,8 +68,9 @@ def selectCategories(
     Parameters
     ----------
         `templateType` (`str`): the template type of the page selecting the categories
-        `moduleId` (`int`): the moduleId of the page selecting the categories
         `categories` (`list[Category]`): the categories you want to select
+        `moduleId` (`int`): the moduleId of the page selecting the categories
+        `externalReference` (`str`): the externalReference of the page selecting the categories
 
     Returns
     -------
@@ -72,9 +80,13 @@ def selectCategories(
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
-        "moduleId": moduleId,
         "categories": categories,
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Select",
@@ -92,8 +104,9 @@ def selectCategories(
 def deselectCategories(
     self,
     templateType: str,
-    moduleId: int,
-    categories: list[Category]
+    categories: list[Category],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     You can unselect a category with either an `externalReference` or `moduleId`.
@@ -101,8 +114,9 @@ def deselectCategories(
     Parameters
     ----------
         `templateType` (`str`): the template type of the page you're unselecting the categories from
-        `moduleId` (`int`): the moduleId of the page you're unselecting the categories from
         `categories` (`list[Category]`): the categories you want to select
+        `moduleId` (`int`): the moduleId of the page you're unselecting the categories from
+        `externalReference` (`str`): the externalReference of the page you're unselecting the categories from
 
     Returns
     -------
@@ -112,9 +126,13 @@ def deselectCategories(
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
-        "moduleId": moduleId,
         "categories": categories,
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Deselect",
@@ -132,8 +150,9 @@ def deselectCategories(
 def createCategories(
     self,
     templateType: str,
-    moduleId: int,
-    categories: list[Category]
+    categories: list[Category],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     Allows you to create categories under a root page.
@@ -146,8 +165,9 @@ def createCategories(
     Parameters
     ----------
         `templateType` (`str`): the template type of the page holding the categories
-        `moduleId` (`int`): the moduleId of the page holding the categories
         `categories` (`list[Category]`): the categories you want to create
+        `moduleId` (`int`): the moduleId of the page holding the categories
+        `externalReference` (`str`): the externalReference of the page holding the categories
 
     Returns
     -------
@@ -157,9 +177,13 @@ def createCategories(
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
-        "moduleId": moduleId,
         "categories": categories,
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Create",
@@ -176,8 +200,9 @@ def createCategories(
 
 def createChildCategories(
     self,
-    externalReference: int,
-    categories: list[Category]
+    categories: list[Category],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     Allows you to create categories under another category.
@@ -189,8 +214,9 @@ def createChildCategories(
 
     Parameters
     ----------
-        `externalReference` (`int`): the externalReference of the page holding the categories
         `categories` (`list[Category]`): the categories you want to create
+        `moduleId` (`int`): the moduleId of the page holding the categories
+        `externalReference` (`int`): the externalReference of the page holding the categories
 
     Returns
     -------
@@ -199,9 +225,13 @@ def createChildCategories(
     data = {
         "projectId": self.projectID,
         "apiKey": self.getKey(),
-        "externalReference": externalReference,
         "categories": categories,
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/CreateChild",
@@ -218,16 +248,18 @@ def createChildCategories(
 
 def updateCategories(
     self,
-    moduleId: int,
-    name: str
+    name: str,
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     Allows you to change the name of a category.
 
     Parameters
     ----------
-        `moduleId` (`int`): the moduleId of the category
         `name` (`str`): the new name of the category
+        `moduleId` (`int`): the moduleId of the category
+        `externalReference` (`str`): the externalReference of the category
 
     Returns
     -------
@@ -235,9 +267,13 @@ def updateCategories(
     """
     data = {
         "projectId": self.projectID,
-        "moduleId": moduleId,
         "name": name
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = self.post(
         self.APIEndpoint + "/v2/Categories/Update",
@@ -255,8 +291,9 @@ def updateCategories(
 def deleteCategories(
     self,
     templateType: str,
-    moduleId: int,
-    categories: list[Category]
+    categories: list[Category],
+    moduleId: int = None,
+    externalReference: str = None
 ):
     """
     Allows you to create categories under another category.
@@ -264,8 +301,9 @@ def deleteCategories(
     Parameters
     ----------
         `templateType` (`str`): the template type of the page you want
-        `moduleId` (`int`): the moduleId of the page you want
         `categories` (`list[Category]`): the categories you want to delete
+        `moduleId` (`int`): the moduleId of the page you want
+        `externalReference` (`str`): the externalReference of the page you want
 
     Returns
     -------
@@ -275,9 +313,13 @@ def deleteCategories(
         "projectId": self.projectID,
         "apiKey": self.getKey(),
         "templateType": templateType,
-        "moduleId": moduleId,
         "categories": categories,
     }
+
+    if moduleId != None:
+        data.update({"moduleId": moduleId})
+    if externalReference != None:
+        data.update({"externalReference": externalReference})
 
     resp = requests.delete(
         self.APIEndpoint + "/v2/Categories/Delete",
