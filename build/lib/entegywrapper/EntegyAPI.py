@@ -222,13 +222,18 @@ class EntegyAPI:
             if resp == None:
                 raise Exception("No reponse received from API")
 
-            if resp.json()['response'] == 403:
-                time.sleep(0.5)
-                permErrorCount += 1
-                if permErrorCount >= 5:
-                    raise Exception("Invalid API Key")
-                resp == None
-            elif resp.json()['response'] == 489:
+            # Try catch used here as sometimes the resp object comes through as a blank JSON object
+            try:
+                if resp.json()['response'] == 403:
+                    time.sleep(0.5)
+                    permErrorCount += 1
+                    if permErrorCount >= 5:
+                        raise Exception("Invalid API Key")
+                    resp == None
+            except:
+                resp = None
+                continue
+            if resp.json()['response'] == 489:
                 # If there is a rate limit issue, wait the remaining time and try again
                 # Turn `data` string back into a dictionary, then revert it back after changing the apiKey
                 if retryCount >= len(self.apiKey):
