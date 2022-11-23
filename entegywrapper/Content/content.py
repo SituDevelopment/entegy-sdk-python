@@ -261,7 +261,7 @@ def addChildrenContent(
 def updateContent(
     self,
     templateType: str,
-    content: list,
+    content: dict,
     moduleId: int = None,
     externalReference: str = None
 ):
@@ -272,7 +272,7 @@ def updateContent(
     ----------
         `templateType` (`str`): the templateType you're updating
         `moduleId` (`int`): the moduleId of the page you're updating
-        `content` (`list`): the content you're updating, supports the name, sort order, mainImage, strings and links
+        `content` (`dict`): the content you're updating, supports the name, sort order, mainImage, strings and links
 
     The format of `content` is as follows:
     ```python
