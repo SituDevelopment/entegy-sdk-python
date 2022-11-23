@@ -18,6 +18,7 @@ def getMultiLinks(
     ----------
         `templateType` (`str`): the template type of the page you want
         `moduleId` (`int`): the moduleId of the page you want
+        `externalReference` (`str`): the externalReference of the page you want
 
     Returns
     -------
@@ -62,8 +63,9 @@ def addMultiLinks(
         `templateType` (`str`): the template type of the page you want to add links to
         `moduleId` (`int`): the moduleId of the page you want to add links to
         `multiLinks` (`list[Link]`): the links you want to add
+        `externalReference` (`str`): the externalReference of the page you want
 
-    The format of `` is as follows:
+    The format of `multiLinks` is as follows:
     ```python
         [
             {
@@ -110,8 +112,8 @@ def addMultiLinks(
 
 def removeMultiLink(
     self,
-    templateType,
-    targetTemplateType,
+    templateType: str,
+    targetTemplateType: str,
     moduleId: int = None,
     externalReference: str = None,
     targetModuleId: int = None,
@@ -123,25 +125,11 @@ def removeMultiLink(
     Parameters
     ----------
         `templateType` (`str`): the template type of the page you want to remove links from
+        `targetTemplateType` (`str`): the template type of the multi link you want to remove
         `moduleId` (`int`): the moduleId of the page you want to remove links from
         `externalReference` (`str`): the externalReference of the page you want to remove links from
-        `targetTemplateType` (`str`): the template type of the multi link you want to remove
         `targetModuleId` (`int`): the moduleId of the multi link you want to remove
         `targetExternalReference` (`str`): the externalReference of the multi link you want to remove
-
-    The format of `` is as follows:
-    ```python
-        [
-            {
-                "templateType":"Speaker",
-                "moduleId":1
-            },
-            {
-                "templateType":"Speaker",
-                "externalReference":"au-speaker-1546895"
-            }
-        ]
-    ```
 
     Returns
     -------
