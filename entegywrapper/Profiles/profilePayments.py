@@ -1,20 +1,22 @@
 import json
 
+from typing import Any
 
-def addProfilePayment(
+
+def add_profile_payment(
     self,
-    profileId: str,
-    paymentInfo: dict[str, str | int]
-):
+    profile_id: str,
+    payment_info: dict[str, str | int]
+) -> dict[str, Any]:
     """
     Return all the profile links the profile ha
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
-        `paymentInfo` (`dict[str, str | int`): all payment information in JSON format
+        `profile_id` (`str`): the profileId of the profile
+        `payment_info` (`dict[str, str | int`): all payment information in JSON format
 
-    The format of `paymentInfo` is as follows:
+    The format of `payment_info` is as follows:
     ```python
         {
             "amount": 1000,
@@ -35,26 +37,18 @@ def addProfilePayment(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileID": profileId,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileID": profile_id,
     }
 
-    data.update(paymentInfo)
+    data.update(payment_info)
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfilePayment/Add/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfilePayment/Add/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

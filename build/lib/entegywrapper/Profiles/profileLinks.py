@@ -1,148 +1,124 @@
 import json
 
+from typing import Any
+
 Link: type = dict
 """
 The format of a `Link` is as follows:
     ```python
         {
-            "templateType":"session",
+            "template_type": "session",
             "moduleId":1
         }
     ```
 """
 
 
-def selectedProfileLinks(
+def selected_profile_links(
     self,
-    profileId: str,
-    returnLimit: int = 100
-):
+    profile_id: str,
+    *,
+    return_limit: int = 100
+) -> dict[str, Any]:
     """
     Return all the profile links the profile has.
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
-        `returnLimit` (`int`): the index and amount of results to return; defaults to 100
+        `profile_id` (`str`): the profileId of the profile
+        `return_limit` (`int`): the index and amount of results to return; defaults to 100
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileID": profileId,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileID": profile_id,
         "pagination": {
             "index": 0,
-            "limit": returnLimit
+            "limit": return_limit
         },
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/Selected/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/Selected/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def pageProfileLinks(
+def page_profile_links(
     self,
-    templateType: str,
-    moduleId: str,
-    returnLimit: int = 100
-):
+    template_type: str,
+    module_id: str,
+    *,
+    return_limit: int = 100
+) -> dict[str, Any]:
     """
     Gets all the profiles linked to a Content Page.
 
     Parameters
     ----------
-        `templateType` (`str`): the templateType of the page
-        `moduleId` (`int`): the moduleId of the page
-        `returnLimit` (`int`): the maximum number of results to return; defaults to 100
+        `template_type` (`str`): the template_type of the page
+        `module_id` (`int`): the moduleId of the page
+        `return_limit` (`int`): the maximum number of results to return; defaults to 100
 
     Returns
     -------
         Pagination response and list of profile objects
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
-        "moduleId": moduleId,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType":template_type,
+        "moduleId": module_id,
         "pagination": {
             "index": 0,
-            "limit": returnLimit
+            "limit": return_limit
         },
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/Page/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/Page/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def selectProfileLink(
-    self,
-    profileId: str,
-    link: Link
-):
+def select_profile_link(self, profile_id: str, link: Link) -> dict[str, Any]:
     """
     Allows you to select a link for a profile
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
+        `profile_id` (`str`): the profileId of the profile
         `link` (`Link`): the link you wish to select
     ```
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileID": profileId,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileID": profile_id,
         "link": link,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/Select/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/Select/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def multiSelectProfileLinks(
+def multi_select_profile_links(
     self,
     profiles: list[str, str | list[Link]]
-):
+) -> dict[str, Any]:
     """
     Allows you to select multiple pages on multiple profiles at once
 
@@ -154,18 +130,18 @@ def multiSelectProfileLinks(
     ```python
         [
             {
-                "profileId":"ff11c742-346e-4874-9e24-efe6980a7453",
+                "profileId": "ff11c742-346e-4874-9e24-efe6980a7453",
                 "links": [
                     {
-                        "templateType":"sesSiOn",
+                        "template_type": "sesSiOn",
                         "moduleId":1
                     },
                     {
-                        "templateType":"sesSiOn",
+                        "template_type": "sesSiOn",
                         "moduleId":2
                     },
                     {
-                        "templateType":"sesSiOn",
+                        "template_type": "sesSiOn",
                         "moduleId":3
                     }
                 ]
@@ -175,102 +151,74 @@ def multiSelectProfileLinks(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
         "profiles": profiles
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/MultiSelect/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/MultiSelect/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def deSelectProfileLinks(
-    self,
-    profileId: str,
-    link: Link
-):
+def deselect_profile_links(self, profile_id: str, link: Link) -> dict[str, Any]:
     """
     Allows you to deselect a link for a profile.
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
+        `profile_id` (`str`): the profileId of the profile
         `link` (`Link`): the link you wish to deselect
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id,
         "link": link,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/Deselect/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/Deselect/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def clearProfileLinks(
+def clear_profile_links(
     self,
-    profileId,
-    templateType
-):
+    profile_id: str,
+    template_type: str
+) -> dict[str, Any]:
     """
-    Allows you to clear all the selected links of a templateType on a single profile
+    Allows you to clear all the selected links of a template_type on a single profile
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
-        `templateType` (`str`): the templateType to clear links of
+        `profile_id` (`str`): the profileId of the profile
+        `template_type` (`str`): the template_type to clear links of
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId,
-        "templateType": templateType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id,
+        "templateType":template_type,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileLink/Clear/",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileLink/Clear/",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

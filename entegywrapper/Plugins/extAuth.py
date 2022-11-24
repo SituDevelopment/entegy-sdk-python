@@ -1,43 +1,38 @@
 import json
 
+from typing import Any
 
-def externalAuthentication(
+
+def external_authentication(
     self,
-    profileID: str,
-    deviceID: str,
-    requestVersion: int = 1
-):
+    profile_id: str,
+    device_id: str,
+    *,
+    request_version: int = 1
+) -> dict[str, Any]:
     """
     Authenticate a user's login via an external system.
 
     Parameters
     ----------
-        `profileID` (`str`): the profile ID that is logging in
-        `deviceID` (`int`): the device ID that is logging in
-        `requestVersion` (`int`): the version of the request; defaults to 1
+        `profile_id` (`str`): the profile ID that is logging in
+        `device_id` (`int`): the device ID that is logging in
+        `request_version` (`int`, optional): the version of the request; defaults to `1`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileID,
-        "deviceId": deviceID,
-        "requestVersion": requestVersion,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id,
+        "deviceId": device_id,
+        "requestVersion": request_version,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Authentication/ExternalProfile",
+    return self.post(
+        self.api_endpoint + "/v2/Authentication/ExternalProfile",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

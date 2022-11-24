@@ -1,13 +1,12 @@
 import requests
 import json
 
+from typing import Any
+
 CustomField: type = dict[str, str | int | bool]
 
 
-def getProfileCustom(
-    self,
-    key: str
-):
+def get_profile_custom(self, key: str) -> dict[str, Any]:
     """
     Returns a single custom field.
 
@@ -17,29 +16,18 @@ def getProfileCustom(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
-    data = {"projectId": self.projectID, "apiKey": self.getKey(), "key": key}
+    data = {"projectId": self.project_id, "apiKey": self.get_key(), "key": key}
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileCustomField",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileCustomField",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No reponse received from API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def createProfileCustom(
-    self,
-    customField: CustomField
-):
+def create_profile_custom(self, custom_field: CustomField) -> dict[str, Any]:
     """
     Creates a new Custom Field for Profiles.
 
@@ -48,26 +36,26 @@ def createProfileCustom(
 
     Parameters
     ----------
-        `customField` (`CustomField`): the custom field you wish to create
+        `custom_field` (`CustomField`): the custom field you wish to create
 
-    The format of `` is as follows:
+    The format of `custom_field` is as follows:
     ```python
         {
-            "key":"dietary-requirements",
-            "name":"Dietary requirements",
-            "type":"MultiChoice",
+            "key": "dietary-requirements",
+            "name": "Dietary requirements",
+            "type": "MultiChoice",
             "options":[
                 {
-                    "name":"Halal"
+                    "name": "Halal"
                 },
                 {
-                    "name":"Vegan"
+                    "name": "Vegan"
                 },
                 {
-                    "name":"Lactose Intolerant"
+                    "name": "Lactose Intolerant"
                 },
                 {
-                    "name":"Gluten Intolerant"
+                    "name": "Gluten Intolerant"
                 }
             ]
         }
@@ -75,34 +63,26 @@ def createProfileCustom(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "customField": customField,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "customField": custom_field,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileCustomField/Create",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileCustomField/Create",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No reponse received from API")
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
 
-    return output
-
-
-def updateProfileCustom(
+def update_profile_custom(
     self,
     key: str,
-    customField: CustomField
-):
+    custom_field: CustomField
+) -> dict[str, Any]:
     """
     Updates custom profile field `key` with `customField`'s data.
 
@@ -118,29 +98,29 @@ def updateProfileCustom(
     Parameters
     ----------
         `key` (`str`): the key of the custom field to return
-        `customField` (`CustomField`): the data to update the field with
+        `custom_field` (`CustomField`): the data to update the field with
 
-    The format of `customField` is as follows:
+    The format of `custom_field` is as follows:
     ```python
         {
             "options": [
                 {
                     "optionId": 6,
-                    "name":""
+                    "name": ""
                 },
                 {
                     "optionId": 7,
-                    "name":"Halal"
+                    "name": "Halal"
                 },
                 {
                     "optionId": 8,
-                    "name":"Vegan"
+                    "name": "Vegan"
                 },
                 {
-                    "name":"Lactose Intolerant"
+                    "name": "Lactose Intolerant"
                 },
                 {
-                    "name":"Gluten Intolerant"
+                    "name": "Gluten Intolerant"
                 }
             ]
         }
@@ -148,35 +128,24 @@ def updateProfileCustom(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
 
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
         "key": key,
-        "customField": customField
+        "customField": custom_field
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileCustomField/Update",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileCustomField/Update",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No reponse received from API")
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
 
-    return output
-
-
-def deleteProfileCustom(
-    self,
-    key: str
-):
+def delete_profile_custom(self, key: str) -> dict[str, Any]:
     """
     Deletes a custom field.
 
@@ -186,54 +155,36 @@ def deleteProfileCustom(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
         "key": key
     }
 
-    resp = requests.delete(
-        self.APIEndpoint + "/v2/ProfileCustomField/Delete",
+    return self.delete(
+        self.api_endpoint + "/v2/ProfileCustomField/Delete",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def allProfileCustom(
-    self
-):
+def all_profile_custom(self) -> dict[str, Any]:
     """
     Returns all custom fields.
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey()
+        "projectId": self.project_id,
+        "apiKey": self.get_key()
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/ProfileCustomField/All",
+    return self.post(
+        self.api_endpoint + "/v2/ProfileCustomField/All",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

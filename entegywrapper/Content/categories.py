@@ -1,63 +1,57 @@
 import json
-import requests
 
 from entegywrapper.EntegyAPI import Identifier
+from typing import Any
 
 Category: type = dict[Identifier, str | int]
 
 
-def availableCategories(
+def available_categories(
     self,
-    templateType: str, 
-    moduleId: int = None,
-    externalReference: str = None,
-):
+    template_type: str, 
+    *,
+    module_id: int = None,
+    external_reference: str = None,
+) -> list[Category]:
     """
     This returns a list of the available categories for the page in question.
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page you want
-        `moduleId`     (`int`): the moduleId of the page you want
-        `externalReference` (`str`): the externalReference of the page you want
+        `template_type` (`str`): the template type of the page you want
+        `module_id` (`int`, optional): the moduleId of the page you want; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page you want; defaults to `None`
 
     Returns
     -------
         `list[Category]`: the available categories
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/Available",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/Available",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def selectCategories(
+def select_categories(
     self,
-    templateType: str,
+    template_type: str,
     categories: list[Category],
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     You can select a category with either an `externalReference`, `moduleId` or
     `name`.
@@ -69,97 +63,83 @@ def selectCategories(
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page selecting the categories
+        `template_type` (`str`): the template type of the page selecting the categories
         `categories` (`list[Category]`): the categories you want to select
-        `moduleId` (`int`): the moduleId of the page selecting the categories
-        `externalReference` (`str`): the externalReference of the page selecting the categories
+        `module_id` (`int`, optional): the moduleId of the page selecting the categories; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page selecting the categories; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type,
         "categories": categories,
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/Select",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/Select",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def deselectCategories(
+def deselect_categories(
     self,
-    templateType: str,
+    template_type: str,
     categories: list[Category],
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     You can unselect a category with either an `externalReference` or `moduleId`.
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page you're unselecting the categories from
+        `template_type` (`str`): the template type of the page you're unselecting the categories from
         `categories` (`list[Category]`): the categories you want to select
-        `moduleId` (`int`): the moduleId of the page you're unselecting the categories from
-        `externalReference` (`str`): the externalReference of the page you're unselecting the categories from
+        `module_id` (`int`, optional): the moduleId of the page you're unselecting the categories from; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page you're unselecting the categories from; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type,
         "categories": categories,
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/Deselect",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/Deselect",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def createCategories(
+def create_categories(
     self,
-    templateType: str,
+    template_type: str,
     categories: list[Category],
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     Allows you to create categories under a root page.
 
@@ -170,48 +150,41 @@ def createCategories(
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page holding the categories
+        `template_type` (`str`): the template type of the page holding the categories
         `categories` (`list[Category]`): the categories you want to create
-        `moduleId` (`int`): the moduleId of the page holding the categories
-        `externalReference` (`str`): the externalReference of the page holding the categories
+        `module_id` (`int`, optional): the moduleId of the page holding the categories; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page holding the categories; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type,
         "categories": categories,
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/Create",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/Create",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def createChildCategories(
+def create_child_categories(
     self,
     categories: list[Category],
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     Allows you to create categories under another category.
 
@@ -223,126 +196,104 @@ def createChildCategories(
     Parameters
     ----------
         `categories` (`list[Category]`): the categories you want to create
-        `moduleId` (`int`): the moduleId of the page holding the categories
-        `externalReference` (`int`): the externalReference of the page holding the categories
+        `module_id` (`int`): the moduleId of the page holding the categories
+        `external_reference` (`int`): the externalReference of the page holding the categories
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
         "categories": categories,
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/CreateChild",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/CreateChild",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def updateCategories(
+def update_categories(
     self,
     name: str,
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     Allows you to change the name of a category.
 
     Parameters
     ----------
         `name` (`str`): the new name of the category
-        `moduleId` (`int`): the moduleId of the category
-        `externalReference` (`str`): the externalReference of the category
+        `module_id` (`int`, optional): the moduleId of the category; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the category; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
+        "projectId": self.project_id,
         "name": name
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Categories/Update",
+    return self.post(
+        self.api_endpoint + "/v2/Categories/Update",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def deleteCategories(
+def delete_categories(
     self,
-    templateType: str,
+    template_type: str,
     categories: list[Category],
-    moduleId: int = None,
-    externalReference: str = None
-):
+    *,
+    module_id: int = None,
+    external_reference: str = None
+) -> dict[str, Any]:
     """
     Allows you to create categories under another category.
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page you want
+        `template_type` (`str`): the template type of the page you want
         `categories` (`list[Category]`): the categories you want to delete
-        `moduleId` (`int`): the moduleId of the page you want
-        `externalReference` (`str`): the externalReference of the page you want
+        `module_id` (`int`, optional): the moduleId of the page you want; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page you want; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type,
         "categories": categories,
     }
 
-    if moduleId != None:
-        data.update({"moduleId": moduleId})
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
+    if module_id is not None:
+        data.update({"moduleId": module_id})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
 
-    resp = requests.delete(
-        self.APIEndpoint + "/v2/Categories/Delete",
+    return self.delete(
+        self.api_endpoint + "/v2/Categories/Delete",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

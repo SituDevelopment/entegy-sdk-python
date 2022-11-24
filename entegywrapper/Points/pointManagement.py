@@ -1,113 +1,99 @@
 import json
 
+from typing import Any
 
-def awardPoints(
+
+def award_points(
     self,
-    pointEvent: str,
+    point_event: str,
     points: int,
-    profileId: str = "",
-    externalReference: str = None,
-    badgeReference: str = None,
-    internalReference: str = None,
-):
+    *,
+    profile_id: str = "",
+    external_reference: str = None,
+    badge_reference: str = None,
+    internal_reference: str = None,
+) -> dict[str, Any]:
     """
     Allows you to give points to a profile.
 
     Parameters
     ----------
-        `pointEvent` (`str`): the types of points you're assigning
+        `point_event` (`str`): the types of points you're assigning
         `points` (`int`): the amount of points you're assigning
-        `profileId` (`str`): the profileId for the profile
-        `externalReference` (`str`): the externalReference of the profile
-        `badgeReference` (`str`): the badgeReference of the profile
-        `internalReference` (`str`): the internalReference of the profile
+        `profile_id` (`str`): the profileId for the profile
+        `external_reference` (`str`): the externalReference of the profile
+        `badge_reference` (`str`): the badgeReference of the profile
+        `internal_reference` (`str`): the internalReference of the profile
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId,
-        "pointEvent": pointEvent,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id,
+        "pointEvent": point_event,
         "points": points,
     }
 
-    if externalReference != None:
-        data.update({"externalReference": profileId})
-    if badgeReference != None:
-        data.update({"badgeReference": profileId})
-    if internalReference != None:
-        data.update({"internalReference": profileId})
+    if external_reference is not None:
+        data.update({"externalReference": profile_id})
+    if badge_reference is not None:
+        data.update({"badgeReference": profile_id})
+    if internal_reference is not None:
+        data.update({"internalReference": profile_id})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Point/Award",
+    return self.post(
+        self.api_endpoint + "/v2/Point/Award",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No reponse received from API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def getPoints(
+def get_points(
     self,
-    profileId: str = "",
-    externalReference: str = None,
-    badgeReference: str = None,
-    internalReference: str = None
-):
+    *,
+    profile_id: str = "",
+    external_reference: str = None,
+    badge_reference: str = None,
+    internal_reference: str = None
+) -> dict[str, Any]:
     """
     Returns the amount of points a profile has.
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId for the profile
-        `externalReference` (`str`): the externalReference of the profile
-        `badgeReference` (`str`): the badgeReference of the profile
-        `internalReference` (`str`): the internalReference of the profile
+        `profile_id` (`str`, optional): the profileId for the profile; defaults to `""`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id
     }
 
-    if externalReference != None:
-        data.update({"externalReference": profileId})
-    if badgeReference != None:
-        data.update({"badgeReference": profileId})
-    if internalReference != None:
-        data.update({"internalReference": profileId})
+    if external_reference is not None:
+        data.update({"externalReference": profile_id})
+    if badge_reference is not None:
+        data.update({"badgeReference": profile_id})
+    if internal_reference is not None:
+        data.update({"internalReference": profile_id})
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Point/Earned",
+    return self.post(
+        self.api_endpoint + "/v2/Point/Earned",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No reponse received from API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def getPointLeaderboard(
-    self
-):
+def get_point_leaderboard(self) -> dict[str, Any]:
     """
     Allows you to see the leaderboard for the project. The response is sorted
     by the profiles response and includes their position with ties correctly
@@ -115,23 +101,15 @@ def getPointLeaderboard(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey()
+        "projectId": self.project_id,
+        "apiKey": self.get_key()
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Point/Leaderboard",
+    return self.post(
+        self.api_endpoint + "/v2/Point/Leaderboard",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No reponse received from API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

@@ -1,8 +1,8 @@
-from .icons import icon
-
 import json
 import os
 import sys
+
+from typing import Any
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -10,82 +10,74 @@ Document: type = dict[str, any]
 ExternalContent: type = dict[str, any]
 
 
-def addDocuments(
+def add_documents(
     self,
-    templateType: str,
-    moduleId: int,
-    fileDocuments: list[Document]
-):
+    template_type: str,
+    module_id: int,
+    file_documents: list[Document]
+) -> dict[str, Any]:
     """
     Adds documents to a page.
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page you're adding the documents to
-        `moduleId` (`int`): the moduleId of the page you're adding the documents to
-        `fileDocuments` (`list[Document]`): the file documents you want to add
+        `template_type` (`str`): the template type of the page you're adding the documents to
+        `module_id` (`int`): the moduleId of the page you're adding the documents to
+        `file_documents` (`list[Document]`): the file documents you want to add
 
-    The format of `` is as follows:
+    The format of `file_documents` is as follows:
     ```python
         [
             {
-                "name":"Power Point",
-                "externalReference":"document-56454",
+                "name": "Power Point",
+                "externalReference": "document-56454",
                 "icon":icon["Film Reel"],
-                "fileUrl":"https://example.org/powerpoints/session/44444/powerpoint.ppt"
+                "fileUrl": "https://example.org/powerpoints/session/44444/powerpoint.ppt"
             },
             {
-                "name":"Demonstration Video",
-                "externalReference":"document-56455",
+                "name": "Demonstration Video",
+                "externalReference": "document-56455",
                 "icon":icon["Film Reel"],
-                "fileUrl":"https://example.org/powerpoints/session/44444/demonstrationvideo.mp4"
+                "fileUrl": "https://example.org/powerpoints/session/44444/demonstrationvideo.mp4"
             }
         ]
     ```
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
-        "moduleId": moduleId,
-        "fileDocuments": fileDocuments,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType":template_type,
+        "moduleId": module_id,
+        "fileDocuments": file_documents,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Document/AddFile",
+    return self.post(
+        self.api_endpoint + "/v2/Document/AddFile",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def addExternalContentDocuments(
+def add_external_content_documents(
     self,
-    templateType: str,
-    moduleId: int,
-    externalContentItems: list[ExternalContent]
-):
+    template_type: str,
+    module_id: int,
+    external_content_items: list[ExternalContent]
+) -> dict[str, Any]:
     """
     Adds external content documents to a page.
 
     Parameters
     ----------
-        `templateType` (`str`): the template type of the page you're adding the documents to
-        `moduleId` (`int`): the moduleId of the page you're adding the documents to
-        `externalContentItems` (`list[ExternalContent]`): the external content documents you want to add
+        `template_type` (`str`): the template type of the page you're adding the documents to
+        `module_id` (`int`): the moduleId of the page you're adding the documents to
+        `external_content_items` (`list[ExternalContent]`): the external content documents you want to add
 
-    The format of `` is as follows:
+    The format of `external_content_items` is as follows:
     ```python
         [
             {
@@ -100,26 +92,18 @@ def addExternalContentDocuments(
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "templateType": templateType,
-        "moduleId": moduleId,
-        "externalContentItems": externalContentItems,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "templateType": template_type,
+        "moduleId": module_id,
+        "externalContentItems": external_content_items,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Document/AddExternalContent",
+    return self.post(
+        self.api_endpoint + "/v2/Document/AddExternalContent",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output

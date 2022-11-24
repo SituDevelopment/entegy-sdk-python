@@ -1,183 +1,150 @@
 import json
 import requests
 
+from typing import Any
+
 Profile: type = dict[str, any]
 
 
-def allProfiles(
+def all_profiles(
     self,
-    returnLimit: int = 100,
+    *,
+    return_limit: int = 100,
     params: dict = {}
-):
+) -> dict[str, Any]:
     """
     Return all user profiles
 
     Parameters
     ----------
-        `returnLimit` (`int`): the maximum number of results to return; defaults to 100
-        `params` (`dict`): any parameters to filter the returned profile by
+        `return_limit` (`int`, optional): the maximum number of results to return; defaults to `100`
+        `params` (`dict`, optional): any parameters to filter the returned profile by; defaults to `{}`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
         "pagination": {
             "start": 0,
-            "limit": returnLimit
+            "limit": return_limit
         },
     }
 
     data.update(params)
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/All",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/All",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
+    return resp
 
 
-def getProfile(
+def get_profile(
     self,
-    profileId: str = "",
-    externalReference: str = None,
-    badgeReference: str = None,
-    internalReference: str = None,
+    *,
+    profile_id: str = "",
+    external_reference: str = None,
+    badge_reference: str = None,
+    internal_reference: str = None,
     params: dict = {},
-):
+) -> dict[str, Any]:
     """
     Get user profile from ID
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
-        `externalReference` (`str`): the externalReference of the profile
-        `badgeReference` (`str`): the badgeReference of the profile
-        `internalReference` (`str`): the internalReference of the profile
-        `params` (`dict`): any parameters to filter the returned profile by
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `""`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `badgeReference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+        `internalReference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `params` (`dict`, optional): any parameters to filter the returned profile by; defaults to `{}`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id
     }
 
-    if externalReference != None:
-        data.update({"externalReference": externalReference})
-    if badgeReference != None:
-        data.update({"badgeReference": badgeReference})
-    if internalReference != None:
-        data.update({"internalReference": internalReference})
+    if external_reference is not None:
+        data.update({"externalReference": external_reference})
+    if badge_reference is not None:
+        data.update({"badgeReference": badge_reference})
+    if internal_reference is not None:
+        data.update({"internalReference": internal_reference})
 
     data.update(params)
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/",
         headers=self.headers,
         data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def deleteProfile(
-    self,
-    profileId: str
-):
+def delete_profile(self, profile_id: str) -> dict[str, Any]:
     """
     Deletes a profile. Once deleted this data is unrecoverable. Any data
     associated with the profile such as profile links will also be deleted.
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile
+        `profile_id` (`str`): the profileId of the profile
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileId": profileId
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileId": profile_id
     }
 
-    resp = requests.delete(
-        self.APIEndpoint + "/v2/Profile/Delete",
+    return self.delete(
+        self.api_endpoint + "/v2/Profile/Delete",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def createProfile(
-    self,
-    profileObject: Profile
-):
+def create_profile(self, profile_object: Profile) -> dict[str, Any]:
     """
     Creates a profile in the Entegy system.
 
     Parameters
     ----------
-        `profileObject` (`Profile`): a profile object representing the profile you want to create
+        `profile_object` (`Profile`): a profile object representing the profile you want to create
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profile": profileObject,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profile": profile_object,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/Create",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/Create",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def updateProfile(
+def update_profile(
     self,
-    profileID: str,
-    profileObject: Profile
-):
+    profile_id: str,
+    profile_object: Profile
+) -> dict[str, Any]:
     """
     Update (modify) an existing profile in the system. To update an existing
     profile, you must provide one valid reference to a profile and a Profile
@@ -189,41 +156,34 @@ def updateProfile(
 
     Parameters
     ----------
-        `profileId` (`str`): the profileId of the profile to update
-        `profileObject` (`Profile`): the profile containing the fields you want to update
+        `profile_id` (`str`): the profileId of the profile to update
+        `profile_object` (`Profile`): the profile containing the fields you want to update
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileID": profileID,
-        "profile": profileObject,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileID": profile_id,
+        "profile": profile_object,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/Update",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/Update",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def syncProfiles(
+def sync_profiles(
     self,
-    updateReferenceType: str,
+    update_reference_type: str,
     profiles: list[Profile],
-    groupByFirstProfile: bool = False
-):
+    *,
+    group_by_first_profile: bool = False
+) -> dict[str, Any]:
     """
     Allows you to update (modify) or create 100 or less profiles in the system.
 
@@ -237,67 +197,48 @@ def syncProfiles(
 
     Parameters
     ----------
-        `updateReferenceType` (`str`): the identifier to use to match profiles for updating. `profileId`, `internalReference`, `externalReference` or `badgeReference`
+        `update_reference_type` (`str`): the identifier to use to match profiles for updating. `profileId`, `internalReference`, `external_reference` or `badgeReference`
         `profiles` (`list[Profile]`): the list of profiles you want to create or update
-        `groupByFirstProfile` (`bool`): if true the parent profile of all profiles in this sync will be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent)
+        `group_by_first_profile` (`bool`, optional): if true the parent profile of all profiles in this sync will be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent); defaults to `False`
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "updateReferenceType": updateReferenceType,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "updateReferenceType": update_reference_type,
         "profiles": profiles,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/Sync",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/Sync",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
 
-    if resp == None:
-        raise Exception("No response received from Entegy API")
 
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
-
-
-def sendWelcomeEmail(
-    self,
-    profileID
-):
+def send_welcome_email(self, profile_id: str) -> dict[str, Any]:
     """
     Re-sends the welcome email for a given profile on a given project.
 
     Parameters
     ----------
-        `profileID` (`str`): the profileId of the profile you want to update
+        `profile_iD` (`str`): the profileId of the profile you want to update
 
     Returns
     -------
-        `dict`: API response JSON
+        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.projectID,
-        "apiKey": self.getKey(),
-        "profileID": profileID,
+        "projectId": self.project_id,
+        "apiKey": self.get_key(),
+        "profileID": profile_id,
     }
 
-    resp = self.post(
-        self.APIEndpoint + "/v2/Profile/SendWelcomeEmail",
+    return self.post(
+        self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,
-        data=json.dumps(data),
+        data=json.dumps(data)
     )
-
-    if resp == None:
-        raise Exception("No response received from Entegy API")
-
-    if isinstance(resp, dict):
-        return resp
-    output = resp.json()
-    return output
