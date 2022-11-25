@@ -1,5 +1,4 @@
 import json
-import requests
 
 from typing import Any
 
@@ -40,8 +39,6 @@ def all_profiles(
         headers=self.headers,
         data=json.dumps(data)
     )
-
-    return resp
 
 
 def get_profile(
@@ -88,6 +85,7 @@ def get_profile(
         headers=self.headers,
         data=json.dumps(data)
     )
+
 
 def delete_profile(self, profile_id: str) -> dict[str, Any]:
     """

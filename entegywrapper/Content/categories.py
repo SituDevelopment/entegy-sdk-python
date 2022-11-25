@@ -8,7 +8,7 @@ Category: type = dict[Identifier, str | int]
 
 def available_categories(
     self,
-    template_type: str, 
+    template_type: str,
     *,
     module_id: int = None,
     external_reference: str = None,
