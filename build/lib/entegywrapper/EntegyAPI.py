@@ -121,6 +121,7 @@ class EntegyAPI:
 
         self.api_key = api_key
         self.api_secret = api_secret
+        self.current_key_pair = 0
         self.project_id = project_id
 
         self.headers = CaseInsensitiveDict()
