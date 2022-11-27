@@ -126,6 +126,7 @@ class EntegyAPI:
 
         self.headers = CaseInsensitiveDict()
         self.headers["Content-Type"] = "application/json"
+        self.get_key()
 
         self.api_endpoint = api_endpoints[region]
 
@@ -138,7 +139,6 @@ class EntegyAPI:
         -------
             `str`: API Key
         """
-        # If the initially provided key was not an array, return `self.apiKey`
         if isinstance(self.api_key, list):
             self.headers["Authorization"] = f"ApiKey {self.api_secret[self.current_key_pair]}"
             return self.api_key[self.current_key_pair]
