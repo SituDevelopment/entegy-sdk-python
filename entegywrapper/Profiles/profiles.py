@@ -3,40 +3,48 @@ from typing import Any
 Profile: type = dict[str, any]
 
 
-def all_profiles(
-    self,
-    *,
-    return_limit: int = 100,
-    params: dict = {}
-) -> dict[str, Any]:
+def all_profiles(self, *, params: dict = {}) -> dict[str, Any]:
     """
     Return all user profiles
 
     Parameters
     ----------
-        `return_limit` (`int`, optional): the maximum number of results to return; defaults to `100`
         `params` (`dict`, optional): any parameters to filter the returned profile by; defaults to `{}`
 
     Returns
     -------
-        `dict[str, Any]`: API response JSON
+        `dict[str, Any]`: all user profiles
     """
+    result: list[Profile] = []
+
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key(),
         "pagination": {
             "start": 0,
-            "limit": return_limit
+            "limit": 1000
         },
     }
 
     data.update(params)
 
-    return self.post(
+    response = self.post(
         self.api_endpoint + "/v2/Profile/All",
         headers=self.headers,
         data=data
     )
+    result.extend(response["profiles"])
+
+    while response["pagination"]["start"] + response["pagination"]["limit"] \
+            < response["pagination"]["count"]:
+        data["pagination"]["start"] += data["pagination"]["limit"]
+
+        response = self.post(
+            self.api_endpoint + "/v2/Profile/All",
+            headers=self.headers,
+            data=data
+        )
+        result.extend(response["profiles"])
 
 
 def get_profile(
