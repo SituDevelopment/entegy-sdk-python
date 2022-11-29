@@ -1,6 +1,3 @@
-import requests
-import json
-
 from typing import Any
 
 CustomField: type = dict[str, str | int | bool]
@@ -23,7 +20,7 @@ def get_profile_custom(self, key: str) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileCustomField",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -74,7 +71,7 @@ def create_profile_custom(self, custom_field: CustomField) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileCustomField/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -141,7 +138,7 @@ def update_profile_custom(
     return self.post(
         self.api_endpoint + "/v2/ProfileCustomField/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -166,7 +163,7 @@ def delete_profile_custom(self, key: str) -> dict[str, Any]:
     return self.delete(
         self.api_endpoint + "/v2/ProfileCustomField/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -186,5 +183,5 @@ def all_profile_custom(self) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileCustomField/All",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

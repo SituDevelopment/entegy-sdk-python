@@ -1,5 +1,3 @@
-import json
-
 from entegywrapper.EntegyAPI import Identifier
 from typing import Any
 
@@ -8,7 +6,7 @@ Category: type = dict[Identifier, str | int]
 
 def available_categories(
     self,
-    template_type: str, 
+    template_type: str,
     *,
     module_id: int = None,
     external_reference: str = None,
@@ -40,7 +38,7 @@ def available_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/Available",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -87,7 +85,7 @@ def select_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/Select",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -128,7 +126,7 @@ def deselect_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/Deselect",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -174,7 +172,7 @@ def create_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -217,7 +215,7 @@ def create_child_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/CreateChild",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -254,7 +252,7 @@ def update_categories(
     return self.post(
         self.api_endpoint + "/v2/Categories/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -295,5 +293,5 @@ def delete_categories(
     return self.delete(
         self.api_endpoint + "/v2/Categories/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

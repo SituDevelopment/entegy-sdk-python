@@ -1,6 +1,3 @@
-import json
-import requests
-
 from typing import Any
 
 
@@ -57,7 +54,7 @@ def get_content(
     return self.post(
         self.api_endpoint + "/v2/Content",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -110,7 +107,7 @@ def get_schedule_content(
     return self.post(
         self.api_endpoint + "/v2/Content/Schedule",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -152,7 +149,7 @@ def create_content(
     return self.post(
         self.api_endpoint + "/v2/Content/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -230,7 +227,7 @@ def add_children_content(
     return self.post(
         self.api_endpoint + "/v2/Content/AddChildren",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -284,7 +281,7 @@ def update_content(
     return self.post(
         self.api_endpoint + "/v2/Content/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -327,5 +324,5 @@ def delete_content(
     return self.delete(
         self.api_endpoint + "/v2/Content/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

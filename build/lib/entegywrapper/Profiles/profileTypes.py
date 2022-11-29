@@ -1,6 +1,3 @@
-import json
-import requests
-
 from typing import Any
 
 ProfileType: type = dict[str, str | int | bool]
@@ -27,7 +24,7 @@ def get_profile_type(self, name: str) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileType",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -52,7 +49,7 @@ def create_profile_type(self, profile_type: ProfileType) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileType/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -83,7 +80,7 @@ def update_profile_type(
     return self.post(
         self.api_endpoint + "/v2/ProfileType/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -108,7 +105,7 @@ def delete_profile_type(self, name: str) -> dict[str, Any]:
     return self.delete(
         self.api_endpoint + "/v2/ProfileType/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -128,5 +125,5 @@ def all_profile_types(self) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileType/All",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

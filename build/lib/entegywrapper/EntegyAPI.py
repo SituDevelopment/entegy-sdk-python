@@ -126,6 +126,7 @@ class EntegyAPI:
 
         self.headers = CaseInsensitiveDict()
         self.headers["Content-Type"] = "application/json"
+        self.get_key()
 
         self.api_endpoint = api_endpoints[region]
 
@@ -138,7 +139,6 @@ class EntegyAPI:
         -------
             `str`: API Key
         """
-        # If the initially provided key was not an array, return `self.apiKey`
         if isinstance(self.api_key, list):
             self.headers["Authorization"] = f"ApiKey {self.api_secret[self.current_key_pair]}"
             return self.api_key[self.current_key_pair]
@@ -186,7 +186,7 @@ class EntegyAPI:
         permission_error_count = 0
 
         while resp is None:
-            resp = requests.post(endpoint, headers=headers, data=data)
+            resp = requests.post(endpoint, headers=headers, data=json.dumps(data))
 
             if resp is None:
                 raise Exception("No reponse received from API")
@@ -215,11 +215,9 @@ class EntegyAPI:
                 else:
                     # update API key
                     self.cycle_key()
-                    data = json.loads(data)
                     data["apiKey"] = self.get_key()
                     headers = self.headers
                     print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
-                    data = json.dumps(data)
                     retry_count += 1
                     resp = None
 

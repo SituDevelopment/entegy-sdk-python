@@ -1,4 +1,3 @@
-import json
 
 from typing import Any
 
@@ -47,7 +46,7 @@ def award_points(
     return self.post(
         self.api_endpoint + "/v2/Point/Award",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -89,7 +88,7 @@ def get_points(
     return self.post(
         self.api_endpoint + "/v2/Point/Earned",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -111,5 +110,5 @@ def get_point_leaderboard(self) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/Point/Leaderboard",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

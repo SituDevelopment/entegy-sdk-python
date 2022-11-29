@@ -1,47 +1,52 @@
-import json
-import requests
-
 from typing import Any
 
 Profile: type = dict[str, any]
 
 
-def all_profiles(
-    self,
-    *,
-    return_limit: int = 100,
-    params: dict = {}
-) -> dict[str, Any]:
+def all_profiles(self, *, params: dict = {}) -> dict[str, Any]:
     """
     Return all user profiles
 
     Parameters
     ----------
-        `return_limit` (`int`, optional): the maximum number of results to return; defaults to `100`
         `params` (`dict`, optional): any parameters to filter the returned profile by; defaults to `{}`
 
     Returns
     -------
-        `dict[str, Any]`: API response JSON
+        `dict[str, Any]`: all user profiles
     """
+    profiles: list[Profile] = []
+
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key(),
         "pagination": {
             "start": 0,
-            "limit": return_limit
+            "limit": 1000
         },
     }
 
     data.update(params)
 
-    return self.post(
+    response = self.post(
         self.api_endpoint + "/v2/Profile/All",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
+    profiles.extend(response["profiles"])
 
-    return resp
+    while response["pagination"]["start"] + response["pagination"]["limit"] \
+            < response["pagination"]["count"]:
+        data["pagination"]["start"] += data["pagination"]["limit"]
+
+        response = self.post(
+            self.api_endpoint + "/v2/Profile/All",
+            headers=self.headers,
+            data=data
+        )
+        profiles.extend(response["profiles"])
+
+    return {"profiles": profiles}
 
 
 def get_profile(
@@ -86,8 +91,9 @@ def get_profile(
     return self.post(
         self.api_endpoint + "/v2/Profile/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
+
 
 def delete_profile(self, profile_id: str) -> dict[str, Any]:
     """
@@ -111,7 +117,7 @@ def delete_profile(self, profile_id: str) -> dict[str, Any]:
     return self.delete(
         self.api_endpoint + "/v2/Profile/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -136,7 +142,7 @@ def create_profile(self, profile_object: Profile) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/Profile/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -173,7 +179,7 @@ def update_profile(
     return self.post(
         self.api_endpoint + "/v2/Profile/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -215,7 +221,7 @@ def sync_profiles(
     return self.post(
         self.api_endpoint + "/v2/Profile/Sync",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -240,5 +246,5 @@ def send_welcome_email(self, profile_id: str) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

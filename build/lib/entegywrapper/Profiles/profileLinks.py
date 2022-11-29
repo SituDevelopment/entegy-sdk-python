@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 Link: type = dict
@@ -45,7 +43,7 @@ def selected_profile_links(
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/Selected/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -83,7 +81,7 @@ def page_profile_links(
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/Page/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -111,7 +109,7 @@ def select_profile_link(self, profile_id: str, link: Link) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/Select/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -162,7 +160,7 @@ def multi_select_profile_links(
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/MultiSelect/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -189,7 +187,7 @@ def deselect_profile_links(self, profile_id: str, link: Link) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/Deselect/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -220,5 +218,5 @@ def clear_profile_links(
     return self.post(
         self.api_endpoint + "/v2/ProfileLink/Clear/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

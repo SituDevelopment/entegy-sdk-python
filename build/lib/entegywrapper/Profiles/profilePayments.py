@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 
@@ -50,5 +48,5 @@ def add_profile_payment(
     return self.post(
         self.api_endpoint + "/v2/ProfilePayment/Add/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
