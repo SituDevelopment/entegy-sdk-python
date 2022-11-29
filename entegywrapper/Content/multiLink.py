@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 Link: type = dict[str, str | int]
@@ -39,7 +37,7 @@ def get_multi_links(
     return self.post(
         self.api_endpoint + "/v2/MultiLink",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -94,7 +92,7 @@ def add_multi_links(
     return self.post(
         self.api_endpoint + "/v2/MultiLink/Add",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -143,7 +141,7 @@ def remove_multi_link(
     return self.post(
         self.api_endpoint + "/v2/MultiLink/Remove",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -187,5 +185,5 @@ def remove_all_multi_links(
     return self.post(
         self.api_endpoint + "/v2/MultiLink/RemoveAll",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

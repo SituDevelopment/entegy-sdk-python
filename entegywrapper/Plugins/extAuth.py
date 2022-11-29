@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 
@@ -34,5 +32,5 @@ def external_authentication(
     return self.post(
         self.api_endpoint + "/v2/Authentication/ExternalProfile",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

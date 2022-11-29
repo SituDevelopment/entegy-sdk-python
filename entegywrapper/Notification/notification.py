@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 
@@ -78,7 +76,7 @@ def send_notification(
     return self.post(
         self.api_endpoint + "/v2/Notification/SendBulk",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -138,5 +136,5 @@ def send_bulk_notification(
     return self.post(
         self.api_endpoint + "/v2/Notification/SendBulk",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )

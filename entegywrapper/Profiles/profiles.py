@@ -1,5 +1,3 @@
-import json
-
 from typing import Any
 
 Profile: type = dict[str, any]
@@ -37,7 +35,7 @@ def all_profiles(
     return self.post(
         self.api_endpoint + "/v2/Profile/All",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -83,7 +81,7 @@ def get_profile(
     return self.post(
         self.api_endpoint + "/v2/Profile/",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -109,7 +107,7 @@ def delete_profile(self, profile_id: str) -> dict[str, Any]:
     return self.delete(
         self.api_endpoint + "/v2/Profile/Delete",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -134,7 +132,7 @@ def create_profile(self, profile_object: Profile) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/Profile/Create",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -171,7 +169,7 @@ def update_profile(
     return self.post(
         self.api_endpoint + "/v2/Profile/Update",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -213,7 +211,7 @@ def sync_profiles(
     return self.post(
         self.api_endpoint + "/v2/Profile/Sync",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
 
 
@@ -238,5 +236,5 @@ def send_welcome_email(self, profile_id: str) -> dict[str, Any]:
     return self.post(
         self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
         headers=self.headers,
-        data=json.dumps(data)
+        data=data
     )
