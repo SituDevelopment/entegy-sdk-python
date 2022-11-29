@@ -15,7 +15,7 @@ def all_profiles(self, *, params: dict = {}) -> dict[str, Any]:
     -------
         `dict[str, Any]`: all user profiles
     """
-    result: list[Profile] = []
+    profiles: list[Profile] = []
 
     data = {
         "projectId": self.project_id,
@@ -33,7 +33,7 @@ def all_profiles(self, *, params: dict = {}) -> dict[str, Any]:
         headers=self.headers,
         data=data
     )
-    result.extend(response["profiles"])
+    profiles.extend(response["profiles"])
 
     while response["pagination"]["start"] + response["pagination"]["limit"] \
             < response["pagination"]["count"]:
@@ -44,7 +44,9 @@ def all_profiles(self, *, params: dict = {}) -> dict[str, Any]:
             headers=self.headers,
             data=data
         )
-        result.extend(response["profiles"])
+        profiles.extend(response["profiles"])
+
+    return {"profiles": profiles}
 
 
 def get_profile(
