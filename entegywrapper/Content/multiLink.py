@@ -22,8 +22,6 @@ def get_multi_links(
         `list[NamedLink]`: all multi links associated with the content page
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type
     }
 
@@ -76,8 +74,6 @@ def add_multi_links(
     ```
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
         "multiLinks": multi_links
     }
@@ -119,8 +115,6 @@ def remove_multi_link(
         `target_external_reference` (`str`, optional): the externalReference of the multi link to remove; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
         "targetTemplateType": target_template_type
     }
@@ -165,8 +159,6 @@ def remove_all_multi_links(
         `link_template_type` (`TemplateType`, optional): the templateType of the page; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type
     }
 

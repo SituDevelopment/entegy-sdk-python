@@ -48,8 +48,6 @@ def send_notification(
         `str`: API response message
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "title": title,
         "message": message,
         "alertMessage": "This is an alert message"
@@ -119,8 +117,6 @@ def send_bulk_notification(
         `str`: API response message
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileReferences": profile_references,
         "title": title,
         "message": message,

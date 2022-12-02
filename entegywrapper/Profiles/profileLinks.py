@@ -28,8 +28,6 @@ def selected_profile_links(
         `Generator[list[Link], None, None]`: paginated blocks of selected links
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "pagination": {
             "start": 0,
             "limit": 1000
@@ -87,8 +85,6 @@ def page_profile_links(
         `Generator[list[Profile], None, None]`: paginated blocks of linked profiles
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
         "pagination": {
             "index": 0,
@@ -143,8 +139,6 @@ def select_profile_link(
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "link": link
     }
 
@@ -202,8 +196,6 @@ def multi_select_profile_links(
     ```
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profiles": profiles
     }
 
@@ -235,8 +227,6 @@ def deselect_profile_links(
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "link": link
     }
 
@@ -279,8 +269,6 @@ def clear_profile_links(
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type
     }
 

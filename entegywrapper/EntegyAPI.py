@@ -182,6 +182,8 @@ class EntegyAPI:
         retry_count = 0
         permission_error_count = 0
 
+        data |= {"apiKey": self.get_key(), "projectId": self.project_id}
+
         while response is None:
             response = requests.post(endpoint, headers=headers, data=json.dumps(data))
 
@@ -240,6 +242,8 @@ class EntegyAPI:
         response = None
         retry_count = 0
         permission_error_count = 0
+
+        data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
         while response is None:
             response = requests.delete(endpoint, headers=headers, data=data)

@@ -14,8 +14,6 @@ def get_profile_custom(self, key: str) -> CustomProfileField:
         `CustomProfileField`: the custom field specified by the given key
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "key": key
     }
 
@@ -40,8 +38,6 @@ def create_profile_custom(
         `custom_field` (`CustomProfileField`): the custom field you wish to create
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "customField": custom_field
     }
 
@@ -67,8 +63,6 @@ def update_profile_custom(
         `custom_field` (`CustomProfileField`): the fields to update
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "key": key,
         "customField": custom_field
     }
@@ -89,8 +83,6 @@ def delete_profile_custom(self, key: str):
         `key` (`str`): the key of the custom field to delete
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "key": key
     }
 
@@ -109,10 +101,7 @@ def all_profile_custom(self) -> list[CustomProfileField]:
     -------
         `list[CustomProfileField]`: all custom fields
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileCustomField/All",

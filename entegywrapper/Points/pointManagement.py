@@ -24,8 +24,6 @@ def award_points(
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "pointEvent": point_type,
         "points": points
     }
@@ -70,10 +68,7 @@ def get_points(
     -------
         `int`: API response JSON
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -105,10 +100,7 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
     -------
         `list[LeaderboardPosition]`: the leaderboard position for each profile
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     response = self.post(
         self.api_endpoint + "/v2/Point/Leaderboard",

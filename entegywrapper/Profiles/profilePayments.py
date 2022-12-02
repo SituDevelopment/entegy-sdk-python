@@ -15,8 +15,6 @@ def add_profile_payment(
         `payment_info` (`PaymentInfo`): all payment information in JSON format
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileId": profile_id
     }
     data.update(payment_info)

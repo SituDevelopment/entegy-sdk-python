@@ -24,8 +24,6 @@ def all_profiles(
         `Generator[list[Profile], None, None]`: paginated blocks of user profiles
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "pagination": {
             "start": 0,
             "limit": 1000
@@ -77,8 +75,6 @@ def get_profile(
         `Profile`: the user profile specified by the given identifier
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileId": profile_id
     }
 
@@ -109,8 +105,6 @@ def delete_profile(self, profile_id: str):
         `profile_id` (`str`): the profileId of the profile to delete
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileId": profile_id
     }
 
@@ -135,8 +129,6 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
         `str`: profileId of the newly created profile
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profile": profile_object
     }
 
@@ -160,8 +152,6 @@ def update_profile(self, profile_id: str, profile_object: Profile):
         `profile_object` (`Profile`): the profile fields to update
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileId": profile_id,
         "profile": profile_object
     }
@@ -194,8 +184,6 @@ def sync_profiles(
         `list[dict[str, Any]]`: profileIds and `newProfile` flags for each profile in the given list
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "updateReferenceType": update_reference_type,
         "profiles": profiles,
         "groupByFirstProfile": group_by_first_profile
@@ -219,8 +207,6 @@ def send_welcome_email(self, profile_id: str):
         `profile_id` (`str`): the profileId of the profile to update
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileId": profile_id
     }
 

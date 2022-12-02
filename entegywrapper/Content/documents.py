@@ -26,8 +26,6 @@ def add_documents(
         `file_documents` (`list[DocumentBase]`): the file documents to add
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
         "moduleId": module_id,
         "fileDocuments": file_documents
@@ -56,8 +54,6 @@ def add_external_content_documents(
         `external_content_items` (`list[ExternalContent]`): the external content documents to add
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "moduleId": module_id,
         "externalContentItems": external_content_items

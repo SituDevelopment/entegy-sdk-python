@@ -39,8 +39,6 @@ def get_content(
         `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "includeCategories": include_categories,
         "includeDocuments": include_documents,
@@ -94,8 +92,6 @@ def get_schedule_content(
         `Schedule`: the schedule
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "includeCategories": include_categories,
         "includeDocuments": include_documents,
         "includeLinks": include_links,
@@ -135,8 +131,6 @@ def create_content(
         `content_group` (`str`, optional) the content group in the core this new root content should go in; defaults to "Default"
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "contentGroup": content_group,
         "content": content
     }
@@ -171,8 +165,6 @@ def add_children_content(
         `external_reference` (`str`, optional): the externalReference for the page; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "childTemplateType": child_template_type,
         "children": children
@@ -211,8 +203,6 @@ def update_content(
         `external_reference` (`str`, optional): the externalReference of the page to update; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
         "content": content
     }
@@ -253,8 +243,6 @@ def delete_content(
         `external_reference` (`str`, optional): the externalReference of the page to delete; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type
     }
 

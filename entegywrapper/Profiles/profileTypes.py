@@ -19,10 +19,7 @@ def get_profile_type(
     -------
         `ProfileType`: the profile type specified by the given identifier
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     if name is not None:
         data["name"] = name
@@ -49,8 +46,6 @@ def create_profile_type(self, profile_type: ProfileType):
         `profile_type` (`ProfileType`): the data for the profile type to create
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileType": profile_type
     }
 
@@ -78,8 +73,6 @@ def update_profile_type(
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profileType": profile_type
     }
 
@@ -111,10 +104,7 @@ def delete_profile_type(
         `name` (`str`, optional): the name of the profile type; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     if name is not None:
         data["name"] = name
@@ -138,10 +128,7 @@ def all_profile_types(self) -> list[ProfileType]:
     -------
         `list[ProfileType]`: all profile types
     """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key()
-    }
+    data = {}
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileType/All",

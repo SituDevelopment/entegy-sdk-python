@@ -23,8 +23,6 @@ def available_categories(
         `list[Category]`: the available categories
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type
     }
 
@@ -63,8 +61,6 @@ def select_categories(
         `external_reference` (`str`, optional): the externalReference of the page selecting the categories; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "categories": categories
     }
@@ -102,8 +98,6 @@ def deselect_categories(
         `external_reference` (`str`, optional): the externalReference of the page to unselect the categories from; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "categories": categories
     }
@@ -141,8 +135,6 @@ def create_categories(
         `external_reference` (`str`, optional): the externalReference of the page holding the categories; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "categories": categories
     }
@@ -178,8 +170,6 @@ def create_child_categories(
         `external_reference` (`int`): the externalReference of the page holding the categories
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "categories": categories
     }
 
@@ -214,8 +204,6 @@ def update_categories(
         `external_reference` (`str`, optional): the externalReference of the category; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "name": name
     }
 
@@ -252,8 +240,6 @@ def delete_categories(
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType": template_type,
         "categories": categories
     }
