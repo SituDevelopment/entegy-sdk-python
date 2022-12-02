@@ -204,7 +204,7 @@ def sync_profiles(
 
     Returns
     -------
-        `list[dict[str, Any]]`: profileIds and `newProfile` flags for each profile in the given list
+        `list[dict]`: profileIds and `newProfile` flags for each profile in the given list
     """
     data = {
         "updateReferenceType": update_reference_type,

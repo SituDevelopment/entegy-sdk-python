@@ -1,5 +1,3 @@
-from typing import Any
-
 from entegywrapper.entegySchemas.content import (
     Content,
     ContentChildCreate,
@@ -19,7 +17,7 @@ def get_content(
     include_links: bool = False,
     include_multi_links: bool = False,
     include_page_settings: bool = False,
-) -> dict[str, Any]:
+) -> dict:
     """
     Returns an entire schedule.
 
@@ -40,7 +38,7 @@ def get_content(
 
     Returns
     -------
-        `dict[str, Any]`: API response JSON
+        `dict`: API response JSON
     """
     data = {
         "templateType": template_type,

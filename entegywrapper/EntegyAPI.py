@@ -5,7 +5,6 @@ import sys
 import time
 
 from requests.structures import CaseInsensitiveDict
-from typing import Any
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -162,21 +161,21 @@ class EntegyAPI:
     def post(
         self,
         endpoint: str,
-        data: dict[str, Any],
+        data: dict,
         headers: CaseInsensitiveDict
-    ) -> dict[str, Any]:
+    ) -> dict:
         """
         Posts the given data to the given endpoint of the Entegy API.
 
         Parameters
         ----------
             `endpoint` (`str`): API endpoint to which to post
-            `data` (`dict[str, Any]`): data to post
+            `data` (`dict`): data to post
             `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
-            `dict[str, Any]`: response data
+            `dict`: response data
         """
         response = None
         retry_count = 0
@@ -223,21 +222,21 @@ class EntegyAPI:
     def delete(
         self,
         endpoint: str,
-        data: dict[str, Any],
+        data: dict,
         headers: CaseInsensitiveDict
-    ) -> dict[str, Any]:
+    ) -> dict:
         """
         Deletes the given data from the given endpoint of the Entegy API.
 
         Parameters
         ----------
             `endpoint` (`str`): API endpoint from which to delete
-            `data` (`dict[str, Any]`): data to delete
+            `data` (`dict`): data to delete
             `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
-            `dict[str, Any]`: response data
+            `dict`: response data
         """
         response = None
         retry_count = 0
