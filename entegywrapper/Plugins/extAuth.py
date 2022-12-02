@@ -1,36 +1,28 @@
-from typing import Any
-
-
-def external_authentication(
-    self,
-    profile_id: str,
-    device_id: str,
-    *,
-    request_version: int = 1
-) -> dict[str, Any]:
+def external_authentication(self, profile_id: str, device_id: str) -> bool:
     """
-    Authenticate a user's login via an external system.
+    Authenticates a user's login via an external system.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profile ID that is logging in
-        `device_id` (`int`): the device ID that is logging in
-        `request_version` (`int`, optional): the version of the request; defaults to `1`
+        `profile_id` (`str`): the profileId that is logging in
+        `device_id` (`int`): the deviceId that is logging in
 
     Returns
     -------
-        `dict[str, Any]`: API response JSON
+        `bool`: whether this is the user's first login
     """
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key(),
         "profileId": profile_id,
         "deviceId": device_id,
-        "requestVersion": request_version,
+        "requestVersion": 1
     }
 
-    return self.post(
+    response = self.post(
         self.api_endpoint + "/v2/Authentication/ExternalProfile",
         headers=self.headers,
         data=data
     )
+
+    return response["firstLogin"]

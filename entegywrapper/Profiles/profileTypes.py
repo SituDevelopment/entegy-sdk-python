@@ -1,52 +1,60 @@
-from typing import Any
-
-ProfileType: type = dict[str, str | int | bool]
+from entegywrapper.entegySchemas.profile import ProfileType
 
 
-def get_profile_type(self, name: str) -> dict[str, Any]:
+def get_profile_type(
+    self,
+    *,
+    name: str | None = None,
+    external_reference: str | None = None
+) -> ProfileType:
     """
-    Returns a single profile type.
+    Returns the profile type specified by the given identifier.
 
     Parameters
     ----------
-        `name` (`str`): the name of the profile type
+        `name` (`str`, optional): the name of the profile type; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
 
     Returns
     -------
-        `dict[str, Any]`: API response JSON
+        `ProfileType`: the profile type specified by the given identifier
     """
     data = {
         "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "name": name
+        "apiKey": self.get_key()
     }
 
-    return self.post(
+    if name is not None:
+        data["name"] = name
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("You must specify either a name or an external reference")
+
+    response = self.post(
         self.api_endpoint + "/v2/ProfileType",
         headers=self.headers,
         data=data
     )
 
+    return response["profileType"]
 
-def create_profile_type(self, profile_type: ProfileType) -> dict[str, Any]:
+
+def create_profile_type(self, profile_type: ProfileType):
     """
-    Creates a ProfileType with the data passed in the profileType.
+    Creates a profile type from the given data.
 
     Parameters
     ----------
-        `profile_type` (`ProfileType`): the data for the profile type you're creating
-
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+        `profile_type` (`ProfileType`): the data for the profile type to create
     """
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key(),
-        "profileType": profile_type,
+        "profileType": profile_type
     }
 
-    return self.post(
+    self.post(
         self.api_endpoint + "/v2/ProfileType/Create",
         headers=self.headers,
         data=data
@@ -55,75 +63,90 @@ def create_profile_type(self, profile_type: ProfileType) -> dict[str, Any]:
 
 def update_profile_type(
     self,
-    name: str,
-    profile_type: ProfileType
-) -> dict[str, Any]:
+    profile_type: ProfileType,
+    *,
+    name: str | None = None,
+    external_reference: str | None = None
+):
     """
-    Updates the ProfileType with the data passed in the profileType
+    Updates the profile type with the data passed in the profileType
 
     Parameters
     ----------
-        `name` (`str`): the name of the profile type
         `profile_type` (`ProfileType`): the data you wish to update
-
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+        `name` (`str`, optional): the name of the profile type; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
     """
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key(),
-        "name": name,
-        "profileType": profile_type,
+        "profileType": profile_type
     }
 
-    return self.post(
+    if name is not None:
+        data["name"] = name
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("You must specify either a name or an external reference")
+
+    self.post(
         self.api_endpoint + "/v2/ProfileType/Update",
         headers=self.headers,
         data=data
     )
 
 
-def delete_profile_type(self, name: str) -> dict[str, Any]:
+def delete_profile_type(
+    self,
+    *,
+    name: str | None = None,
+    external_reference: str | None = None
+):
     """
     Deletes a profile type. The type cannot be in use.
 
     Parameters
     ----------
-        `name` (`str`): the name of the profile type
-
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
-    """
-    data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "name": name
-    }
-
-    return self.delete(
-        self.api_endpoint + "/v2/ProfileType/Delete",
-        headers=self.headers,
-        data=data
-    )
-
-
-def all_profile_types(self) -> dict[str, Any]:
-    """
-    Returns all profile types.
-
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+        `name` (`str`, optional): the name of the profile type; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
     """
     data = {
         "projectId": self.project_id,
         "apiKey": self.get_key()
     }
 
-    return self.post(
+    if name is not None:
+        data["name"] = name
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("You must specify either a name or an external reference")
+
+    self.delete(
+        self.api_endpoint + "/v2/ProfileType/Delete",
+        headers=self.headers,
+        data=data
+    )
+
+
+def all_profile_types(self) -> list[ProfileType]:
+    """
+    Returns a list of all profile types.
+
+    Returns
+    -------
+        `list[ProfileType]`: all profile types
+    """
+    data = {
+        "projectId": self.project_id,
+        "apiKey": self.get_key()
+    }
+
+    response = self.post(
         self.api_endpoint + "/v2/ProfileType/All",
         headers=self.headers,
         data=data
     )
+
+    return response["profileTypes"]
