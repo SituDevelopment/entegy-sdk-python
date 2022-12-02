@@ -35,7 +35,7 @@ def create_profile_custom(
 
     Parameters
     ----------
-        `custom_field` (`CustomProfileField`): the custom field you wish to create
+        `custom_field` (`CustomProfileField`): the custom field to create
     """
     data = {
         "customField": custom_field

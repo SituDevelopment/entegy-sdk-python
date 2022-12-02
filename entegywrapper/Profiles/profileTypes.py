@@ -15,6 +15,10 @@ def get_profile_type(
         `name` (`str`, optional): the name of the profile type; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
         `ProfileType`: the profile type specified by the given identifier
@@ -26,7 +30,7 @@ def get_profile_type(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must specify either a name or an external reference")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileType",
@@ -68,9 +72,13 @@ def update_profile_type(
 
     Parameters
     ----------
-        `profile_type` (`ProfileType`): the data you wish to update
+        `profile_type` (`ProfileType`): the data to update
         `name` (`str`, optional): the name of the profile type; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "profileType": profile_type
@@ -81,7 +89,7 @@ def update_profile_type(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must specify either a name or an external reference")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/ProfileType/Update",
@@ -103,6 +111,10 @@ def delete_profile_type(
     ----------
         `name` (`str`, optional): the name of the profile type; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {}
 
@@ -111,7 +123,7 @@ def delete_profile_type(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must specify either a name or an external reference")
+        raise ValueError("Please specify an identifier")
 
     self.delete(
         self.api_endpoint + "/v2/ProfileType/Delete",

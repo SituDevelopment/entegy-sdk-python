@@ -34,6 +34,10 @@ def get_content(
         `include_multi_links` (`bool`, optional): whether to include MultiLinks in the response; defaults to `False`
         `include_page_settings` (`bool`, optional): whether to include PageSettings in the response; defaults to `False`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
         `dict[str, Any]`: API response JSON
@@ -52,7 +56,7 @@ def get_content(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Content",
@@ -87,6 +91,10 @@ def get_schedule_content(
         `include_multi_links` (`bool`, optional): whether to include MultiLinks in the response; defaults to `False`
         `include_page_settings` (`bool`, optional): whether to include PageSettings in the response; defaults to `False`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
         `Schedule`: the schedule
@@ -104,7 +112,7 @@ def get_schedule_content(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Content/Schedule",
@@ -122,8 +130,7 @@ def create_content(
     content_group: str = "Default"
 ) -> int:
     """
-    Creates a root content item. You can only create Template Types that are
-    listed as root content.
+    Creates a root content item.
 
     Parameters
     ----------
@@ -163,6 +170,10 @@ def add_children_content(
         `children` (`list[ContentChildCreate]`): the page data to add to the root templateType
         `module_id` (`int`, optional): the name for the page; defaults to `None`
         `external_reference` (`str`, optional): the externalReference for the page; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType": template_type,
@@ -175,7 +186,7 @@ def add_children_content(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Content/AddChildren",
@@ -201,6 +212,10 @@ def update_content(
         `content` (`Content`): the content to update
         `module_id` (`int`, optional): the moduleId of the page to update; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page to update; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType":template_type,
@@ -212,7 +227,7 @@ def update_content(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Content/Update",
@@ -229,8 +244,8 @@ def delete_content(
     external_reference: str | None = None
 ):
     """
-    Allows you to delete a content resource from the Entegy System. Any content
-    deleted is unrecoverable.
+    Deletes a content resource from the Entegy System. Any content deleted is
+    unrecoverable.
 
     WARNING
     -------
@@ -241,6 +256,10 @@ def delete_content(
         `template_type` (`TemplateType`): the templateType of the resource to delete
         `module_id` (`int`, optional): the moduleId of the page to delete; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page to delete; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType":template_type
@@ -251,7 +270,7 @@ def delete_content(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.delete(
         self.api_endpoint + "/v2/Content/Delete",

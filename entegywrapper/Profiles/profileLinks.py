@@ -23,6 +23,10 @@ def selected_profile_links(
         `badgeReference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
         `internalReference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Yields
     -------
         `Generator[list[Link], None, None]`: paginated blocks of selected links
@@ -43,7 +47,7 @@ def selected_profile_links(
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
-        raise ValueError("You must provide a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Selected/",
@@ -68,17 +72,21 @@ def page_profile_links(
     self,
     template_type: TemplateType,
     *,
-    module_id: str | None = None,
+    module_id: int | None = None,
     external_reference: str | None = None
 ) -> Generator[list[Profile], None, None]:
     """
-    Gets all the profiles linked to a content page.
+    Yields all the profiles linked to a content page.
 
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
-        `module_id` (`int`): the moduleId of the page
-        `return_limit` (`int`): the maximum number of results to return; defaults to 100
+        `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
 
     Yields
     -------
@@ -97,7 +105,7 @@ def page_profile_links(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide a page identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Page/",
@@ -132,11 +140,15 @@ def select_profile_link(
 
     Parameters
     ----------
-        `link` (`Link`): the link you wish to select
+        `link` (`Link`): the link to select
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "link": link
@@ -151,7 +163,7 @@ def select_profile_link(
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
-        raise ValueError("You must provide a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Select/",
@@ -165,7 +177,7 @@ def multi_select_profile_links(
     profiles: list[dict[str, str | list[Link]]]
 ):
     """
-    Allows you to select multiple pages on multiple profiles at once
+    Selects multiple pages on multiple profiles.
 
     Parameters
     ----------
@@ -216,15 +228,19 @@ def deselect_profile_links(
     badge_reference: str | None = None
 ):
     """
-    Allows you to deselect a link for a profile.
+    Deselects a link for a profile.
 
     Parameters
     ----------
-        `link` (`Link`): the link you wish to deselect
+        `link` (`Link`): the link to deselect
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "link": link
@@ -239,7 +255,7 @@ def deselect_profile_links(
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
-        raise ValueError("You must provide a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Deselect/",
@@ -267,6 +283,10 @@ def clear_profile_links(
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType":template_type
@@ -281,7 +301,7 @@ def clear_profile_links(
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
-        raise ValueError("You must provide a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Clear/",

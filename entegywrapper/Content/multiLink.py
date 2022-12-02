@@ -17,6 +17,10 @@ def get_multi_links(
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
         `list[NamedLink]`: all multi links associated with the content page
@@ -30,7 +34,7 @@ def get_multi_links(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/MultiLink",
@@ -50,7 +54,7 @@ def add_multi_links(
     external_reference: str | None = None
 ):
     """
-    Add multi links to a content page.
+    Adds multi links to a content page.
 
     Parameters
     ----------
@@ -59,19 +63,9 @@ def add_multi_links(
         `multi_links` (`list[Link]`, optional): the links to add; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
-    The format of `multi_links` is as follows:
-    ```python
-        [
-            {
-                "template_type": "Speaker",
-                "moduleId":1
-            },
-            {
-                "template_type": "Speaker",
-                "externalReference": "au-speaker-1546895"
-            }
-        ]
-    ```
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType":template_type,
@@ -83,7 +77,7 @@ def add_multi_links(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/MultiLink/Add",
@@ -113,6 +107,10 @@ def remove_multi_link(
         `external_reference` (`str`, optional): the externalReference of the page to remove links from; defaults to `None`
         `target_module_id` (`int`, optional): the moduleId of the multi link to remove; defaults to `None`
         `target_external_reference` (`str`, optional): the externalReference of the multi link to remove; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if either no page or no target identifier is specified
     """
     data = {
         "templateType":template_type,
@@ -124,14 +122,14 @@ def remove_multi_link(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide a page identifier")
+        raise ValueError("Please specify a page identifier")
 
     if target_external_reference is not None:
         data["targetExternalReference"] = target_external_reference
     elif target_module_id is not None:
         data["targetModuleId"] = target_module_id
     else:
-        raise ValueError("You must provide a target identifier")
+        raise ValueError("Please specify a target identifier")
 
     self.post(
         self.api_endpoint + "/v2/MultiLink/Remove",
@@ -157,6 +155,10 @@ def remove_all_multi_links(
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
         `link_template_type` (`TemplateType`, optional): the templateType of the page; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType":template_type
@@ -167,7 +169,7 @@ def remove_all_multi_links(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     if link_template_type is not None:
         data["linkTemplateType"] = link_template_type

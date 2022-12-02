@@ -7,7 +7,7 @@ def add_profile_payment(
     payment_info: PaymentInfo
 ):
     """
-    Add the given payment info to the specified profile.
+    Adds the given payment info to the specified profile.
 
     Parameters
     ----------

@@ -16,12 +16,16 @@ def award_points(
 
     Parameters
     ----------
-        `point_type` (`PointType`): the type of points you're assigning
-        `points` (`int`): the amount of points you're assigning
+        `point_type` (`PointType`): the type of points to assign
+        `points` (`int`): the amount of points to assign
         `profile_id` (`str`, optional): the profileId for the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "pointEvent": point_type,
@@ -37,7 +41,7 @@ def award_points(
     elif internal_reference is not None:
         data["internalReference"] = profile_id
     else:
-        raise ValueError("You must specify a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Point/Award",
@@ -55,7 +59,7 @@ def get_points(
     internal_reference: str | None = None
 ) -> int:
     """
-    Returns the amount of points a profile has.
+    Returns the amount of points the specified profile has.
 
     Parameters
     ----------
@@ -64,9 +68,13 @@ def get_points(
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
-        `int`: API response JSON
+        `int`: the amount of points the specified profile has
     """
     data = {}
 
@@ -79,7 +87,7 @@ def get_points(
     elif internal_reference is not None:
         data["internalReference"] = profile_id
     else:
-        raise ValueError("You must specify a profile identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Point/Earned",
@@ -92,9 +100,8 @@ def get_points(
 
 def get_point_leaderboard(self) -> list[LeaderboardPosition]:
     """
-    Allows you to see the leaderboard for the project. The response is sorted
-    by the profiles response and includes their position with ties correctly
-    handled.
+    Returns the leaderboard for the project. The response is sorted by the
+    profiles response and includes their position with ties correctly handled.
 
     Returns
     -------

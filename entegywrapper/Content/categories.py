@@ -18,6 +18,10 @@ def available_categories(
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
     Returns
     -------
         `list[Category]`: the available categories
@@ -31,7 +35,7 @@ def available_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Categories/Available",
@@ -59,6 +63,10 @@ def select_categories(
         `categories` (`list[Category]`): the categories to select
         `module_id` (`int`, optional): the moduleId of the page selecting the categories; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page selecting the categories; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType": template_type,
@@ -70,7 +78,7 @@ def select_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Categories/Select",
@@ -96,6 +104,10 @@ def deselect_categories(
         `categories` (`list[Category]`): the categories to select
         `module_id` (`int`, optional): the moduleId of the page to unselect the categories from; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page to unselect the categories from; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType": template_type,
@@ -107,7 +119,7 @@ def deselect_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Categories/Deselect",
@@ -125,7 +137,7 @@ def create_categories(
     external_reference: str | None = None
 ):
     """
-    Create categories under a root page.
+    Creates categories under a root page.
 
     Parameters
     ----------
@@ -133,6 +145,10 @@ def create_categories(
         `categories` (`list[Category]`): the categories to create
         `module_id` (`int`, optional): the moduleId of the page holding the categories; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page holding the categories; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType": template_type,
@@ -144,7 +160,7 @@ def create_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Categories/Create",
@@ -168,6 +184,10 @@ def create_child_categories(
         `categories` (`list[Category]`): the categories to create
         `module_id` (`int`): the moduleId of the page holding the categories
         `external_reference` (`int`): the externalReference of the page holding the categories
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "categories": categories
@@ -178,7 +198,7 @@ def create_child_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Categories/CreateChild",
@@ -187,7 +207,7 @@ def create_child_categories(
     )
 
 
-def update_categories(
+def update_category(
     self,
     name: str,
     *,
@@ -195,13 +215,17 @@ def update_categories(
     external_reference: str | None = None
 ):
     """
-    Allows you to change the name of a category.
+    Changes the name of a category.
 
     Parameters
     ----------
         `name` (`str`): the new name of the category
         `module_id` (`int`, optional): the moduleId of the category; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the category; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "name": name
@@ -212,7 +236,7 @@ def update_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Categories/Update",
@@ -230,7 +254,7 @@ def delete_categories(
     external_reference: str | None = None
 ):
     """
-    Allows you to create categories under another category.
+    Creates categories under another category.
 
     Parameters
     ----------
@@ -238,6 +262,10 @@ def delete_categories(
         `categories` (`list[Category]`): the categories to delete
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "templateType": template_type,
@@ -249,7 +277,7 @@ def delete_categories(
     elif external_reference is not None:
         data["externalReference"] = external_reference
     else:
-        raise ValueError("You must provide an identifier")
+        raise ValueError("Please specify an identifier")
 
     self.delete(
         self.api_endpoint + "/v2/Categories/Delete",

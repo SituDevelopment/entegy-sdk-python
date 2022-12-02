@@ -60,7 +60,7 @@ def get_profile(
     params: dict = {},
 ) -> Profile:
     """
-    Gets the user profile specified by the given identifier
+    Returns the user profile specified by the given identifier
 
     Parameters
     ----------
@@ -143,7 +143,7 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
 
 def update_profile(self, profile_id: str, profile_object: Profile):
     """
-    Update the user profile specified by the given identifier using the fields
+    Updates the user profile specified by the given identifier using the fields
     in the given profile object.
 
     Parameters

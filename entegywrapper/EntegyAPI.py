@@ -64,7 +64,7 @@ class EntegyAPI:
         deselect_categories,
         create_categories,
         create_child_categories,
-        update_categories,
+        update_category,
         delete_categories,
     )
     from .Content.documents import (
@@ -166,7 +166,7 @@ class EntegyAPI:
         headers: CaseInsensitiveDict
     ) -> dict[str, Any]:
         """
-        Post the given `data` to the given `endpoint` of the Entegy API.
+        Posts the given data to the given endpoint of the Entegy API.
 
         Parameters
         ----------
@@ -227,7 +227,7 @@ class EntegyAPI:
         headers: CaseInsensitiveDict
     ) -> dict[str, Any]:
         """
-        Delete the given `data` from the given `endpoint` of the Entegy API.
+        Deletes the given data from the given endpoint of the Entegy API.
 
         Parameters
         ----------
