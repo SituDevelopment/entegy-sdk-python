@@ -1,7 +1,7 @@
 import os
 import sys
 
-from entegywrapper.entegySchemas.content import (
+from entegywrapper.schemas.content import (
     Document,
     ExternalContent,
     TemplateType

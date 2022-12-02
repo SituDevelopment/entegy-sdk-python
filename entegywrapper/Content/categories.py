@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.content import Category, TemplateType
+from entegywrapper.schemas.content import Category, TemplateType
 
 
 def available_categories(

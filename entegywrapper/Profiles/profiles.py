@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.profile import (
+from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
     ProfileIdentifier,

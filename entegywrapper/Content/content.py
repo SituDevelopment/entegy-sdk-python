@@ -1,9 +1,9 @@
-from entegywrapper.entegySchemas.content import (
+from entegywrapper.schemas.content import (
     Content,
     ContentChildCreate,
     TemplateType
 )
-from entegywrapper.entegySchemas.schedule import Schedule
+from entegywrapper.schemas.schedule import Schedule
 
 
 def get_content(

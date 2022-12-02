@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.content import Link, NamedLink, TemplateType
+from entegywrapper.schemas.content import Link, NamedLink, TemplateType
 
 
 def get_multi_links(

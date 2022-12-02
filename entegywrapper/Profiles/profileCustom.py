@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.profile import CustomProfileField
+from entegywrapper.schemas.profile import CustomProfileField
 
 
 def get_profile_custom(self, key: str) -> CustomProfileField:

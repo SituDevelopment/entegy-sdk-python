@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.profile import PaymentInfo
+from entegywrapper.schemas.profile import PaymentInfo
 
 
 def add_profile_payment(

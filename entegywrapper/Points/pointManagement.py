@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.points import LeaderboardPosition, PointType
+from entegywrapper.schemas.points import LeaderboardPosition, PointType
 
 
 def award_points(

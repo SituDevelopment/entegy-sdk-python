@@ -1,7 +1,7 @@
 from typing import Generator
 
-from entegywrapper.entegySchemas.content import Link, TemplateType
-from entegywrapper.entegySchemas.profile import Profile
+from entegywrapper.schemas.content import Link, TemplateType
+from entegywrapper.schemas.profile import Profile
 
 
 def selected_profile_links(

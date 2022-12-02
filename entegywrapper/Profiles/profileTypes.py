@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.profile import ProfileType
+from entegywrapper.schemas.profile import ProfileType
 
 
 def get_profile_type(

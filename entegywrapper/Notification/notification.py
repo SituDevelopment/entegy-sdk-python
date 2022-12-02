@@ -1,4 +1,4 @@
-from entegywrapper.entegySchemas.profile import ProfileIdentifier
+from entegywrapper.schemas.profile import ProfileIdentifier
 
 
 def send_notification(
