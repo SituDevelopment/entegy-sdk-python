@@ -216,7 +216,7 @@ def update_content(
         `ValueError`: if no identifier is specified
     """
     data = {
-        "templateType":template_type,
+        "templateType": template_type,
         "content": content
     }
 
@@ -260,7 +260,7 @@ def delete_content(
         `ValueError`: if no identifier is specified
     """
     data = {
-        "templateType":template_type
+        "templateType": template_type
     }
 
     if module_id is not None:

@@ -26,7 +26,7 @@ def add_documents(
         `file_documents` (`list[Document]`): the file documents to add
     """
     data = {
-        "templateType":template_type,
+        "templateType": template_type,
         "moduleId": module_id,
         "fileDocuments": file_documents
     }
