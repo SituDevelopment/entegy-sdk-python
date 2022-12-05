@@ -56,4 +56,5 @@ GenericGroupItem: TypeAlias = ContactInformationKeys | Literal[
     "copy"
 ]
 
-StringKeys: TypeAlias = About | Speaker | ScheduleDay | SessionGroup | Session | SessionSegment | Exhibitor | GenericGroup | GenericGroupItem
+StringKey: TypeAlias = About | Speaker | ScheduleDay | SessionGroup | Session \
+        | SessionSegment | Exhibitor | GenericGroup | GenericGroupItem
