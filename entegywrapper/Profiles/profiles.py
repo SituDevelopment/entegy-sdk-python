@@ -2,7 +2,8 @@ from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
     ProfileIdentifier,
-    ProfileType
+    ProfileType,
+    ProfileUpdate
 )
 
 from typing import Generator
@@ -159,7 +160,7 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
     return response["profileId"]
 
 
-def update_profile(self, profile_id: str, profile_object: Profile):
+def update_profile(self, profile_id: str, profile_object: ProfileUpdate):
     """
     Updates the user profile specified by the given identifier using the fields
     in the given profile object.
@@ -167,7 +168,7 @@ def update_profile(self, profile_id: str, profile_object: Profile):
     Parameters
     ----------
         `profile_id` (`str`): the profileId of the profile to update
-        `profile_object` (`Profile`): the profile fields to update
+        `profile_object` (`ProfileUpdate`): the profile fields to update
     """
     data = {
         "profileId": profile_id,

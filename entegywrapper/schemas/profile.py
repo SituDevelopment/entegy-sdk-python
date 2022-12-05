@@ -117,6 +117,25 @@ class ProfileCreate(TypedDict):
     eventInfo: project.ProjectEventInfo
 
 
+class ProfileUpdate(TypedDict, total=False):
+    type: str
+    firstName: str
+    lastName: str
+    externalReference: str
+    badgeReference: str
+    accessCode: str  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
+    password: str
+    title: str
+    organization: str
+    position: str
+    email: str
+    contactNumber: str
+    imageUrl: str
+    enabled: bool
+    permissions: Permissions
+    customFields: dict[str, str]
+
+
 ProfileIdentifier: TypeAlias = Literal[
     "profileId",
     "externalReference",
