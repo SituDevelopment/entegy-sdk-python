@@ -3,21 +3,21 @@ from typing import TypedDict
 from . import content
 
 
-class ScheduleDay(TypedDict):
+class ScheduleDay(content.Content, TypedDict):
     children: list[content.Content]
 
 
-class Schedule(TypedDict):
+class Schedule(content.Content, TypedDict):
     days: list[ScheduleDay]
 
 
-class SessionSegment(TypedDict):
+class SessionSegment(content.Content, TypedDict):
     links: list[content.Link]
     multiLinks: list[content.NamedLink]
     documents: list[content.Document]
 
 
-class Session(TypedDict):
+class Session(content.Content, TypedDict):
     links: list[content.Link]
     multiLinks: list[content.NamedLink]
     documents: list[content.Document]
@@ -25,7 +25,7 @@ class Session(TypedDict):
     segments: list[SessionSegment]
 
 
-class SessionGroup(TypedDict):
+class SessionGroup(content.Content, TypedDict):
     documents: list[content.Document]
     links: list[content.Link]
     multiLinks: list[content.NamedLink]
