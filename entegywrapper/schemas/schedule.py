@@ -8,7 +8,7 @@ class ScheduleDay(TypedDict):
 
 
 class Schedule(TypedDict):
-    day: list[ScheduleDay]
+    days: list[ScheduleDay]
 
 
 class SessionSegment(TypedDict):
