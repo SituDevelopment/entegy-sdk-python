@@ -1,112 +1,171 @@
-from typing import Any
+from typing import Generator
 
-Link: type = dict
-"""
-The format of a `Link` is as follows:
-    ```python
-        {
-            "template_type": "session",
-            "moduleId":1
-        }
-    ```
-"""
+from entegywrapper.schemas.content import Link, TemplateType
+from entegywrapper.schemas.profile import Profile
 
 
 def selected_profile_links(
     self,
-    profile_id: str,
     *,
-    return_limit: int = 100
-) -> dict[str, Any]:
+    profile_id: str | None = None,
+    external_reference: str | None = None,
+    internal_reference: str | None = None,
+    badge_reference: str | None = None
+) -> Generator[list[Link], None, None]:
     """
-    Return all the profile links the profile has.
+    Yields all the profile links the specified profile has in blocks generated
+    by the Entegy API's pagination.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile
-        `return_limit` (`int`): the index and amount of results to return; defaults to 100
+        `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
+        `badgeReference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
+        `internalReference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
 
-    Returns
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
+    Yields
     -------
-        `dict[str, Any]`: API response JSON
+        `Generator[list[Link], None, None]`: paginated blocks of selected links
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "profileID": profile_id,
         "pagination": {
-            "index": 0,
-            "limit": return_limit
-        },
+            "start": 0,
+            "limit": 1000
+        }
     }
 
-    return self.post(
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Selected/",
         headers=self.headers,
         data=data
     )
+    yield response["links"]
+
+    while response["pagination"]["start"] + response["pagination"]["limit"] \
+            < response["pagination"]["count"]:
+        data["pagination"]["start"] += data["pagination"]["limit"]
+
+        response = self.post(
+            self.api_endpoint + "/v2/ProfileLink/Selected/",
+            headers=self.headers,
+            data=data
+        )
+        yield response["links"]
 
 
 def page_profile_links(
     self,
-    template_type: str,
-    module_id: str,
+    template_type: TemplateType,
     *,
-    return_limit: int = 100
-) -> dict[str, Any]:
+    module_id: int | None = None,
+    external_reference: str | None = None
+) -> Generator[list[Profile], None, None]:
     """
-    Gets all the profiles linked to a Content Page.
+    Yields all the profiles linked to a content page.
 
     Parameters
     ----------
-        `template_type` (`str`): the template_type of the page
-        `module_id` (`int`): the moduleId of the page
-        `return_limit` (`int`): the maximum number of results to return; defaults to 100
+        `template_type` (`TemplateType`): the templateType of the page
+        `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
-    Returns
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+
+    Yields
     -------
-        Pagination response and list of profile objects
+        `Generator[list[Profile], None, None]`: paginated blocks of linked profiles
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "templateType":template_type,
-        "moduleId": module_id,
         "pagination": {
             "index": 0,
-            "limit": return_limit
-        },
+            "limit": 1000
+        }
     }
 
-    return self.post(
+    if module_id is not None:
+        data["moduleId"] = module_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Page/",
         headers=self.headers,
         data=data
     )
+    yield response["profiles"]
+
+    while response["pagination"]["index"] + response["pagination"]["limit"] \
+            < response["pagination"]["count"]:
+        data["pagination"]["index"] += data["pagination"]["limit"]
+
+        response = self.post(
+            self.api_endpoint + "/v2/ProfileLink/Page/",
+            headers=self.headers,
+            data=data
+        )
+        yield response["profiles"]
 
 
-def select_profile_link(self, profile_id: str, link: Link) -> dict[str, Any]:
+def select_profile_link(
+    self,
+    link: Link,
+    *,
+    profile_id: str | None = None,
+    internal_reference: str | None = None,
+    external_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
-    Allows you to select a link for a profile
+    Selects the specified link for the specified profile.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile
-        `link` (`Link`): the link you wish to select
-    ```
+        `link` (`Link`): the link to select
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "profileID": profile_id,
-        "link": link,
+        "link": link
     }
 
-    return self.post(
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    self.post(
         self.api_endpoint + "/v2/ProfileLink/Select/",
         headers=self.headers,
         data=data
@@ -115,14 +174,14 @@ def select_profile_link(self, profile_id: str, link: Link) -> dict[str, Any]:
 
 def multi_select_profile_links(
     self,
-    profiles: list[str, str | list[Link]]
-) -> dict[str, Any]:
+    profiles: list[dict[str, str | list[Link]]]
+):
     """
-    Allows you to select multiple pages on multiple profiles at once
+    Selects multiple pages on multiple profiles.
 
     Parameters
     ----------
-        `profiles` (`list[str, str | list[Link]]`): list of profile references with link objects within
+        `profiles` (`list[dict[str, str | list[Link]]]`): list of profile references with link objects within
 
     The format of `profiles` is as follows:
     ```python
@@ -131,60 +190,74 @@ def multi_select_profile_links(
                 "profileId": "ff11c742-346e-4874-9e24-efe6980a7453",
                 "links": [
                     {
-                        "template_type": "sesSiOn",
+                        "template_type": "session",
                         "moduleId":1
                     },
                     {
-                        "template_type": "sesSiOn",
+                        "template_type": "session",
                         "moduleId":2
                     },
                     {
-                        "template_type": "sesSiOn",
+                        "template_type": "session",
                         "moduleId":3
                     }
                 ]
             },
+            ...
         ]
     ```
-
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
         "profiles": profiles
     }
 
-    return self.post(
+    self.post(
         self.api_endpoint + "/v2/ProfileLink/MultiSelect/",
         headers=self.headers,
         data=data
     )
 
 
-def deselect_profile_links(self, profile_id: str, link: Link) -> dict[str, Any]:
+def deselect_profile_links(
+    self,
+    link: Link,
+    *,
+    profile_id: str | None = None,
+    internal_reference: str | None = None,
+    external_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
-    Allows you to deselect a link for a profile.
+    Deselects a link for a profile.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile
-        `link` (`Link`): the link you wish to deselect
+        `link` (`Link`): the link to deselect
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "profileId": profile_id,
-        "link": link,
+        "link": link
     }
 
-    return self.post(
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    self.post(
         self.api_endpoint + "/v2/ProfileLink/Deselect/",
         headers=self.headers,
         data=data
@@ -193,29 +266,44 @@ def deselect_profile_links(self, profile_id: str, link: Link) -> dict[str, Any]:
 
 def clear_profile_links(
     self,
-    profile_id: str,
-    template_type: str
-) -> dict[str, Any]:
+    template_type: TemplateType,
+    *,
+    profile_id: str | None = None,
+    internal_reference: str | None = None,
+    external_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
-    Allows you to clear all the selected links of a template_type on a single profile
+    Clears all the selected links of a template type on the specified profile.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile
-        `template_type` (`str`): the template_type to clear links of
+        `template_type` (`TemplateType`): the templateType of links to clear
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
-    Returns
-    -------
-        `dict[str, Any]`: API response JSON
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
-        "projectId": self.project_id,
-        "apiKey": self.get_key(),
-        "profileId": profile_id,
-        "templateType":template_type,
+        "templateType":template_type
     }
 
-    return self.post(
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    self.post(
         self.api_endpoint + "/v2/ProfileLink/Clear/",
         headers=self.headers,
         data=data

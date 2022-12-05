@@ -25,3 +25,13 @@ entegywrapper/Profiles/profileLinks.py
 entegywrapper/Profiles/profilePayments.py
 entegywrapper/Profiles/profileTypes.py
 entegywrapper/Profiles/profiles.py
+entegywrapper/schemas/__init__.py
+entegywrapper/schemas/attendanceTracking.py
+entegywrapper/schemas/content.py
+entegywrapper/schemas/leadCapture.py
+entegywrapper/schemas/pageSettings.py
+entegywrapper/schemas/points.py
+entegywrapper/schemas/profile.py
+entegywrapper/schemas/project.py
+entegywrapper/schemas/schedule.py
+entegywrapper/schemas/stringKeys.py

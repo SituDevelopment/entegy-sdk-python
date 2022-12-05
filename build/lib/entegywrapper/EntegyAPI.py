@@ -5,7 +5,6 @@ import sys
 import time
 
 from requests.structures import CaseInsensitiveDict
-from typing import Any, Literal
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -14,9 +13,6 @@ api_endpoints = {
     "US": "https://api-us.entegy.com.au",
     "EU": "https://api-eu.entegy.com.au",
 }
-
-Identifier: type = Literal["externalReference", "moduleId", "name"]
-
 
 class EntegyAPI:
     from .Profiles.profiles import (
@@ -67,7 +63,7 @@ class EntegyAPI:
         deselect_categories,
         create_categories,
         create_child_categories,
-        update_categories,
+        update_category,
         delete_categories,
     )
     from .Content.documents import (
@@ -165,53 +161,53 @@ class EntegyAPI:
     def post(
         self,
         endpoint: str,
-        data: dict[str, Any],
-        headers: list = []
-    ) -> dict[str, Any]:
+        data: dict,
+        headers: CaseInsensitiveDict
+    ) -> dict:
         """
-        Post the given `data` to the given `endpoint` of the Entegy API.
+        Posts the given data to the given endpoint of the Entegy API.
 
         Parameters
         ----------
             `endpoint` (`str`): API endpoint to which to post
-            `data` (`dict[str, Any]`): data to post
-            `headers` (`list`): request headers; defaults to the empty list
+            `data` (`dict`): data to post
+            `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
-            `dict[str, Any]`: response data
+            `dict`: response data
         """
-        resp = None
+        response = None
         retry_count = 0
         permission_error_count = 0
 
-        while resp is None:
-            resp = requests.post(endpoint, headers=headers, data=json.dumps(data))
+        data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
-            if resp is None:
-                raise Exception("No reponse received from API")
+        while response is None:
+            response = requests.post(endpoint, headers=headers, data=json.dumps(data))
 
-            # try catch used here as sometimes the resp object comes through as
+            # try catch used here as sometimes the response object comes through as
             # a blank JSON object
             try:
-                if resp.json()['response'] == 403:
+                if response.json()["response"] == 403:
                     time.sleep(0.5)
                     permission_error_count += 1
                     if permission_error_count >= 5:
                         raise Exception("Invalid API Key")
-                    resp = None
+                    response = None
             except:
-                resp = None
+                response = None
                 continue
 
-            if resp.json()['response'] == 489:
+            assert response is not None
+
+            if response.json()["response"] == 489:
                 # if there is a rate limit issue, wait the remaining time and try again
                 if retry_count >= len(self.api_key):
-                    print("Rate limit reached, waiting " +
-                          str(resp.json()['resetDuration']) + " seconds")
-                    time.sleep(resp.json()["resetDuration"] + 2)
+                    print(f"Rate limit reached, waiting {response.json()['resetDuration']} seconds")
+                    time.sleep(response.json()["resetDuration"] + 2)
                     print("Continuing...")
-                    resp = None
+                    response = None
                 else:
                     # update API key
                     self.cycle_key()
@@ -219,69 +215,67 @@ class EntegyAPI:
                     headers = self.headers
                     print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
                     retry_count += 1
-                    resp = None
+                    response = None
 
-        return resp.json()
+        return response.json()
 
     def delete(
         self,
         endpoint: str,
-        data: dict[str, Any],
-        headers: list = []
-    ) -> dict[str, Any]:
+        data: dict,
+        headers: CaseInsensitiveDict
+    ) -> dict:
         """
-        Delete the given `data` from the given `endpoint` of the Entegy API.
+        Deletes the given data from the given endpoint of the Entegy API.
 
         Parameters
         ----------
             `endpoint` (`str`): API endpoint from which to delete
-            `data` (`dict[str, Any]`): data to delete
-            `headers` (`list`): request headers; defaults to the empty list
+            `data` (`dict`): data to delete
+            `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
-            `dict[str, Any]`: response data
+            `dict`: response data
         """
-        resp = None
+        response = None
         retry_count = 0
         permission_error_count = 0
 
-        while resp is None:
-            resp = requests.delete(endpoint, headers=headers, data=data)
+        data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
-            if resp is None:
-                raise Exception("No reponse received from API")
+        while response is None:
+            response = requests.delete(endpoint, headers=headers, data=data)
 
-            # try catch used here as sometimes the resp object comes through as
+            # try catch used here as sometimes the response object comes through as
             # a blank JSON object
             try:
-                if resp.json()['response'] == 403:
+                if response.json()['response'] == 403:
                     time.sleep(0.5)
                     permission_error_count += 1
                     if permission_error_count >= 5:
                         raise Exception("Invalid API Key")
-                    resp = None
+                    response = None
             except:
-                resp = None
+                response = None
                 continue
 
-            if resp.json()['response'] == 489:
+            assert response is not None
+
+            if response.json()["response"] == 489:
                 # if there is a rate limit issue, wait the remaining time and try again
                 if retry_count >= len(self.api_key):
-                    print("Rate limit reached, waiting " +
-                          str(resp.json()['resetDuration']) + " seconds")
-                    time.sleep(resp.json()["resetDuration"] + 2)
+                    print(f"Rate limit reached, waiting {response.json()['resetDuration']} seconds")
+                    time.sleep(response.json()["resetDuration"] + 2)
                     print("Continuing...")
-                    resp = None
+                    response = None
                 else:
                     # update API key
                     self.cycle_key()
-                    data = json.loads(data)
                     data["apiKey"] = self.get_key()
                     headers = self.headers
                     print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
-                    data = json.dumps(data)
                     retry_count += 1
-                    resp = None
+                    response = None
 
-        return resp.json()
+        return response.json()

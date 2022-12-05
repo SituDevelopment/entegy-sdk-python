@@ -4,3 +4,4 @@ entegywrapper/Notification
 entegywrapper/Plugins
 entegywrapper/Points
 entegywrapper/Profiles
+entegywrapper/schemas

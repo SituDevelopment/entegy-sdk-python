@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="entegywrapper",
-    version="1.0.2",
+    version="1.1.0",
     description="A Python 3.10 wrapper for the Entegy API",
     url="https://github.com/SituDevelopment/python3-entegy-API-wrapper",
     author="William Sawyer",
@@ -15,6 +15,7 @@ setup(
         "entegywrapper/Profiles",
         "entegywrapper/Plugins",
         "entegywrapper/Notification",
+        "entegywrapper/schemas",
     ],
     install_requires=["requests"],
     classifiers=[
