@@ -33,7 +33,6 @@ def add_documents(
 
     self.post(
         self.api_endpoint + "/v2/Document/AddFile",
-        headers=self.headers,
         data=data
     )
 
@@ -61,6 +60,5 @@ def add_external_content_documents(
 
     self.post(
         self.api_endpoint + "/v2/Document/AddExternalContent",
-        headers=self.headers,
         data=data
     )

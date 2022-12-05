@@ -34,7 +34,6 @@ def get_profile_type(
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileType",
-        headers=self.headers,
         data=data
     )
 
@@ -55,7 +54,6 @@ def create_profile_type(self, profile_type: ProfileType):
 
     self.post(
         self.api_endpoint + "/v2/ProfileType/Create",
-        headers=self.headers,
         data=data
     )
 
@@ -93,7 +91,6 @@ def update_profile_type(
 
     self.post(
         self.api_endpoint + "/v2/ProfileType/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -127,7 +124,6 @@ def delete_profile_type(
 
     self.delete(
         self.api_endpoint + "/v2/ProfileType/Delete",
-        headers=self.headers,
         data=data
     )
 
@@ -144,7 +140,6 @@ def all_profile_types(self) -> list[ProfileType]:
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileType/All",
-        headers=self.headers,
         data=data
     )
 

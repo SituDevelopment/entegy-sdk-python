@@ -19,7 +19,6 @@ def external_authentication(self, profile_id: str, device_id: str) -> bool:
 
     response = self.post(
         self.api_endpoint + "/v2/Authentication/ExternalProfile",
-        headers=self.headers,
         data=data
     )
 

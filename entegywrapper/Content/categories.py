@@ -39,7 +39,6 @@ def available_categories(
 
     response = self.post(
         self.api_endpoint + "/v2/Categories/Available",
-        headers=self.headers,
         data=data
     )
 
@@ -82,7 +81,6 @@ def select_categories(
 
     self.post(
         self.api_endpoint + "/v2/Categories/Select",
-        headers=self.headers,
         data=data
     )
 
@@ -123,7 +121,6 @@ def deselect_categories(
 
     self.post(
         self.api_endpoint + "/v2/Categories/Deselect",
-        headers=self.headers,
         data=data
     )
 
@@ -164,7 +161,6 @@ def create_categories(
 
     self.post(
         self.api_endpoint + "/v2/Categories/Create",
-        headers=self.headers,
         data=data
     )
 
@@ -202,7 +198,6 @@ def create_child_categories(
 
     self.post(
         self.api_endpoint + "/v2/Categories/CreateChild",
-        headers=self.headers,
         data=data
     )
 
@@ -240,7 +235,6 @@ def update_category(
 
     self.post(
         self.api_endpoint + "/v2/Categories/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -281,6 +275,5 @@ def delete_categories(
 
     self.delete(
         self.api_endpoint + "/v2/Categories/Delete",
-        headers=self.headers,
         data=data
     )

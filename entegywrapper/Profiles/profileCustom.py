@@ -19,7 +19,6 @@ def get_profile_custom(self, key: str) -> CustomProfileField:
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileCustomField",
-        headers=self.headers,
         data=data
     )
 
@@ -43,7 +42,6 @@ def create_profile_custom(
 
     self.post(
         self.api_endpoint + "/v2/ProfileCustomField/Create",
-        headers=self.headers,
         data=data
     )
 
@@ -69,7 +67,6 @@ def update_profile_custom(
 
     self.post(
         self.api_endpoint + "/v2/ProfileCustomField/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -88,7 +85,6 @@ def delete_profile_custom(self, key: str):
 
     self.delete(
         self.api_endpoint + "/v2/ProfileCustomField/Delete",
-        headers=self.headers,
         data=data
     )
 
@@ -105,7 +101,6 @@ def all_profile_custom(self) -> list[CustomProfileField]:
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileCustomField/All",
-        headers=self.headers,
         data=data
     )
 

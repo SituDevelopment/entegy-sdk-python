@@ -45,7 +45,6 @@ def award_points(
 
     self.post(
         self.api_endpoint + "/v2/Point/Award",
-        headers=self.headers,
         data=data
     )
 
@@ -91,7 +90,6 @@ def get_points(
 
     response = self.post(
         self.api_endpoint + "/v2/Point/Earned",
-        headers=self.headers,
         data=data
     )
 
@@ -111,7 +109,6 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
 
     response = self.post(
         self.api_endpoint + "/v2/Point/Leaderboard",
-        headers=self.headers,
         data=data
     )
 

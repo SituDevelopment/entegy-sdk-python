@@ -54,7 +54,6 @@ def all_profiles(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/All",
-        headers=self.headers,
         data=data
     )
     yield response["profiles"]
@@ -65,7 +64,6 @@ def all_profiles(
 
         response = self.post(
             self.api_endpoint + "/v2/Profile/All",
-            headers=self.headers,
             data=data
         )
         yield response["profiles"]
@@ -112,7 +110,6 @@ def get_profile(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/",
-        headers=self.headers,
         data=data
     )
 
@@ -133,7 +130,6 @@ def delete_profile(self, profile_id: str):
 
     self.delete(
         self.api_endpoint + "/v2/Profile/Delete",
-        headers=self.headers,
         data=data
     )
 
@@ -157,7 +153,6 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/Create",
-        headers=self.headers,
         data=data
     )
 
@@ -181,7 +176,6 @@ def update_profile(self, profile_id: str, profile_object: Profile):
 
     self.post(
         self.api_endpoint + "/v2/Profile/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -214,7 +208,6 @@ def sync_profiles(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/Sync",
-        headers=self.headers,
         data=data
     )
 
@@ -235,6 +228,5 @@ def send_welcome_email(self, profile_id: str):
 
     self.post(
         self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
-        headers=self.headers,
         data=data
     )
