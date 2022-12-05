@@ -161,8 +161,7 @@ class EntegyAPI:
     def post(
         self,
         endpoint: str,
-        data: dict,
-        headers: CaseInsensitiveDict
+        data: dict
     ) -> dict:
         """
         Posts the given data to the given endpoint of the Entegy API.
@@ -171,7 +170,6 @@ class EntegyAPI:
         ----------
             `endpoint` (`str`): API endpoint to which to post
             `data` (`dict`): data to post
-            `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
@@ -184,7 +182,11 @@ class EntegyAPI:
         data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
         while response is None:
-            response = requests.post(endpoint, headers=headers, data=json.dumps(data))
+            response = requests.post(
+                endpoint,
+                headers=self.headers,
+                data=json.dumps(data)
+            )
 
             # try catch used here as sometimes the response object comes through as
             # a blank JSON object
@@ -212,7 +214,6 @@ class EntegyAPI:
                     # update API key
                     self.cycle_key()
                     data["apiKey"] = self.get_key()
-                    headers = self.headers
                     print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
                     retry_count += 1
                     response = None
@@ -223,7 +224,6 @@ class EntegyAPI:
         self,
         endpoint: str,
         data: dict,
-        headers: CaseInsensitiveDict
     ) -> dict:
         """
         Deletes the given data from the given endpoint of the Entegy API.
@@ -232,7 +232,6 @@ class EntegyAPI:
         ----------
             `endpoint` (`str`): API endpoint from which to delete
             `data` (`dict`): data to delete
-            `headers` (`CaseInsensitiveDict`): request headers
 
         Returns
         -------
@@ -245,7 +244,11 @@ class EntegyAPI:
         data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
         while response is None:
-            response = requests.delete(endpoint, headers=headers, data=data)
+            response = requests.delete(
+                endpoint,
+                headers=self.headers,
+                data=data
+            )
 
             # try catch used here as sometimes the response object comes through as
             # a blank JSON object
@@ -273,7 +276,6 @@ class EntegyAPI:
                     # update API key
                     self.cycle_key()
                     data["apiKey"] = self.get_key()
-                    headers = self.headers
                     print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
                     retry_count += 1
                     response = None

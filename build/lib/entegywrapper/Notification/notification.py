@@ -69,7 +69,6 @@ def send_notification(
 
     response = self.post(
         self.api_endpoint + "/v2/Notification/SendBulk",
-        headers=self.headers,
         data=data
     )
 
@@ -129,7 +128,6 @@ def send_bulk_notification(
 
     response = self.post(
         self.api_endpoint + "/v2/Notification/SendBulk",
-        headers=self.headers,
         data=data
     )
 

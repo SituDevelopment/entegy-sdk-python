@@ -21,6 +21,5 @@ def add_profile_payment(
 
     self.post(
         self.api_endpoint + "/v2/ProfilePayment/Add/",
-        headers=self.headers,
         data=data
     )

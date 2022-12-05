@@ -38,7 +38,6 @@ def get_multi_links(
 
     response = self.post(
         self.api_endpoint + "/v2/MultiLink",
-        headers=self.headers,
         data=data
     )
 
@@ -81,7 +80,6 @@ def add_multi_links(
 
     self.post(
         self.api_endpoint + "/v2/MultiLink/Add",
-        headers=self.headers,
         data=data
     )
 
@@ -133,7 +131,6 @@ def remove_multi_link(
 
     self.post(
         self.api_endpoint + "/v2/MultiLink/Remove",
-        headers=self.headers,
         data=data
     )
 
@@ -176,6 +173,5 @@ def remove_all_multi_links(
 
     self.post(
         self.api_endpoint + "/v2/MultiLink/RemoveAll",
-        headers=self.headers,
         data=data
     )

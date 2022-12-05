@@ -58,7 +58,6 @@ def get_content(
 
     response = self.post(
         self.api_endpoint + "/v2/Content",
-        headers=self.headers,
         data=data
     )
 
@@ -114,7 +113,6 @@ def get_schedule_content(
 
     response = self.post(
         self.api_endpoint + "/v2/Content/Schedule",
-        headers=self.headers,
         data=data
     )
 
@@ -142,7 +140,6 @@ def create_content(
 
     response = self.post(
         self.api_endpoint + "/v2/Content/Create",
-        headers=self.headers,
         data=data
     )
 
@@ -188,7 +185,6 @@ def add_children_content(
 
     self.post(
         self.api_endpoint + "/v2/Content/AddChildren",
-        headers=self.headers,
         data=data
     )
 
@@ -229,7 +225,6 @@ def update_content(
 
     self.post(
         self.api_endpoint + "/v2/Content/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -272,6 +267,5 @@ def delete_content(
 
     self.delete(
         self.api_endpoint + "/v2/Content/Delete",
-        headers=self.headers,
         data=data
     )

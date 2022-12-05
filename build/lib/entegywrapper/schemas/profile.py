@@ -55,6 +55,10 @@ class ProfileNotRequired(TypedDict, total=False):
     parentProfile: ProfileReference
 
 
+class Profile(ProfileRequired, ProfileNotRequired):
+    pass
+
+
 class ProfileType(TypedDict):
     name: str
     isOrganiser: bool
@@ -73,6 +77,11 @@ CustomProfileFieldType: TypeAlias = Literal[
     "Website"
 ]
 
+class MultiChoiceOptions(TypedDict):
+    optionId: int
+    name: str
+    externalMappings: str
+
 
 class CustomProfileFieldRequired(TypedDict):
     key: str
@@ -83,11 +92,6 @@ class CustomProfileFieldRequired(TypedDict):
     type: CustomProfileFieldType
     sortOrder: int
     externallyManaged: bool
-
-class MultiChoiceOptions(TypedDict):
-    optionId: int
-    name: str
-    externalMappings: str
 
 
 class CustomProfileFieldNotRequired(TypedDict, total=False):
@@ -101,10 +105,6 @@ class CustomProfileField(
     pass
 
 
-class Profile(ProfileRequired, ProfileNotRequired):
-    pass
-
-
 class ProfileCreate(TypedDict):
     externalReference: str
     projectName: str
@@ -115,6 +115,25 @@ class ProfileCreate(TypedDict):
     type: project.ProjectType
     softwareElements: list[project.SoftwareElement]
     eventInfo: project.ProjectEventInfo
+
+
+class ProfileUpdate(TypedDict, total=False):
+    type: str
+    firstName: str
+    lastName: str
+    externalReference: str
+    badgeReference: str
+    accessCode: str  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
+    password: str
+    title: str
+    organization: str
+    position: str
+    email: str
+    contactNumber: str
+    imageUrl: str
+    enabled: bool
+    permissions: Permissions
+    customFields: dict[str, str]
 
 
 ProfileIdentifier: TypeAlias = Literal[

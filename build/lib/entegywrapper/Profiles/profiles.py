@@ -2,7 +2,8 @@ from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
     ProfileIdentifier,
-    ProfileType
+    ProfileType,
+    ProfileUpdate
 )
 
 from typing import Generator
@@ -54,7 +55,6 @@ def all_profiles(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/All",
-        headers=self.headers,
         data=data
     )
     yield response["profiles"]
@@ -65,7 +65,6 @@ def all_profiles(
 
         response = self.post(
             self.api_endpoint + "/v2/Profile/All",
-            headers=self.headers,
             data=data
         )
         yield response["profiles"]
@@ -112,7 +111,6 @@ def get_profile(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/",
-        headers=self.headers,
         data=data
     )
 
@@ -133,7 +131,6 @@ def delete_profile(self, profile_id: str):
 
     self.delete(
         self.api_endpoint + "/v2/Profile/Delete",
-        headers=self.headers,
         data=data
     )
 
@@ -157,14 +154,13 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/Create",
-        headers=self.headers,
         data=data
     )
 
     return response["profileId"]
 
 
-def update_profile(self, profile_id: str, profile_object: Profile):
+def update_profile(self, profile_id: str, profile_object: ProfileUpdate):
     """
     Updates the user profile specified by the given identifier using the fields
     in the given profile object.
@@ -172,7 +168,7 @@ def update_profile(self, profile_id: str, profile_object: Profile):
     Parameters
     ----------
         `profile_id` (`str`): the profileId of the profile to update
-        `profile_object` (`Profile`): the profile fields to update
+        `profile_object` (`ProfileUpdate`): the profile fields to update
     """
     data = {
         "profileId": profile_id,
@@ -181,7 +177,6 @@ def update_profile(self, profile_id: str, profile_object: Profile):
 
     self.post(
         self.api_endpoint + "/v2/Profile/Update",
-        headers=self.headers,
         data=data
     )
 
@@ -214,7 +209,6 @@ def sync_profiles(
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/Sync",
-        headers=self.headers,
         data=data
     )
 
@@ -235,6 +229,5 @@ def send_welcome_email(self, profile_id: str):
 
     self.post(
         self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
-        headers=self.headers,
         data=data
     )

@@ -51,7 +51,6 @@ def selected_profile_links(
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Selected/",
-        headers=self.headers,
         data=data
     )
     yield response["links"]
@@ -62,7 +61,6 @@ def selected_profile_links(
 
         response = self.post(
             self.api_endpoint + "/v2/ProfileLink/Selected/",
-            headers=self.headers,
             data=data
         )
         yield response["links"]
@@ -109,7 +107,6 @@ def page_profile_links(
 
     response = self.post(
         self.api_endpoint + "/v2/ProfileLink/Page/",
-        headers=self.headers,
         data=data
     )
     yield response["profiles"]
@@ -120,7 +117,6 @@ def page_profile_links(
 
         response = self.post(
             self.api_endpoint + "/v2/ProfileLink/Page/",
-            headers=self.headers,
             data=data
         )
         yield response["profiles"]
@@ -167,7 +163,6 @@ def select_profile_link(
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Select/",
-        headers=self.headers,
         data=data
     )
 
@@ -213,7 +208,6 @@ def multi_select_profile_links(
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/MultiSelect/",
-        headers=self.headers,
         data=data
     )
 
@@ -259,7 +253,6 @@ def deselect_profile_links(
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Deselect/",
-        headers=self.headers,
         data=data
     )
 
@@ -305,6 +298,5 @@ def clear_profile_links(
 
     self.post(
         self.api_endpoint + "/v2/ProfileLink/Clear/",
-        headers=self.headers,
         data=data
     )
