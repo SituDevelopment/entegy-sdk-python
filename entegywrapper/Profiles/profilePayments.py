@@ -12,7 +12,7 @@ def add_profile_payment(
     Parameters
     ----------
         `profile_id` (`str`): the profileId of the profile
-        `payment_info` (`PaymentInfo`): all payment information in JSON format
+        `payment_info` (`PaymentInfo`): the payment information to add
     """
     data = {
         "profileId": profile_id
