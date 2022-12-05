@@ -23,7 +23,7 @@ def add_documents(
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add the documents to
         `module_id` (`int`): the moduleId of the page to add the documents to
-        `file_documents` (`list[DocumentBase]`): the file documents to add
+        `file_documents` (`list[Document]`): the file documents to add
     """
     data = {
         "templateType":template_type,

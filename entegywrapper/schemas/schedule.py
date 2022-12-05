@@ -26,7 +26,7 @@ class Session(TypedDict):
 
 
 class SessionGroup(TypedDict):
-    documents: list[DocumentBase]
+    documents: list[content.Document]
     links: list[content.Link]
     multiLinks: list[content.NamedLink]
     selectedCategories: list[content.Category]
