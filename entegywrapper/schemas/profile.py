@@ -55,6 +55,10 @@ class ProfileNotRequired(TypedDict, total=False):
     parentProfile: ProfileReference
 
 
+class Profile(ProfileRequired, ProfileNotRequired):
+    pass
+
+
 class ProfileType(TypedDict):
     name: str
     isOrganiser: bool
@@ -73,6 +77,11 @@ CustomProfileFieldType: TypeAlias = Literal[
     "Website"
 ]
 
+class MultiChoiceOptions(TypedDict):
+    optionId: int
+    name: str
+    externalMappings: str
+
 
 class CustomProfileFieldRequired(TypedDict):
     key: str
@@ -84,11 +93,6 @@ class CustomProfileFieldRequired(TypedDict):
     sortOrder: int
     externallyManaged: bool
 
-class MultiChoiceOptions(TypedDict):
-    optionId: int
-    name: str
-    externalMappings: str
-
 
 class CustomProfileFieldNotRequired(TypedDict, total=False):
     options: list[MultiChoiceOptions]
@@ -98,10 +102,6 @@ class CustomProfileField(
     CustomProfileFieldRequired,
     CustomProfileFieldNotRequired
 ):
-    pass
-
-
-class Profile(ProfileRequired, ProfileNotRequired):
     pass
 
 
