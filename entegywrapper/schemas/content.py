@@ -73,7 +73,7 @@ class Content(TypedDict):
     moduleId: int
     externalReference: str
     mainImage: str
-    strings: dict[stringKeys.StringKey, bool]
+    strings: dict[stringKeys.StringKey, str]
     pageSettings: dict[pageSettings.PageSetting, bool]
     sortOrder: int
 
