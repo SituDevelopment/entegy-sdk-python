@@ -26,7 +26,7 @@ def get_multi_links(
         `list[NamedLink]`: all multi links associated with the content page
     """
     data = {
-        "templateType":template_type
+        "templateType": template_type
     }
 
     if module_id is not None:
@@ -68,7 +68,7 @@ def add_multi_links(
         `ValueError`: if no identifier is specified
     """
     data = {
-        "templateType":template_type,
+        "templateType": template_type,
         "multiLinks": multi_links
     }
 
@@ -113,7 +113,7 @@ def remove_multi_link(
         `ValueError`: if either no page or no target identifier is specified
     """
     data = {
-        "templateType":template_type,
+        "templateType": template_type,
         "targetTemplateType": target_template_type
     }
 
@@ -161,7 +161,7 @@ def remove_all_multi_links(
         `ValueError`: if no identifier is specified
     """
     data = {
-        "templateType":template_type
+        "templateType": template_type
     }
 
     if module_id is not None:

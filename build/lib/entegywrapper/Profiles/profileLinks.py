@@ -93,7 +93,7 @@ def page_profile_links(
         `Generator[list[Profile], None, None]`: paginated blocks of linked profiles
     """
     data = {
-        "templateType":template_type,
+        "templateType": template_type,
         "pagination": {
             "index": 0,
             "limit": 1000
@@ -289,7 +289,7 @@ def clear_profile_links(
         `ValueError`: if no identifier is specified
     """
     data = {
-        "templateType":template_type
+        "templateType": template_type
     }
 
     if profile_id is not None:

@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: entegywrapper
-Version: 1.1.0
+Version: 1.1.1
 Summary: A Python 3.10 wrapper for the Entegy API
 Home-page: https://github.com/SituDevelopment/python3-entegy-API-wrapper
 Author: William Sawyer

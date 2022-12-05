@@ -1,64 +1,60 @@
-from enum import Enum
+from typing import Literal, TypeAlias
 
 
-class StringKey:
-    pass
-
-
-class ContactInformationKeys(StringKey, Enum):
-    "phoneNumber"
-    "emailAddress"
-    "website"
-    "address"
-    "facebook"
-    "twitterHandle"
+ContactInformationKeys: TypeAlias = Literal[
+    "phoneNumber",
+    "emailAddress",
+    "website",
+    "address",
+    "facebook",
+    "twitterHandle",
     "linkedIn"
+]
 
 
-class About(ContactInformationKeys, Enum):
-    "subtitle"
+About: TypeAlias = ContactInformationKeys | Literal["subtitle"]
 
 
-class Speaker(ContactInformationKeys, Enum):
-    "sortName"
-    "companyAndPosition"
+Speaker: TypeAlias = ContactInformationKeys | Literal[
+    "sortName",
+    "companyAndPosition",
+    "copy",
+]
+
+
+ScheduleDay: TypeAlias = Literal["date"]
+
+
+SessionGroup: TypeAlias = Literal["startTime", "endTime"]
+
+
+Session: TypeAlias = Literal[
+    "startTime",
+    "endTime",
+    "askAQuestionEnabled",
     "copy"
+]
 
 
-class ScheduleDay(StringKey, Enum):
-    "date"
+SessionSegment: TypeAlias = Literal["startTime", "endTime", "copy"]
 
 
-class SessionGroup(StringKey, Enum):
-    "startTime"
-    "endTime"
-
-
-class Session(StringKey, Enum):
-    "startTime"
-    "endTime"
-    "askAQuestionEnabled"
-    "copy"
-
-
-class SessionSegment(StringKey, Enum):
-    "startTime"
-    "endTime"
-    "copy"
-
-
-class Exhibitor(ContactInformationKeys, Enum):
-    "subtitle"
-    "copy"
-    "markerX"
+Exhibitor: TypeAlias = ContactInformationKeys | Literal[
+    "subtitle",
+    "copy",
+    "markerX",
     "markerY"
+]
 
 
-class GenericGroup(StringKey, Enum):
-    "cellStyle"
+GenericGroup: TypeAlias = Literal["cellStyle"]
 
 
-class GenericGroupItem(ContactInformationKeys, Enum):
-    "subtitle"
-    "keywords"
+GenericGroupItem: TypeAlias = ContactInformationKeys | Literal[
+    "subtitle",
+    "keywords",
     "copy"
+]
+
+StringKey: TypeAlias = About | Speaker | ScheduleDay | SessionGroup | Session \
+        | SessionSegment | Exhibitor | GenericGroup | GenericGroupItem

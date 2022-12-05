@@ -1,14 +1,9 @@
-from enum import Enum
 from typing import Literal, TypeAlias, TypedDict
 
 from . import project
 
 
-ProfileExtendedPrivacy: TypeAlias = Literal[
-    "Public",
-    "Connections",
-    "Hidden"
-]
+ProfileExtendedPrivacy: TypeAlias = Literal["Public", "Connections", "Hidden"]
 
 
 class Permissions(TypedDict, total=False):
@@ -130,12 +125,7 @@ ProfileIdentifier: TypeAlias = Literal[
 ]
 
 
-PaymentStatus: TypeAlias = Literal[
-    "Pending",
-    "Cancelled",
-    "Paid"
-    "Refunded"
-]
+PaymentStatus: TypeAlias = Literal["Pending", "Cancelled", "Paid", "Refunded"]
 
 
 PaymentMethod: TypeAlias = Literal[
