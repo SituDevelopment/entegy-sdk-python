@@ -8,8 +8,8 @@ def award_points(
     *,
     profile_id: str | None = None,
     external_reference: str | None = None,
-    badge_reference: str | None = None,
     internal_reference: str | None = None,
+    badge_reference: str | None = None
 ):
     """
     Awards the given number of points to the specified profile.
@@ -20,8 +20,8 @@ def award_points(
         `points` (`int`): the amount of points to assign
         `profile_id` (`str`, optional): the profileId for the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
-        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
     ------
@@ -36,10 +36,10 @@ def award_points(
         data["profileId"] = profile_id
     elif external_reference is not None:
         data["externalReference"] = profile_id
-    elif badge_reference is not None:
-        data["badgeReference"] = profile_id
     elif internal_reference is not None:
         data["internalReference"] = profile_id
+    elif badge_reference is not None:
+        data["badgeReference"] = profile_id
     else:
         raise ValueError("Please specify an identifier")
 
@@ -54,8 +54,8 @@ def get_points(
     *,
     profile_id: str | None = None,
     external_reference: str | None = None,
-    badge_reference: str | None = None,
-    internal_reference: str | None = None
+    internal_reference: str | None = None,
+    badge_reference: str | None = None
 ) -> int:
     """
     Returns the amount of points the specified profile has.
@@ -64,8 +64,8 @@ def get_points(
     ----------
         `profile_id` (`str`, optional): the profileId for the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
-        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
     ------
@@ -81,10 +81,10 @@ def get_points(
         data["profileId"] = profile_id
     elif external_reference is not None:
         data["externalReference"] = profile_id
-    elif badge_reference is not None:
-        data["badgeReference"] = profile_id
     elif internal_reference is not None:
         data["internalReference"] = profile_id
+    elif badge_reference is not None:
+        data["badgeReference"] = profile_id
     else:
         raise ValueError("Please specify an identifier")
 

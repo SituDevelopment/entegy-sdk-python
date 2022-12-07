@@ -20,8 +20,8 @@ def selected_profile_links(
     ----------
         `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
-        `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
 
     Raises
     ------
@@ -127,8 +127,8 @@ def select_profile_link(
     link: Link,
     *,
     profile_id: str | None = None,
-    internal_reference: str | None = None,
     external_reference: str | None = None,
+    internal_reference: str | None = None,
     badge_reference: str | None = None
 ):
     """
@@ -138,8 +138,8 @@ def select_profile_link(
     ----------
         `link` (`Link`): the link to select
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
-        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -152,10 +152,10 @@ def select_profile_link(
 
     if profile_id is not None:
         data["profileId"] = profile_id
-    elif internal_reference is not None:
-        data["internalReference"] = internal_reference
     elif external_reference is not None:
         data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
@@ -217,8 +217,8 @@ def deselect_profile_links(
     link: Link,
     *,
     profile_id: str | None = None,
-    internal_reference: str | None = None,
     external_reference: str | None = None,
+    internal_reference: str | None = None,
     badge_reference: str | None = None
 ):
     """
@@ -228,8 +228,8 @@ def deselect_profile_links(
     ----------
         `link` (`Link`): the link to deselect
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
-        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -242,10 +242,10 @@ def deselect_profile_links(
 
     if profile_id is not None:
         data["profileId"] = profile_id
-    elif internal_reference is not None:
-        data["internalReference"] = internal_reference
     elif external_reference is not None:
         data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:
@@ -262,8 +262,8 @@ def clear_profile_links(
     template_type: TemplateType,
     *,
     profile_id: str | None = None,
-    internal_reference: str | None = None,
     external_reference: str | None = None,
+    internal_reference: str | None = None,
     badge_reference: str | None = None
 ):
     """
@@ -273,8 +273,8 @@ def clear_profile_links(
     ----------
         `template_type` (`TemplateType`): the templateType of links to clear
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
-        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -287,10 +287,10 @@ def clear_profile_links(
 
     if profile_id is not None:
         data["profileId"] = profile_id
-    elif internal_reference is not None:
-        data["internalReference"] = internal_reference
     elif external_reference is not None:
         data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     else:

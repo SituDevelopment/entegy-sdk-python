@@ -26,10 +26,10 @@ def all_profiles(
     ----------
         `include_custom_fields` (`bool`, optional): whether to include custom fields for each profile; defaults to `False`
         `include_permissions` (`bool`, optional): whether to include permissions for each profile; defaults to `False`
-        `status` (`str | None`, optional): only select profiles with this status; defaults to `None`
-        `profile_type` (`ProfileType | None`, only select profiles of this type): _description_; defaults to `None`
-        `updated_after` (`str | None`, optional): only select profiles updated after this time; defaults to `None`
-        `created_after` (`str | None`, optional): only select profiles created after this time; defaults to `None`
+        `status` (`str`, optional): only select profiles with this status; defaults to `None`
+        `profile_type` (`ProfileType`, optional): only select profiles of this type; defaults to `None`
+        `updated_after` (`str`, optional): only select profiles updated after this time; defaults to `None`
+        `created_after` (`str`, optional): only select profiles created after this time; defaults to `None`
 
     Yields
     ------
@@ -75,8 +75,8 @@ def get_profile(
     *,
     profile_id: str | None = None,
     external_reference: str | None = None,
-    badge_reference: str | None = None,
     internal_reference: str | None = None,
+    badge_reference: str | None = None,
     include_custom_fields: bool = False,
     include_permissions: bool = False
 ) -> Profile:
@@ -85,12 +85,16 @@ def get_profile(
 
     Parameters
     ----------
-        `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
-        `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
-        `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
-        `internal_reference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `include_custom_fields` (`bool`, optional): whether to include custom fields for each profile; defaults to `False`
         `include_permissions` (`bool`, optional): whether to include permissions for each profile; defaults to `False`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
 
     Returns
     -------
@@ -105,10 +109,10 @@ def get_profile(
         data["profileId"] = profile_id
     elif external_reference is not None:
         data["externalReference"] = external_reference
-    elif badge_reference is not None:
-        data["badgeReference"] = badge_reference
     elif internal_reference is not None:
         data["internalReference"] = internal_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
     else:
         raise ValueError("Please specify an identifier")
 
@@ -120,19 +124,42 @@ def get_profile(
     return response["profile"]
 
 
-def delete_profile(self, profile_id: str):
+def delete_profile(
+    self,
+    *,
+    profile_id: str | None = None,
+    external_reference: str | None = None,
+    internal_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
     Deletes the user profile specified by the given identifier.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile to delete
-    """
-    data = {
-        "profileId": profile_id
-    }
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
-    self.delete(
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+    """
+    data = {}
+
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
+    return self.delete(
         self.api_endpoint + "/v2/Profile/Delete",
         data=data
     )
@@ -163,20 +190,45 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
     return response["profileId"]
 
 
-def update_profile(self, profile_id: str, profile_object: ProfileUpdate):
+def update_profile(
+    self,
+    profile_object: ProfileUpdate,
+    *,
+    profile_id: str | None = None,
+    external_reference: str | None = None,
+    internal_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
     Updates the user profile specified by the given identifier using the fields
     in the given profile object.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile to update
         `profile_object` (`ProfileUpdate`): the profile fields to update
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
-        "profileId": profile_id,
         "profile": profile_object
     }
+
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Profile/Update",
@@ -218,17 +270,42 @@ def sync_profiles(
     return response["results"]
 
 
-def send_welcome_email(self, profile_id: str):
+def send_welcome_email(
+    self, 
+    *,
+    profile_id: str | None = None,
+    external_reference: str | None = None,
+    internal_reference: str | None = None,
+    badge_reference: str | None = None
+):
     """
     Re-sends the welcome email for a given profile on a given project.
 
     Parameters
     ----------
-        `profile_id` (`str`): the profileId of the profile to update
+        `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
     """
     data = {
         "profileId": profile_id
     }
+
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    elif internal_reference is not None:
+        data["internalReference"] = internal_reference
+    elif badge_reference is not None:
+        data["badgeReference"] = badge_reference
+    else:
+        raise ValueError("Please specify an identifier")
 
     self.post(
         self.api_endpoint + "/v2/Profile/SendWelcomeEmail",

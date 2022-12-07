@@ -46,11 +46,7 @@ def create_profile_custom(
     )
 
 
-def update_profile_custom(
-    self,
-    key: str,
-    custom_field: CustomProfileField
-):
+def update_profile_custom(self, key: str, custom_field: CustomProfileField):
     """
     Updates the custom profile field specified by the given key with data from
     the given custom field.

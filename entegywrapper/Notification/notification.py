@@ -8,8 +8,8 @@ def send_notification(
     *,
     profile_id: str | None = None,
     external_reference: str | None = None,
-    badge_reference: str | None = None,
     internal_reference: str | None = None,
+    badge_reference: str | None = None,
     target_page: dict[str, str | int] | None = None
 ) -> str:
     """
@@ -21,19 +21,9 @@ def send_notification(
         `message` (`str`): the message of the notification
         `profile_id` (`str`): the profileId of the profile to send the notification to
         `external_reference` (`str`, optional): the externalReference of the profile to send the ; defaults to `None`notification to
-        `badge_reference` (`str`, optional): the badgeReference of the profile to send the notification to; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile to send the ; defaults to `None`notification to
+        `badge_reference` (`str`, optional): the badgeReference of the profile to send the notification to; defaults to `None`
         `target_page` (`dict[str, str | int]`, optional): the page to view when the notification is clicked; defaults to `None`
-
-    The format of `profile_references` is as follows:
-    ```python
-        [
-            { "profileId": "1234567890" },
-            { "externalReference": "1234567890" },
-            { "badgeReference": "1234567890" },
-            { "internalReference": "1234567890" }
-        ]
-    ```
 
     The format of `target_page` is as follows:
     ```python
@@ -42,6 +32,10 @@ def send_notification(
             "moduleId": 1  # could be externalReference instead
         }
     ```
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
 
     Returns
     -------
