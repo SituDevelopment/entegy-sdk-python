@@ -20,8 +20,8 @@ def selected_profile_links(
     ----------
         `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
-        `badgeReference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
-        `internalReference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
 
     Raises
     ------

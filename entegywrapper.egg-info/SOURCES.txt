@@ -7,6 +7,8 @@ entegywrapper.egg-info/SOURCES.txt
 entegywrapper.egg-info/dependency_links.txt
 entegywrapper.egg-info/requires.txt
 entegywrapper.egg-info/top_level.txt
+entegywrapper/AttendanceTracking/__init__.py
+entegywrapper/AttendanceTracking/attendanceTracking.py
 entegywrapper/Content/__init__.py
 entegywrapper/Content/categories.py
 entegywrapper/Content/content.py

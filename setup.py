@@ -10,6 +10,7 @@ setup(
     license="BSD 2-clause",
     packages=[
         "entegywrapper",
+        "entegywrapper/AttendanceTracking",
         "entegywrapper/Points",
         "entegywrapper/Content",
         "entegywrapper/Profiles",

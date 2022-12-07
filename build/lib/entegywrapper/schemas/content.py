@@ -113,3 +113,6 @@ class ContentChildCreate(
 
 class ContentParent(Content, TypedDict):
     children: list[ContentChild]
+
+
+ContentIdentifier: TypeAlias = Literal["moduleId", "externalReference"]
