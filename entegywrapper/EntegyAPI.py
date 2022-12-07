@@ -88,6 +88,11 @@ class EntegyAPI:
         send_notification,
         send_bulk_notification
     )
+    from .AttendanceTracking.attendanceTracking import (
+        add_check_in,
+        get_attendees,
+        get_attended
+    )
 
     def __init__(
         self,
