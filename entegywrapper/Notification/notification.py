@@ -62,7 +62,7 @@ def send_notification(
     elif badge_reference is not None:
         data["profileReferences"] = {"badgeReference": badge_reference}
     else:
-        raise Exception("No profile reference specified")
+        raise ValueError("Please specify an identifier")
 
     if target_page is not None:
         data["viewTargetPage"] = target_page

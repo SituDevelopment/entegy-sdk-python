@@ -87,8 +87,8 @@ def get_profile(
     ----------
         `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
-        `badgeReference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
-        `internalReference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
+        `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
+        `internal_reference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
         `include_custom_fields` (`bool`, optional): whether to include custom fields for each profile; defaults to `False`
         `include_permissions` (`bool`, optional): whether to include permissions for each profile; defaults to `False`
 
@@ -97,17 +97,20 @@ def get_profile(
         `Profile`: the user profile specified by the given identifier
     """
     data = {
-        "profileId": profile_id,
         "includeCustomFields": include_custom_fields,
         "includePermissions": include_permissions
     }
 
-    if external_reference is not None:
+    if profile_id is not None:
+        data["profileId"] = profile_id
+    elif external_reference is not None:
         data["externalReference"] = external_reference
     elif badge_reference is not None:
         data["badgeReference"] = badge_reference
     elif internal_reference is not None:
         data["internalReference"] = internal_reference
+    else:
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Profile/",
