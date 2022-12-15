@@ -25,7 +25,7 @@ TemplateType: TypeAlias = Literal[
     "HTMLGroup",
     "HTMLPage",
     "Sponsors",
-    "Sponsor"
+    "Sponsor",
 ]
 
 
@@ -104,10 +104,7 @@ class ContentChildCreateNotRequired(TypedDict, total=False):
     sortOrder: int
 
 
-class ContentChildCreate(
-    ContentChildCreateRequired,
-    ContentChildCreateNotRequired
-):
+class ContentChildCreate(ContentChildCreateRequired, ContentChildCreateNotRequired):
     pass
 
 

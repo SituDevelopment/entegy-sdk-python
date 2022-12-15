@@ -22,7 +22,7 @@ PointType: TypeAlias = Literal[
     "InteractiveSessionVote",
     "InteractiveSessionComment",
     "InteractiveSessionQuestion",
-    "ManualPoints"
+    "ManualPoints",
 ]
 
 

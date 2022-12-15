@@ -14,6 +14,7 @@ api_endpoints = {
     "EU": "https://api-eu.entegy.com.au",
 }
 
+
 class EntegyAPI:
     from .Profiles.profiles import (
         all_profiles,
@@ -46,9 +47,7 @@ class EntegyAPI:
         deselect_profile_links,
         clear_profile_links,
     )
-    from .Profiles.profilePayments import (
-        add_profile_payment
-    )
+    from .Profiles.profilePayments import add_profile_payment
     from .Content.content import (
         get_content,
         get_schedule_content,
@@ -66,32 +65,20 @@ class EntegyAPI:
         update_category,
         delete_categories,
     )
-    from .Content.documents import (
-        add_documents,
-        add_external_content_documents
-    )
+    from .Content.documents import add_documents, add_external_content_documents
     from .Content.multiLink import (
         get_multi_links,
         add_multi_links,
         remove_multi_link,
         remove_all_multi_links,
     )
-    from .Points.pointManagement import (
-        award_points,
-        get_point_leaderboard,
-        get_points
-    )
-    from .Plugins.extAuth import (
-        external_authentication
-    )
-    from .Notification.notification import (
-        send_notification,
-        send_bulk_notification
-    )
+    from .Points.pointManagement import award_points, get_point_leaderboard, get_points
+    from .Plugins.extAuth import external_authentication
+    from .Notification.notification import send_notification, send_bulk_notification
     from .AttendanceTracking.attendanceTracking import (
         add_check_in,
         get_attendees,
-        get_attended
+        get_attended,
     )
 
     def __init__(
@@ -99,7 +86,7 @@ class EntegyAPI:
         api_key: str | list[str],
         api_secret: str | list[str],
         project_id: str,
-        region: str = "AU"
+        region: str = "AU",
     ):
         """
         Creates an Entegy API wrapper to interact with the specified project.
@@ -141,7 +128,9 @@ class EntegyAPI:
             `str`: API Key
         """
         if isinstance(self.api_key, list):
-            self.headers["Authorization"] = f"ApiKey {self.api_secret[self.current_key_pair]}"
+            self.headers[
+                "Authorization"
+            ] = f"ApiKey {self.api_secret[self.current_key_pair]}"
             return self.api_key[self.current_key_pair]
 
         self.headers["Authorization"] = f"ApiKey {self.api_secret}"
@@ -163,11 +152,7 @@ class EntegyAPI:
         """
         return self.api_endpoint
 
-    def post(
-        self,
-        endpoint: str,
-        data: dict
-    ) -> dict:
+    def post(self, endpoint: str, data: dict) -> dict:
         """
         Posts the given data to the given endpoint of the Entegy API.
 
@@ -188,9 +173,7 @@ class EntegyAPI:
 
         while response is None:
             response = requests.post(
-                endpoint,
-                headers=self.headers,
-                data=json.dumps(data)
+                endpoint, headers=self.headers, data=json.dumps(data)
             )
 
             # try catch used here as sometimes the response object comes through as
@@ -211,7 +194,9 @@ class EntegyAPI:
             if response.json()["response"] == 489:
                 # if there is a rate limit issue, wait the remaining time and try again
                 if retry_count >= len(self.api_key):
-                    print(f"Rate limit reached, waiting {response.json()['resetDuration']} seconds")
+                    print(
+                        f"Rate limit reached, waiting {response.json()['resetDuration']} seconds"
+                    )
                     time.sleep(response.json()["resetDuration"] + 2)
                     print("Continuing...")
                     response = None
@@ -249,16 +234,12 @@ class EntegyAPI:
         data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
         while response is None:
-            response = requests.delete(
-                endpoint,
-                headers=self.headers,
-                data=data
-            )
+            response = requests.delete(endpoint, headers=self.headers, data=data)
 
             # try catch used here as sometimes the response object comes through as
             # a blank JSON object
             try:
-                if response.json()['response'] == 403:
+                if response.json()["response"] == 403:
                     time.sleep(0.5)
                     permission_error_count += 1
                     if permission_error_count >= 5:
@@ -273,7 +254,9 @@ class EntegyAPI:
             if response.json()["response"] == 489:
                 # if there is a rate limit issue, wait the remaining time and try again
                 if retry_count >= len(self.api_key):
-                    print(f"Rate limit reached, waiting {response.json()['resetDuration']} seconds")
+                    print(
+                        f"Rate limit reached, waiting {response.json()['resetDuration']} seconds"
+                    )
                     time.sleep(response.json()["resetDuration"] + 2)
                     print("Continuing...")
                     response = None

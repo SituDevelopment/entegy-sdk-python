@@ -11,15 +11,10 @@ def external_authentication(self, profile_id: str, device_id: str) -> bool:
     -------
         `bool`: whether this is the user's first login
     """
-    data = {
-        "profileId": profile_id,
-        "deviceId": device_id,
-        "requestVersion": 1
-    }
+    data = {"profileId": profile_id, "deviceId": device_id, "requestVersion": 1}
 
     response = self.post(
-        self.api_endpoint + "/v2/Authentication/ExternalProfile",
-        data=data
+        self.api_endpoint + "/v2/Authentication/ExternalProfile", data=data
     )
 
     return response["firstLogin"]

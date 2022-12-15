@@ -8,18 +8,21 @@ ContactInformationKeys: TypeAlias = Literal[
     "address",
     "facebook",
     "twitterHandle",
-    "linkedIn"
+    "linkedIn",
 ]
 
 
 About: TypeAlias = ContactInformationKeys | Literal["subtitle"]
 
 
-Speaker: TypeAlias = ContactInformationKeys | Literal[
-    "sortName",
-    "companyAndPosition",
-    "copy",
-]
+Speaker: TypeAlias = (
+    ContactInformationKeys
+    | Literal[
+        "sortName",
+        "companyAndPosition",
+        "copy",
+    ]
+)
 
 
 ScheduleDay: TypeAlias = Literal["date"]
@@ -28,33 +31,32 @@ ScheduleDay: TypeAlias = Literal["date"]
 SessionGroup: TypeAlias = Literal["startTime", "endTime"]
 
 
-Session: TypeAlias = Literal[
-    "startTime",
-    "endTime",
-    "askAQuestionEnabled",
-    "copy"
-]
+Session: TypeAlias = Literal["startTime", "endTime", "askAQuestionEnabled", "copy"]
 
 
 SessionSegment: TypeAlias = Literal["startTime", "endTime", "copy"]
 
 
-Exhibitor: TypeAlias = ContactInformationKeys | Literal[
-    "subtitle",
-    "copy",
-    "markerX",
-    "markerY"
-]
+Exhibitor: TypeAlias = (
+    ContactInformationKeys | Literal["subtitle", "copy", "markerX", "markerY"]
+)
 
 
 GenericGroup: TypeAlias = Literal["cellStyle"]
 
 
-GenericGroupItem: TypeAlias = ContactInformationKeys | Literal[
-    "subtitle",
-    "keywords",
-    "copy"
-]
+GenericGroupItem: TypeAlias = (
+    ContactInformationKeys | Literal["subtitle", "keywords", "copy"]
+)
 
-StringKey: TypeAlias = About | Speaker | ScheduleDay | SessionGroup | Session \
-        | SessionSegment | Exhibitor | GenericGroup | GenericGroupItem
+StringKey: TypeAlias = (
+    About
+    | Speaker
+    | ScheduleDay
+    | SessionGroup
+    | Session
+    | SessionSegment
+    | Exhibitor
+    | GenericGroup
+    | GenericGroupItem
+)

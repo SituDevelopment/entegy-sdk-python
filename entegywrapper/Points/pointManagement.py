@@ -27,10 +27,7 @@ def award_points(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "pointEvent": point_type,
-        "points": points
-    }
+    data = {"pointEvent": point_type, "points": points}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -43,10 +40,7 @@ def award_points(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Point/Award",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Point/Award", data=data)
 
 
 def get_points(
@@ -88,10 +82,7 @@ def get_points(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Point/Earned",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Point/Earned", data=data)
 
     return response["points"]
 
@@ -107,9 +98,6 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
     """
     data = {}
 
-    response = self.post(
-        self.api_endpoint + "/v2/Point/Leaderboard",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Point/Leaderboard", data=data)
 
     return response["leaderboard"]

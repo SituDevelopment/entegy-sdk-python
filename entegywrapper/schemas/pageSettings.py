@@ -9,5 +9,5 @@ PageSetting: TypeAlias = Literal[
     "requireLogin",
     "reminderAlert",
     "apiManaged",
-    "showByProfile"
+    "showByProfile",
 ]

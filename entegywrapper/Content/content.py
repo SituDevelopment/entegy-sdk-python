@@ -1,8 +1,4 @@
-from entegywrapper.schemas.content import (
-    Content,
-    ContentChildCreate,
-    TemplateType
-)
+from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
 
@@ -46,7 +42,7 @@ def get_content(
         "includeDocuments": include_documents,
         "includeLinks": include_links,
         "includeMultiLinks": include_multi_links,
-        "includePageSettings": include_page_settings
+        "includePageSettings": include_page_settings,
     }
 
     if module_id is not None:
@@ -56,10 +52,7 @@ def get_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Content",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Content", data=data)
 
     return response
 
@@ -101,7 +94,7 @@ def get_schedule_content(
         "includeDocuments": include_documents,
         "includeLinks": include_links,
         "includeMultiLinks": include_multi_links,
-        "includePageSettings": include_page_settings
+        "includePageSettings": include_page_settings,
     }
 
     if module_id is not None:
@@ -111,20 +104,12 @@ def get_schedule_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Content/Schedule",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Content/Schedule", data=data)
 
     return response["content"]
 
 
-def create_content(
-    self,
-    content: Content,
-    *,
-    content_group: str = "Default"
-) -> int:
+def create_content(self, content: Content, *, content_group: str = "Default") -> int:
     """
     Creates a root content item.
 
@@ -133,15 +118,9 @@ def create_content(
         `content` (`Content`): the content to create
         `content_group` (`str`, optional) the content group in the core this new root content should go in; defaults to "Default"
     """
-    data = {
-        "contentGroup": content_group,
-        "content": content
-    }
+    data = {"contentGroup": content_group, "content": content}
 
-    response = self.post(
-        self.api_endpoint + "/v2/Content/Create",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Content/Create", data=data)
 
     return response["moduleId"]
 
@@ -173,7 +152,7 @@ def add_children_content(
     data = {
         "templateType": template_type,
         "childTemplateType": child_template_type,
-        "children": children
+        "children": children,
     }
 
     if module_id is not None:
@@ -183,10 +162,7 @@ def add_children_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Content/AddChildren",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Content/AddChildren", data=data)
 
 
 def update_content(
@@ -195,7 +171,7 @@ def update_content(
     content: Content,
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Updates data within a content item.
@@ -211,10 +187,7 @@ def update_content(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "content": content
-    }
+    data = {"templateType": template_type, "content": content}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -223,10 +196,7 @@ def update_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Content/Update",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Content/Update", data=data)
 
 
 def delete_content(
@@ -234,7 +204,7 @@ def delete_content(
     template_type: TemplateType,
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Deletes a content resource from the Entegy System. Any content deleted is
@@ -254,9 +224,7 @@ def delete_content(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type
-    }
+    data = {"templateType": template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -265,7 +233,4 @@ def delete_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(
-        self.api_endpoint + "/v2/Content/Delete",
-        data=data
-    )
+    self.delete(self.api_endpoint + "/v2/Content/Delete", data=data)

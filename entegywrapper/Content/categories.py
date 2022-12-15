@@ -26,9 +26,7 @@ def available_categories(
     -------
         `list[Category]`: the available categories
     """
-    data = {
-        "templateType": template_type
-    }
+    data = {"templateType": template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -37,10 +35,7 @@ def available_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Categories/Available",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Categories/Available", data=data)
 
     return response["availableCategories"]
 
@@ -51,7 +46,7 @@ def select_categories(
     categories: list[Category],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Selects the specified categories for the specified content page.
@@ -67,10 +62,7 @@ def select_categories(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "categories": categories
-    }
+    data = {"templateType": template_type, "categories": categories}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -79,10 +71,7 @@ def select_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Categories/Select",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Categories/Select", data=data)
 
 
 def deselect_categories(
@@ -91,7 +80,7 @@ def deselect_categories(
     categories: list[Category],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Deselects the specified categories for the specified content page.
@@ -107,10 +96,7 @@ def deselect_categories(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "categories": categories
-    }
+    data = {"templateType": template_type, "categories": categories}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -119,10 +105,7 @@ def deselect_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Categories/Deselect",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Categories/Deselect", data=data)
 
 
 def create_categories(
@@ -131,7 +114,7 @@ def create_categories(
     categories: list[Category],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Creates categories under a root page.
@@ -147,10 +130,7 @@ def create_categories(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "categories": categories
-    }
+    data = {"templateType": template_type, "categories": categories}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -159,10 +139,7 @@ def create_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Categories/Create",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Categories/Create", data=data)
 
 
 def create_child_categories(
@@ -170,7 +147,7 @@ def create_child_categories(
     categories: list[Category],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Creates categories under another category.
@@ -185,9 +162,7 @@ def create_child_categories(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "categories": categories
-    }
+    data = {"categories": categories}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -196,10 +171,7 @@ def create_child_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Categories/CreateChild",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Categories/CreateChild", data=data)
 
 
 def update_category(
@@ -207,7 +179,7 @@ def update_category(
     name: str,
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Changes the name of a category.
@@ -222,9 +194,7 @@ def update_category(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "name": name
-    }
+    data = {"name": name}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -233,10 +203,7 @@ def update_category(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Categories/Update",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Categories/Update", data=data)
 
 
 def delete_categories(
@@ -245,7 +212,7 @@ def delete_categories(
     categories: list[Category],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Creates categories under another category.
@@ -261,10 +228,7 @@ def delete_categories(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "categories": categories
-    }
+    data = {"templateType": template_type, "categories": categories}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -273,7 +237,4 @@ def delete_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(
-        self.api_endpoint + "/v2/Categories/Delete",
-        data=data
-    )
+    self.delete(self.api_endpoint + "/v2/Categories/Delete", data=data)

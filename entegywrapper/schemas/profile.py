@@ -74,8 +74,9 @@ CustomProfileFieldType: TypeAlias = Literal[
     "Facebook",
     "Twitter",
     "Instagram",
-    "Website"
+    "Website",
 ]
+
 
 class MultiChoiceOptions(TypedDict):
     optionId: int
@@ -98,10 +99,7 @@ class CustomProfileFieldNotRequired(TypedDict, total=False):
     options: list[MultiChoiceOptions]
 
 
-class CustomProfileField(
-    CustomProfileFieldRequired,
-    CustomProfileFieldNotRequired
-):
+class CustomProfileField(CustomProfileFieldRequired, CustomProfileFieldNotRequired):
     pass
 
 
@@ -137,10 +135,7 @@ class ProfileUpdate(TypedDict, total=False):
 
 
 ProfileIdentifier: TypeAlias = Literal[
-    "profileId",
-    "externalReference",
-    "internalReference",
-    "badgeReference"
+    "profileId", "externalReference", "internalReference", "badgeReference"
 ]
 
 
@@ -148,12 +143,7 @@ PaymentStatus: TypeAlias = Literal["Pending", "Cancelled", "Paid", "Refunded"]
 
 
 PaymentMethod: TypeAlias = Literal[
-    "None",
-    "CreditCard",
-    "DirectDeposit",
-    "Cash",
-    "Cheque",
-    "Other"
+    "None", "CreditCard", "DirectDeposit", "Cash", "Cheque", "Other"
 ]
 
 

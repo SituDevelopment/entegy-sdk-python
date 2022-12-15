@@ -44,7 +44,7 @@ def send_notification(
     data = {
         "title": title,
         "message": message,
-        "alertMessage": "This is an alert message"
+        "alertMessage": "This is an alert message",
     }
 
     if profile_id is not None:
@@ -61,10 +61,7 @@ def send_notification(
     if target_page is not None:
         data["viewTargetPage"] = target_page
 
-    response = self.post(
-        self.api_endpoint + "/v2/Notification/SendBulk",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Notification/SendBulk", data=data)
 
     return response["message"]
 
@@ -113,16 +110,13 @@ def send_bulk_notification(
         "profileReferences": profile_references,
         "title": title,
         "message": message,
-        "alertMessage": "This is an alert message -- it is not shown anywhere" \
-                " or documented in the API docs, but it is required."
+        "alertMessage": "This is an alert message -- it is not shown anywhere"
+        " or documented in the API docs, but it is required.",
     }
 
     if target_page is not None:
         data["viewTargetPage"] = target_page
 
-    response = self.post(
-        self.api_endpoint + "/v2/Notification/SendBulk",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Notification/SendBulk", data=data)
 
     return response["message"]

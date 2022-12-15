@@ -1,20 +1,13 @@
 import os
 import sys
 
-from entegywrapper.schemas.content import (
-    Document,
-    ExternalContent,
-    TemplateType
-)
+from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
 
 sys.path.append(os.path.dirname(__file__))
 
 
 def add_documents(
-    self,
-    template_type: TemplateType,
-    module_id: int,
-    file_documents: list[Document]
+    self, template_type: TemplateType, module_id: int, file_documents: list[Document]
 ):
     """
     Adds documents to a page.
@@ -28,20 +21,17 @@ def add_documents(
     data = {
         "templateType": template_type,
         "moduleId": module_id,
-        "fileDocuments": file_documents
+        "fileDocuments": file_documents,
     }
 
-    self.post(
-        self.api_endpoint + "/v2/Document/AddFile",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Document/AddFile", data=data)
 
 
 def add_external_content_documents(
     self,
     template_type: TemplateType,
     module_id: int,
-    external_content_items: list[ExternalContent]
+    external_content_items: list[ExternalContent],
 ):
     """
     Adds external content documents to a page.
@@ -55,10 +45,7 @@ def add_external_content_documents(
     data = {
         "templateType": template_type,
         "moduleId": module_id,
-        "externalContentItems": external_content_items
+        "externalContentItems": external_content_items,
     }
 
-    self.post(
-        self.api_endpoint + "/v2/Document/AddExternalContent",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Document/AddExternalContent", data=data)

@@ -13,22 +13,14 @@ def get_profile_custom(self, key: str) -> CustomProfileField:
     -------
         `CustomProfileField`: the custom field specified by the given key
     """
-    data = {
-        "key": key
-    }
+    data = {"key": key}
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileCustomField",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileCustomField", data=data)
 
     return response["customField"]
 
 
-def create_profile_custom(
-    self,
-    custom_field: CustomProfileField
-):
+def create_profile_custom(self, custom_field: CustomProfileField):
     """
     Creates a new custom field for profiles.
 
@@ -36,14 +28,9 @@ def create_profile_custom(
     ----------
         `custom_field` (`CustomProfileField`): the custom field to create
     """
-    data = {
-        "customField": custom_field
-    }
+    data = {"customField": custom_field}
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileCustomField/Create",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileCustomField/Create", data=data)
 
 
 def update_profile_custom(self, key: str, custom_field: CustomProfileField):
@@ -56,15 +43,9 @@ def update_profile_custom(self, key: str, custom_field: CustomProfileField):
         `key` (`str`): the key of the custom field to update
         `custom_field` (`CustomProfileField`): the fields to update
     """
-    data = {
-        "key": key,
-        "customField": custom_field
-    }
+    data = {"key": key, "customField": custom_field}
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileCustomField/Update",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileCustomField/Update", data=data)
 
 
 def delete_profile_custom(self, key: str):
@@ -75,14 +56,9 @@ def delete_profile_custom(self, key: str):
     ----------
         `key` (`str`): the key of the custom field to delete
     """
-    data = {
-        "key": key
-    }
+    data = {"key": key}
 
-    self.delete(
-        self.api_endpoint + "/v2/ProfileCustomField/Delete",
-        data=data
-    )
+    self.delete(self.api_endpoint + "/v2/ProfileCustomField/Delete", data=data)
 
 
 def all_profile_custom(self) -> list[CustomProfileField]:
@@ -95,9 +71,6 @@ def all_profile_custom(self) -> list[CustomProfileField]:
     """
     data = {}
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileCustomField/All",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileCustomField/All", data=data)
 
     return response["customFields"]

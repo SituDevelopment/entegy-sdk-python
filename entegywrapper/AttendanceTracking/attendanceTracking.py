@@ -43,10 +43,7 @@ def add_check_in(
     else:
         raise ValueError("Please specify a session identifier")
 
-    self.post(
-        self.api_endpoint + "/Track/AddCheckIn",
-        data=data
-    )
+    self.post(self.api_endpoint + "/Track/AddCheckIn", data=data)
 
 
 def get_attendees(
@@ -77,10 +74,7 @@ def get_attendees(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Track/Attendees",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Track/Attendees", data=data)
 
     return response["attendees"]
 
@@ -91,7 +85,7 @@ def get_attended(
     profile_id: str | None = None,
     external_reference: str | None = None,
     badge_reference: str | None = None,
-    internal_reference: str | None = None
+    internal_reference: str | None = None,
 ) -> list[Attended]:
     """
     Returns the sessions attended by the profile specified by the given
@@ -121,9 +115,6 @@ def get_attended(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Track/Attended",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Track/Attended", data=data)
 
     return response["sessions"]

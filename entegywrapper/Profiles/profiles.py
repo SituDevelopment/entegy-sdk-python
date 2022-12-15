@@ -3,7 +3,7 @@ from entegywrapper.schemas.profile import (
     ProfileCreate,
     ProfileIdentifier,
     ProfileType,
-    ProfileUpdate
+    ProfileUpdate,
 )
 
 from typing import Generator
@@ -36,12 +36,9 @@ def all_profiles(
         `Generator[list[Profile], None, None]`: paginated blocks of user profiles
     """
     data = {
-        "pagination": {
-            "start": 0,
-            "limit": 1000
-        },
+        "pagination": {"start": 0, "limit": 1000},
         "includeCustomFields": include_custom_fields,
-        "includePermissions": include_permissions
+        "includePermissions": include_permissions,
     }
 
     if status is not None:
@@ -53,20 +50,16 @@ def all_profiles(
     if created_after is not None:
         data["createdAfter"] = created_after
 
-    response = self.post(
-        self.api_endpoint + "/v2/Profile/All",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
     yield response["profiles"]
 
-    while response["pagination"]["start"] + response["pagination"]["limit"] \
-            < response["pagination"]["count"]:
+    while (
+        response["pagination"]["start"] + response["pagination"]["limit"]
+        < response["pagination"]["count"]
+    ):
         data["pagination"]["start"] += data["pagination"]["limit"]
 
-        response = self.post(
-            self.api_endpoint + "/v2/Profile/All",
-            data=data
-        )
+        response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
         yield response["profiles"]
 
 
@@ -102,7 +95,7 @@ def get_profile(
     """
     data = {
         "includeCustomFields": include_custom_fields,
-        "includePermissions": include_permissions
+        "includePermissions": include_permissions,
     }
 
     if profile_id is not None:
@@ -116,10 +109,7 @@ def get_profile(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Profile/",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Profile/", data=data)
 
     return response["profile"]
 
@@ -159,10 +149,7 @@ def delete_profile(
     else:
         raise ValueError("Please specify an identifier")
 
-    return self.delete(
-        self.api_endpoint + "/v2/Profile/Delete",
-        data=data
-    )
+    return self.delete(self.api_endpoint + "/v2/Profile/Delete", data=data)
 
 
 def create_profile(self, profile_object: ProfileCreate) -> str:
@@ -178,14 +165,9 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
     -------
         `str`: profileId of the newly created profile
     """
-    data = {
-        "profile": profile_object
-    }
+    data = {"profile": profile_object}
 
-    response = self.post(
-        self.api_endpoint + "/v2/Profile/Create",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Profile/Create", data=data)
 
     return response["profileId"]
 
@@ -215,9 +197,7 @@ def update_profile(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "profile": profile_object
-    }
+    data = {"profile": profile_object}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -230,10 +210,7 @@ def update_profile(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Profile/Update",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Profile/Update", data=data)
 
 
 def sync_profiles(
@@ -259,19 +236,16 @@ def sync_profiles(
     data = {
         "updateReferenceType": update_reference_type,
         "profiles": profiles,
-        "groupByFirstProfile": group_by_first_profile
+        "groupByFirstProfile": group_by_first_profile,
     }
 
-    response = self.post(
-        self.api_endpoint + "/v2/Profile/Sync",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Profile/Sync", data=data)
 
     return response["results"]
 
 
 def send_welcome_email(
-    self, 
+    self,
     *,
     profile_id: str | None = None,
     external_reference: str | None = None,
@@ -292,9 +266,7 @@ def send_welcome_email(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "profileId": profile_id
-    }
+    data = {"profileId": profile_id}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -307,7 +279,4 @@ def send_welcome_email(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/Profile/SendWelcomeEmail",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/Profile/SendWelcomeEmail", data=data)

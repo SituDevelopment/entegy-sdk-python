@@ -6,7 +6,7 @@ def get_multi_links(
     template_type: TemplateType,
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ) -> list[NamedLink]:
     """
     Returns all the multi links associated with the content page.
@@ -25,9 +25,7 @@ def get_multi_links(
     -------
         `list[NamedLink]`: all multi links associated with the content page
     """
-    data = {
-        "templateType": template_type
-    }
+    data = {"templateType": template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -36,10 +34,7 @@ def get_multi_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/MultiLink",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/MultiLink", data=data)
 
     return response["multiLinks"]
 
@@ -50,7 +45,7 @@ def add_multi_links(
     multi_links: list[Link],
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Adds multi links to a content page.
@@ -66,10 +61,7 @@ def add_multi_links(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "multiLinks": multi_links
-    }
+    data = {"templateType": template_type, "multiLinks": multi_links}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -78,10 +70,7 @@ def add_multi_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/MultiLink/Add",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/MultiLink/Add", data=data)
 
 
 def remove_multi_link(
@@ -110,10 +99,7 @@ def remove_multi_link(
     ------
         `ValueError`: if either no page or no target identifier is specified
     """
-    data = {
-        "templateType": template_type,
-        "targetTemplateType": target_template_type
-    }
+    data = {"templateType": template_type, "targetTemplateType": target_template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -129,10 +115,7 @@ def remove_multi_link(
     else:
         raise ValueError("Please specify a target identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/MultiLink/Remove",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/MultiLink/Remove", data=data)
 
 
 def remove_all_multi_links(
@@ -141,7 +124,7 @@ def remove_all_multi_links(
     *,
     module_id: int | None = None,
     external_reference: str | None = None,
-    link_template_type: TemplateType | None = None
+    link_template_type: TemplateType | None = None,
 ):
     """
     Removes all the multi links from a page.
@@ -157,9 +140,7 @@ def remove_all_multi_links(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type
-    }
+    data = {"templateType": template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -171,7 +152,4 @@ def remove_all_multi_links(
     if link_template_type is not None:
         data["linkTemplateType"] = link_template_type
 
-    self.post(
-        self.api_endpoint + "/v2/MultiLink/RemoveAll",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/MultiLink/RemoveAll", data=data)

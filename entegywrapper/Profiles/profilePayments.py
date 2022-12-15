@@ -25,9 +25,7 @@ def add_profile_payment(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "profileId": profile_id
-    }
+    data = {"profileId": profile_id}
     data.update(payment_info)
 
     if profile_id is not None:
@@ -41,7 +39,4 @@ def add_profile_payment(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/ProfilePayment/Add/",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfilePayment/Add/", data=data)

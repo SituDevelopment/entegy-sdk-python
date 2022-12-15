@@ -7,14 +7,14 @@ ApiKeyPermission: TypeAlias = Literal[
     "EditProfiles",
     "ViewProfiles",
     "Achievements",
-    "SendNotifications"
+    "SendNotifications",
 ]
 
 
 Region: TypeAlias = Literal[
     "61a948f2-d505-4b0b-81de-31af6925647e",
     "2b9bd3fc-405e-4df5-888d-f5323e2b5093",
-    "86f89b50-1bbb-4019-9ca2-b2d9f4167064"
+    "86f89b50-1bbb-4019-9ca2-b2d9f4167064",
 ]
 
 
@@ -23,13 +23,7 @@ class ProjectEventInfo(TypedDict):
     endDate: str
 
 
-ProjectType: TypeAlias = Literal[
-    "Event"
-    "Ongoing"
-    "Demo"
-    "Portal",
-    "DemoTemplate"
-]
+ProjectType: TypeAlias = Literal["Event" "Ongoing" "Demo" "Portal", "DemoTemplate"]
 
 
 ProjectStatus: TypeAlias = Literal[
@@ -39,7 +33,7 @@ ProjectStatus: TypeAlias = Literal[
     "Production",
     "Finished",
     "Expired",
-    "Canceled"
+    "Canceled",
 ]
 
 
@@ -55,7 +49,7 @@ SoftwareElement: TypeAlias = Literal[
     "Kiosk",
     "KioskAdditional",
     "EmailDomain",
-    "FloorPlan"
+    "FloorPlan",
 ]
 
 

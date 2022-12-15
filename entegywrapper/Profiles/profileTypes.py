@@ -2,10 +2,7 @@ from entegywrapper.schemas.profile import ProfileType
 
 
 def get_profile_type(
-    self,
-    *,
-    name: str | None = None,
-    external_reference: str | None = None
+    self, *, name: str | None = None, external_reference: str | None = None
 ) -> ProfileType:
     """
     Returns the profile type specified by the given identifier.
@@ -32,10 +29,7 @@ def get_profile_type(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileType",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileType", data=data)
 
     return response["profileType"]
 
@@ -48,14 +42,9 @@ def create_profile_type(self, profile_type: ProfileType):
     ----------
         `profile_type` (`ProfileType`): the data for the profile type to create
     """
-    data = {
-        "profileType": profile_type
-    }
+    data = {"profileType": profile_type}
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileType/Create",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileType/Create", data=data)
 
 
 def update_profile_type(
@@ -78,9 +67,7 @@ def update_profile_type(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "profileType": profile_type
-    }
+    data = {"profileType": profile_type}
 
     if name is not None:
         data["name"] = name
@@ -89,17 +76,11 @@ def update_profile_type(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileType/Update",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileType/Update", data=data)
 
 
 def delete_profile_type(
-    self,
-    *,
-    name: str | None = None,
-    external_reference: str | None = None
+    self, *, name: str | None = None, external_reference: str | None = None
 ):
     """
     Deletes a profile type. The type cannot be in use.
@@ -122,10 +103,7 @@ def delete_profile_type(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(
-        self.api_endpoint + "/v2/ProfileType/Delete",
-        data=data
-    )
+    self.delete(self.api_endpoint + "/v2/ProfileType/Delete", data=data)
 
 
 def all_profile_types(self) -> list[ProfileType]:
@@ -138,9 +116,6 @@ def all_profile_types(self) -> list[ProfileType]:
     """
     data = {}
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileType/All",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileType/All", data=data)
 
     return response["profileTypes"]

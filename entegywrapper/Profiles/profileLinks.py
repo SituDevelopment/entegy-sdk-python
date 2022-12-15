@@ -31,12 +31,7 @@ def selected_profile_links(
     -------
         `Generator[list[Link], None, None]`: paginated blocks of selected links
     """
-    data = {
-        "pagination": {
-            "start": 0,
-            "limit": 1000
-        }
-    }
+    data = {"pagination": {"start": 0, "limit": 1000}}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -49,20 +44,16 @@ def selected_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileLink/Selected/",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/Selected/", data=data)
     yield response["links"]
 
-    while response["pagination"]["start"] + response["pagination"]["limit"] \
-            < response["pagination"]["count"]:
+    while (
+        response["pagination"]["start"] + response["pagination"]["limit"]
+        < response["pagination"]["count"]
+    ):
         data["pagination"]["start"] += data["pagination"]["limit"]
 
-        response = self.post(
-            self.api_endpoint + "/v2/ProfileLink/Selected/",
-            data=data
-        )
+        response = self.post(self.api_endpoint + "/v2/ProfileLink/Selected/", data=data)
         yield response["links"]
 
 
@@ -90,13 +81,7 @@ def page_profile_links(
     -------
         `Generator[list[Profile], None, None]`: paginated blocks of linked profiles
     """
-    data = {
-        "templateType": template_type,
-        "pagination": {
-            "index": 0,
-            "limit": 1000
-        }
-    }
+    data = {"templateType": template_type, "pagination": {"index": 0, "limit": 1000}}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -105,20 +90,16 @@ def page_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/ProfileLink/Page/",
-        data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/Page/", data=data)
     yield response["profiles"]
 
-    while response["pagination"]["index"] + response["pagination"]["limit"] \
-            < response["pagination"]["count"]:
+    while (
+        response["pagination"]["index"] + response["pagination"]["limit"]
+        < response["pagination"]["count"]
+    ):
         data["pagination"]["index"] += data["pagination"]["limit"]
 
-        response = self.post(
-            self.api_endpoint + "/v2/ProfileLink/Page/",
-            data=data
-        )
+        response = self.post(self.api_endpoint + "/v2/ProfileLink/Page/", data=data)
         yield response["profiles"]
 
 
@@ -146,9 +127,7 @@ def select_profile_link(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "link": link
-    }
+    data = {"link": link}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -161,16 +140,10 @@ def select_profile_link(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileLink/Select/",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileLink/Select/", data=data)
 
 
-def multi_select_profile_links(
-    self,
-    profiles: list[dict[str, str | list[Link]]]
-):
+def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]):
     """
     Selects multiple pages on multiple profiles.
 
@@ -202,14 +175,9 @@ def multi_select_profile_links(
         ]
     ```
     """
-    data = {
-        "profiles": profiles
-    }
+    data = {"profiles": profiles}
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileLink/MultiSelect/",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileLink/MultiSelect/", data=data)
 
 
 def deselect_profile_links(
@@ -236,9 +204,7 @@ def deselect_profile_links(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "link": link
-    }
+    data = {"link": link}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -251,10 +217,7 @@ def deselect_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileLink/Deselect/",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileLink/Deselect/", data=data)
 
 
 def clear_profile_links(
@@ -281,9 +244,7 @@ def clear_profile_links(
     ------
         `ValueError`: if no identifier is specified
     """
-    data = {
-        "templateType": template_type
-    }
+    data = {"templateType": template_type}
 
     if profile_id is not None:
         data["profileId"] = profile_id
@@ -296,7 +257,4 @@ def clear_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(
-        self.api_endpoint + "/v2/ProfileLink/Clear/",
-        data=data
-    )
+    self.post(self.api_endpoint + "/v2/ProfileLink/Clear/", data=data)
