@@ -1,8 +1,0 @@
-entegywrapper
-entegywrapper/AttendanceTracking
-entegywrapper/Content
-entegywrapper/Notification
-entegywrapper/Plugins
-entegywrapper/Points
-entegywrapper/Profiles
-entegywrapper/schemas
