@@ -1,4 +1,5 @@
 testAPI.py
 
-venv
+build/
+venv/
 __pycache__/
