@@ -1,5 +1,5 @@
-from entegywrapper.errors import EntegyFailedRequestError
-from entegywrapper.schemas.content import Link, NamedLink, TemplateType
+from src.entegywrapper.errors import EntegyFailedRequestError
+from src.entegywrapper.schemas.content import Link, NamedLink, TemplateType
 
 
 def get_multi_links(

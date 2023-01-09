@@ -1,5 +1,5 @@
-from entegywrapper.errors import EntegyFailedRequestError
-from entegywrapper.schemas.profile import (
+from src.entegywrapper.errors import EntegyFailedRequestError
+from src.entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
     ProfileIdentifier,

@@ -1,8 +1,8 @@
 from typing import Generator
 
-from entegywrapper.errors import EntegyFailedRequestError
-from entegywrapper.schemas.content import Link, TemplateType
-from entegywrapper.schemas.profile import Profile
+from src.entegywrapper.errors import EntegyFailedRequestError
+from src.entegywrapper.schemas.content import Link, TemplateType
+from src.entegywrapper.schemas.profile import Profile
 
 
 def selected_profile_links(

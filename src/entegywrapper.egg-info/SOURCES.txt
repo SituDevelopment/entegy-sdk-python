@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 src/entegywrapper/EntegyAPI.py
 src/entegywrapper/__init__.py
+src/entegywrapper/errors.py
 src/entegywrapper.egg-info/PKG-INFO
 src/entegywrapper.egg-info/SOURCES.txt
 src/entegywrapper.egg-info/dependency_links.txt

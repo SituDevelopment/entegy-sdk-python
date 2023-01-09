@@ -7,7 +7,7 @@ import time
 from requests.structures import CaseInsensitiveDict
 from typing import Callable
 
-from entegywrapper.errors import EntegyInvalidAPIKeyError
+from src.entegywrapper.errors import EntegyInvalidAPIKeyError
 
 sys.path.append(os.path.dirname(__file__))
 
