@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import ProfileIdentifier
 
 
@@ -36,10 +37,11 @@ def send_notification(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
-        `str`: API response message
+        `str`: API response message, potentially containing failed profile references
     """
     data = {
         "title": title,
@@ -63,7 +65,21 @@ def send_notification(
 
     response = self.post(self.api_endpoint + "/v2/Notification/SendBulk", data=data)
 
-    return response["message"]
+    match response["response"]:
+        case 200:
+            return ""
+        case 201:
+            return response["message"]
+        case 401:
+            raise EntegyFailedRequestError("No profile references specified")
+        case 402:
+            raise EntegyFailedRequestError("Required string not set")
+        case 404:
+            raise EntegyFailedRequestError("Target template type doesn't exist")
+        case 405:
+            raise EntegyFailedRequestError("Target page doesn't exist")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def send_bulk_notification(
@@ -102,9 +118,13 @@ def send_bulk_notification(
         }
     ```
 
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
     Returns
     -------
-        `str`: API response message
+        `str`: API response message, potentially containing failed profile references
     """
     data = {
         "profileReferences": profile_references,
@@ -119,4 +139,18 @@ def send_bulk_notification(
 
     response = self.post(self.api_endpoint + "/v2/Notification/SendBulk", data=data)
 
-    return response["message"]
+    match response["response"]:
+        case 200:
+            return ""
+        case 201:
+            return response["message"]
+        case 401:
+            raise EntegyFailedRequestError("No profile references specified")
+        case 402:
+            raise EntegyFailedRequestError("Required string not set")
+        case 404:
+            raise EntegyFailedRequestError("Target template type doesn't exist")
+        case 405:
+            raise EntegyFailedRequestError("Target page doesn't exist")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

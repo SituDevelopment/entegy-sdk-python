@@ -24,7 +24,9 @@ def add_documents(
         "fileDocuments": file_documents,
     }
 
-    self.post(self.api_endpoint + "/v2/Document/AddFile", data=data)
+    response = self.post(self.api_endpoint + "/v2/Document/AddFile", data=data)
+
+    return response["response"] == 200
 
 
 def add_external_content_documents(
@@ -48,4 +50,8 @@ def add_external_content_documents(
         "externalContentItems": external_content_items,
     }
 
-    self.post(self.api_endpoint + "/v2/Document/AddExternalContent", data=data)
+    response = self.post(
+        self.api_endpoint + "/v2/Document/AddExternalContent", data=data
+    )
+
+    return response["response"] == 200

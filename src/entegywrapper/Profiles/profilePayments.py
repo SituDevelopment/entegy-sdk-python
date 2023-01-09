@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import PaymentInfo
 
 
@@ -24,6 +25,7 @@ def add_profile_payment(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profileId": profile_id}
     data.update(payment_info)
@@ -39,4 +41,18 @@ def add_profile_payment(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/ProfilePayment/Add/", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfilePayment/Add/", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 400:
+            raise EntegyFailedRequestError("Invalid amount")
+        case 400:
+            raise EntegyFailedRequestError("Invalid currency")
+        case 401:
+            raise EntegyFailedRequestError("Profile not found")
+        case 402:
+            raise EntegyFailedRequestError("Duplicate transaction")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

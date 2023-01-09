@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.attendanceTracking import Attendee, Attended
 
 
@@ -10,7 +11,7 @@ def add_check_in(
     profile_badge_reference: str | None = None,
     session_module_id: str | None = None,
     session_external_reference: str | None = None,
-):
+) -> bool:
     """
     Checks the specified profile into the specified session.
 
@@ -22,6 +23,15 @@ def add_check_in(
         `profile_internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
         `session_module_id` (`str`, optional): the moduleId of the session; defaults to `None`
         `session_external_reference` (`str`, optional): the externalReference of the session; defaults to `None`
+
+    Raises
+    ------
+        `ValueError`: if the profile or session identifier is not specified
+        `EntegyFailedRequestError`: if the API request fails
+
+    Returns
+    -------
+        `bool`: whether the check-in was successful
     """
     data = {}
 
@@ -43,7 +53,17 @@ def add_check_in(
     else:
         raise ValueError("Please specify a session identifier")
 
-    self.post(self.api_endpoint + "/Track/AddCheckIn", data=data)
+    response = self.post(self.api_endpoint + "/Track/AddCheckIn", data=data)
+
+    match response["response"]:
+        case 200:
+            return True
+        case 401:
+            raise EntegyFailedRequestError("Missing content reference")
+        case 402:
+            raise EntegyFailedRequestError("Missing profile reference")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def get_attendees(
@@ -61,6 +81,10 @@ def get_attendees(
         `module_id` (`str`, optional): the moduleId of the session; defaults to `None`
         `external_reference` (`str`, optional): the externalReference of the session; defaults to `None`
 
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
     Returns
     -------
         `list[Attendee]`: the attendees who attended the session
@@ -75,6 +99,9 @@ def get_attendees(
         raise ValueError("Please specify an identifier")
 
     response = self.post(self.api_endpoint + "/v2/Track/Attendees", data=data)
+
+    if response["response"] == 401:
+        raise EntegyFailedRequestError("Missing profile reference")
 
     return response["attendees"]
 
@@ -98,6 +125,10 @@ def get_attended(
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
 
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
     Returns
     -------
         `list[Attended`: the sessions attended by the specified user
@@ -116,5 +147,8 @@ def get_attended(
         raise ValueError("Please specify an identifier")
 
     response = self.post(self.api_endpoint + "/v2/Track/Attended", data=data)
+
+    if response["response"] == 401:
+        raise EntegyFailedRequestError("Missing profile reference")
 
     return response["sessions"]

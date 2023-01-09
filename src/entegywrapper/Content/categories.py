@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, TemplateType
 
 
@@ -21,6 +22,7 @@ def available_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
@@ -37,7 +39,15 @@ def available_categories(
 
     response = self.post(self.api_endpoint + "/v2/Categories/Available", data=data)
 
-    return response["availableCategories"]
+    match response["response"]:
+        case 200:
+            return response["availableCategories"]
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("templateType doesn't support categories")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def select_categories(
@@ -47,7 +57,7 @@ def select_categories(
     *,
     module_id: int | None = None,
     external_reference: str | None = None,
-):
+) -> bool:
     """
     Selects the specified categories for the specified content page.
 
@@ -61,6 +71,11 @@ def select_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
+
+    Returns
+    -------
+        `bool`: whether the categories were selected successfully
     """
     data = {"templateType": template_type, "categories": categories}
 
@@ -71,7 +86,19 @@ def select_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Categories/Select", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/Select", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("templateType doesn't support categories")
+        case 404:
+            raise EntegyFailedRequestError("No categories")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def deselect_categories(
@@ -81,7 +108,7 @@ def deselect_categories(
     *,
     module_id: int | None = None,
     external_reference: str | None = None,
-):
+) -> bool:
     """
     Deselects the specified categories for the specified content page.
 
@@ -95,6 +122,11 @@ def deselect_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
+
+    Returns
+    -------
+        `bool`: whether the categories were deselected successfully
     """
     data = {"templateType": template_type, "categories": categories}
 
@@ -105,7 +137,23 @@ def deselect_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Categories/Deselect", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/Deselect", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("templateType doesn't support categories")
+        case 404:
+            raise EntegyFailedRequestError("Category doesn't exist")
+        case 405:
+            raise EntegyFailedRequestError("Category not selected")
+        case 406:
+            raise EntegyFailedRequestError("No categories to unselect")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def create_categories(
@@ -129,6 +177,7 @@ def create_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "categories": categories}
 
@@ -139,7 +188,21 @@ def create_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Categories/Create", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/Create", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("Can't create categories here")
+        case 404:
+            raise EntegyFailedRequestError("Duplicate externalReference")
+        case 405:
+            raise EntegyFailedRequestError("Missing name")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def create_child_categories(
@@ -161,6 +224,7 @@ def create_child_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"categories": categories}
 
@@ -171,7 +235,19 @@ def create_child_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Categories/CreateChild", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/CreateChild", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 404:
+            raise EntegyFailedRequestError("Duplicate externalReference")
+        case 405:
+            raise EntegyFailedRequestError("Missing name")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def update_category(
@@ -193,6 +269,7 @@ def update_category(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"name": name}
 
@@ -203,7 +280,17 @@ def update_category(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Categories/Update", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/Update", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("Missing name")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def delete_categories(
@@ -227,6 +314,7 @@ def delete_categories(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "categories": categories}
 
@@ -237,4 +325,14 @@ def delete_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(self.api_endpoint + "/v2/Categories/Delete", data=data)
+    response = self.delete(self.api_endpoint + "/v2/Categories/Delete", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 404:
+            raise EntegyFailedRequestError("Category doesn't exist")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

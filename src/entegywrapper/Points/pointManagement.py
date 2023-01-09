@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.points import LeaderboardPosition, PointType
 
 
@@ -40,7 +41,17 @@ def award_points(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Point/Award", data=data)
+    response = self.post(self.api_endpoint + "/v2/Point/Award", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing profile reference")
+        case 402:
+            raise EntegyFailedRequestError("Invalid point event")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def get_points(
@@ -84,7 +95,15 @@ def get_points(
 
     response = self.post(self.api_endpoint + "/v2/Point/Earned", data=data)
 
-    return response["points"]
+    match response["response"]:
+        case 200:
+            return response["points"]
+        case 401:
+            raise EntegyFailedRequestError("Missing profile reference")
+        case 402:
+            raise EntegyFailedRequestError("Invalid point event")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def get_point_leaderboard(self) -> list[LeaderboardPosition]:
@@ -100,4 +119,8 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
 
     response = self.post(self.api_endpoint + "/v2/Point/Leaderboard", data=data)
 
-    return response["leaderboard"]
+    match response["response"]:
+        case 200:
+            return response["leaderboard"]
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

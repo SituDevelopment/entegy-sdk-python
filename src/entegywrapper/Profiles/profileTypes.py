@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import ProfileType
 
 
@@ -15,6 +16,7 @@ def get_profile_type(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
@@ -31,7 +33,13 @@ def get_profile_type(
 
     response = self.post(self.api_endpoint + "/v2/ProfileType", data=data)
 
-    return response["profileType"]
+    match response["response"]:
+        case 200:
+            return response["profileType"]
+        case 401:
+            raise EntegyFailedRequestError("Profile type not found")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def create_profile_type(self, profile_type: ProfileType):
@@ -41,10 +49,28 @@ def create_profile_type(self, profile_type: ProfileType):
     Parameters
     ----------
         `profile_type` (`ProfileType`): the data for the profile type to create
+
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profileType": profile_type}
 
-    self.post(self.api_endpoint + "/v2/ProfileType/Create", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileType/Create", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 402:
+            raise EntegyFailedRequestError("Missing Data")
+        case 404:
+            raise EntegyFailedRequestError("Malformed Data")
+        case 405:
+            raise EntegyFailedRequestError("Name is empty")
+        case 406:
+            raise EntegyFailedRequestError("External reference isn't unique")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def update_profile_type(
@@ -66,6 +92,7 @@ def update_profile_type(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profileType": profile_type}
 
@@ -76,7 +103,23 @@ def update_profile_type(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/ProfileType/Update", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileType/Update", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Profile type not found")
+        case 402:
+            raise EntegyFailedRequestError("Missing Data")
+        case 404:
+            raise EntegyFailedRequestError("Malformed Data")
+        case 405:
+            raise EntegyFailedRequestError("Name is empty")
+        case 406:
+            raise EntegyFailedRequestError("External reference isn't unique")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def delete_profile_type(
@@ -93,6 +136,7 @@ def delete_profile_type(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {}
 
@@ -103,7 +147,17 @@ def delete_profile_type(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(self.api_endpoint + "/v2/ProfileType/Delete", data=data)
+    response = self.delete(self.api_endpoint + "/v2/ProfileType/Delete", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Profile type not found")
+        case 402:
+            raise EntegyFailedRequestError("profile type in use")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def all_profile_types(self) -> list[ProfileType]:

@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
@@ -13,7 +14,7 @@ def get_content(
     include_links: bool = False,
     include_multi_links: bool = False,
     include_page_settings: bool = False,
-) -> dict:
+) -> Content:
     """
     Returns an entire schedule.
 
@@ -31,6 +32,7 @@ def get_content(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
@@ -54,7 +56,7 @@ def get_content(
 
     response = self.post(self.api_endpoint + "/v2/Content", data=data)
 
-    return response
+    return response["content"]
 
 
 def get_schedule_content(
@@ -74,7 +76,7 @@ def get_schedule_content(
     Parameters
     ----------
         `module_id` (`int`, optional): the moduleId of the schedule; defaults to `None`
-        `external_reference` (`str`, optional): the externalReference for the content; defaults to `None`
+        `external_reference` (`str`, optional): the externalReference of the schedule; defaults to `None`
         `include_categories` (`bool`, optional): whether to include Categories in the response; defaults to `False`
         `include_documents` (`bool`, optional): whether to include Documents in the response; defaults to `False`
         `include_links` (`bool`, optional): whether to include Links in the response; defaults to `False`
@@ -84,6 +86,7 @@ def get_schedule_content(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
@@ -117,12 +120,26 @@ def create_content(self, content: Content, *, content_group: str = "Default") ->
     ----------
         `content` (`Content`): the content to create
         `content_group` (`str`, optional) the content group in the core this new root content should go in; defaults to "Default"
+
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"contentGroup": content_group, "content": content}
 
     response = self.post(self.api_endpoint + "/v2/Content/Create", data=data)
 
-    return response["moduleId"]
+    match response["response"]:
+        case 200:
+            return response["moduleId"]
+        case 401:
+            raise EntegyFailedRequestError("Missing or invalid template type")
+        case 402:
+            raise EntegyFailedRequestError("Duplicate External Reference")
+        case 404:
+            raise EntegyFailedRequestError("Missing Name")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def add_children_content(
@@ -148,6 +165,7 @@ def add_children_content(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {
         "templateType": template_type,
@@ -162,7 +180,23 @@ def add_children_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Content/AddChildren", data=data)
+    response = self.post(self.api_endpoint + "/v2/Content/AddChildren", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing ID")
+        case 402:
+            raise EntegyFailedRequestError("Page doesn't exist")
+        case 404:
+            raise EntegyFailedRequestError("Invalid Child Template ID")
+        case 405:
+            raise EntegyFailedRequestError("Missing Children")
+        case 406:
+            raise EntegyFailedRequestError("Duplicate External Reference")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def update_content(
@@ -186,6 +220,7 @@ def update_content(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "content": content}
 
@@ -196,7 +231,21 @@ def update_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Content/Update", data=data)
+    response = self.post(self.api_endpoint + "/v2/Content/Update", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 400:
+            raise EntegyFailedRequestError("Content not provided")
+        case 401:
+            raise EntegyFailedRequestError("Content doesn't exist")
+        case 406:
+            raise EntegyFailedRequestError("Invalid page setting")
+        case 410:
+            raise EntegyFailedRequestError("Invalid String")
+        case 413:
+            raise EntegyFailedRequestError("Link doesn't exist")
 
 
 def delete_content(
@@ -223,6 +272,7 @@ def delete_content(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type}
 
@@ -233,4 +283,12 @@ def delete_content(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.delete(self.api_endpoint + "/v2/Content/Delete", data=data)
+    response = self.delete(self.api_endpoint + "/v2/Content/Delete", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing ID")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

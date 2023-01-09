@@ -1,5 +1,6 @@
 from typing import Generator
 
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, TemplateType
 from entegywrapper.schemas.profile import Profile
 
@@ -26,6 +27,7 @@ def selected_profile_links(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Yields
     -------
@@ -54,7 +56,14 @@ def selected_profile_links(
         data["pagination"]["start"] += data["pagination"]["limit"]
 
         response = self.post(self.api_endpoint + "/v2/ProfileLink/Selected/", data=data)
-        yield response["links"]
+
+        match response["response"]:
+            case 200:
+                yield response["links"]
+            case 401:
+                raise EntegyFailedRequestError("Profile not found")
+            case _:
+                raise EntegyFailedRequestError("Unknown error")
 
 
 def page_profile_links(
@@ -76,6 +85,7 @@ def page_profile_links(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Yields
     -------
@@ -100,7 +110,16 @@ def page_profile_links(
         data["pagination"]["index"] += data["pagination"]["limit"]
 
         response = self.post(self.api_endpoint + "/v2/ProfileLink/Page/", data=data)
-        yield response["profiles"]
+
+        match response["response"]:
+            case 200:
+                yield response["profiles"]
+            case 401:
+                raise EntegyFailedRequestError("Profile not found")
+            case 402:
+                raise EntegyFailedRequestError("Linked content not found")
+            case _:
+                raise EntegyFailedRequestError("Unknown error")
 
 
 def select_profile_link(
@@ -140,7 +159,17 @@ def select_profile_link(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/ProfileLink/Select/", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/Select/", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Profile not found")
+        case 402:
+            raise EntegyFailedRequestError("Linked content not found")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]):
@@ -177,7 +206,17 @@ def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]
     """
     data = {"profiles": profiles}
 
-    self.post(self.api_endpoint + "/v2/ProfileLink/MultiSelect/", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/MultiSelect/", data=data)
+
+    match response["response"]:
+        case 401:
+            raise EntegyFailedRequestError("Profile doesn't exist")
+        case 402:
+            raise EntegyFailedRequestError("Invalid templateType")
+        case 404:
+            raise EntegyFailedRequestError("Invalid moduleId or externalReference")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def deselect_profile_links(
@@ -217,7 +256,15 @@ def deselect_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/ProfileLink/Deselect/", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/Deselect/", data=data)
+
+    match response["response"]:
+        case 401:
+            raise EntegyFailedRequestError("Profile doesn't exist")
+        case 402:
+            raise EntegyFailedRequestError("Linked content not found")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def clear_profile_links(
@@ -257,4 +304,12 @@ def clear_profile_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/ProfileLink/Clear/", data=data)
+    response = self.post(self.api_endpoint + "/v2/ProfileLink/Clear/", data=data)
+
+    match response["response"]:
+        case 401:
+            raise EntegyFailedRequestError("Profile doesn't exist")
+        case 402:
+            raise EntegyFailedRequestError("Template type doesn't exist")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

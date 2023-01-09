@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
@@ -60,6 +61,7 @@ def all_profiles(
         data["pagination"]["start"] += data["pagination"]["limit"]
 
         response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
+
         yield response["profiles"]
 
 
@@ -88,6 +90,7 @@ def get_profile(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
 
     Returns
     -------
@@ -111,7 +114,13 @@ def get_profile(
 
     response = self.post(self.api_endpoint + "/v2/Profile/", data=data)
 
-    return response["profile"]
+    match response["response"]:
+        case 200:
+            return response["profile"]
+        case 400:
+            raise EntegyFailedRequestError("Profile doesn't exist")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def delete_profile(
@@ -135,6 +144,7 @@ def delete_profile(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {}
 
@@ -149,7 +159,15 @@ def delete_profile(
     else:
         raise ValueError("Please specify an identifier")
 
-    return self.delete(self.api_endpoint + "/v2/Profile/Delete", data=data)
+    response = self.delete(self.api_endpoint + "/v2/Profile/Delete", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("No profile found")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def create_profile(self, profile_object: ProfileCreate) -> str:
@@ -161,6 +179,10 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
     ----------
         `profile_object` (`ProfileCreate`): a profile object representing the profile to create
 
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
     Returns
     -------
         `str`: profileId of the newly created profile
@@ -169,7 +191,35 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
 
     response = self.post(self.api_endpoint + "/v2/Profile/Create", data=data)
 
-    return response["profileId"]
+    match response["response"]:
+        case 200:
+            return response["profileId"]
+        case 400:
+            raise EntegyFailedRequestError("Invalid custom field key or value")
+        case 401:
+            raise EntegyFailedRequestError("Missing required Field")
+        case 402:
+            raise EntegyFailedRequestError("Missing profile type")
+        case 404:
+            raise EntegyFailedRequestError("Profile has duplicate email")
+        case 405:
+            raise EntegyFailedRequestError("Badge reference is not unique")
+        case 406:
+            raise EntegyFailedRequestError("External reference is not unique")
+        case 407:
+            raise EntegyFailedRequestError("Access code is invalid or not unique")
+        case 408:
+            raise EntegyFailedRequestError("Project not set to use Profile Passwords")
+        case 409:
+            raise EntegyFailedRequestError(
+                "Profile password doesn't meet password requirements"
+            )
+        case 410:
+            raise EntegyFailedRequestError(
+                "Parent profile already has a parent - profile hierarchy is limited to one level"
+            )
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def update_profile(
@@ -196,6 +246,7 @@ def update_profile(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profile": profile_object}
 
@@ -210,7 +261,33 @@ def update_profile(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Profile/Update", data=data)
+    response = self.post(self.api_endpoint + "/v2/Profile/Update", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("No profile found")
+        case 402:
+            raise EntegyFailedRequestError("Nothing given to change")
+        case 404:
+            raise EntegyFailedRequestError("Profile has duplicate email")
+        case 405:
+            raise EntegyFailedRequestError("Badge reference is not unique")
+        case 406:
+            raise EntegyFailedRequestError("External reference is not unique")
+        case 408:
+            raise EntegyFailedRequestError("Project not set to use Profile Passwords")
+        case 409:
+            raise EntegyFailedRequestError(
+                "Profile password doesn't meet password requirements"
+            )
+        case 410:
+            raise EntegyFailedRequestError(
+                "Parent profile already has a parent - profile hierarchy is limited to one level"
+            )
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def sync_profiles(
@@ -229,6 +306,10 @@ def sync_profiles(
         `profiles` (`list[Profile]`): the list of profiles to create or update
         `group_by_first_profile` (`bool`, optional): whether the parent profile of all profiles in this sync should be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent); defaults to `False`
 
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
     Returns
     -------
         `list[dict]`: profileIds and `newProfile` flags for each profile in the given list
@@ -241,7 +322,23 @@ def sync_profiles(
 
     response = self.post(self.api_endpoint + "/v2/Profile/Sync", data=data)
 
-    return response["results"]
+    match response["response"]:
+        case 200:
+            return response["results"]
+        case 400:
+            raise EntegyFailedRequestError("Multiple errors detected")
+        case 401:
+            raise EntegyFailedRequestError("Nothing given to update")
+        case 402:
+            raise EntegyFailedRequestError("Exceeded maximum profile update limit")
+        case 404:
+            raise EntegyFailedRequestError("Invalid updateReferenceType")
+        case 500:
+            raise EntegyFailedRequestError(
+                "An error occurred while syncing the profile"
+            )
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def send_welcome_email(
@@ -279,4 +376,12 @@ def send_welcome_email(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/Profile/SendWelcomeEmail", data=data)
+    response = self.post(self.api_endpoint + "/v2/Profile/SendWelcomeEmail", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("No profile found")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

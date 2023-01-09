@@ -1,3 +1,6 @@
+from entegywrapper.errors import EntegyFailedRequestError
+
+
 def external_authentication(self, profile_id: str, device_id: str) -> bool:
     """
     Authenticates a user's login via an external system.
@@ -17,4 +20,16 @@ def external_authentication(self, profile_id: str, device_id: str) -> bool:
         self.api_endpoint + "/v2/Authentication/ExternalProfile", data=data
     )
 
-    return response["firstLogin"]
+    match response["response"]:
+        case 200:
+            return response["firstLogin"]
+        case 401:
+            raise EntegyFailedRequestError("Profile Doesn't Exist")
+        case 406:
+            raise EntegyFailedRequestError("Invalid Device Id")
+        case 407:
+            raise EntegyFailedRequestError("Profile is Banned")
+        case 408:
+            raise EntegyFailedRequestError("Profile is not Active")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")

@@ -1,3 +1,4 @@
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, NamedLink, TemplateType
 
 
@@ -60,6 +61,7 @@ def add_multi_links(
     Raises
     ------
         `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "multiLinks": multi_links}
 
@@ -70,7 +72,19 @@ def add_multi_links(
     else:
         raise ValueError("Please specify an identifier")
 
-    self.post(self.api_endpoint + "/v2/MultiLink/Add", data=data)
+    response = self.post(self.api_endpoint + "/v2/MultiLink/Add", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing ID")
+        case 402:
+            raise EntegyFailedRequestError("Page doesn't exist")
+        case 404:
+            raise EntegyFailedRequestError("Invalid Multi Link")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def remove_multi_link(
@@ -98,6 +112,7 @@ def remove_multi_link(
     Raises
     ------
         `ValueError`: if either no page or no target identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "targetTemplateType": target_template_type}
 
@@ -115,7 +130,17 @@ def remove_multi_link(
     else:
         raise ValueError("Please specify a target identifier")
 
-    self.post(self.api_endpoint + "/v2/MultiLink/Remove", data=data)
+    response = self.post(self.api_endpoint + "/v2/MultiLink/Remove", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("Invalid Link")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def remove_all_multi_links(
@@ -152,4 +177,14 @@ def remove_all_multi_links(
     if link_template_type is not None:
         data["linkTemplateType"] = link_template_type
 
-    self.post(self.api_endpoint + "/v2/MultiLink/RemoveAll", data=data)
+    response = self.post(self.api_endpoint + "/v2/MultiLink/RemoveAll", data=data)
+
+    match response["response"]:
+        case 200:
+            return
+        case 401:
+            raise EntegyFailedRequestError("Missing Id")
+        case 402:
+            raise EntegyFailedRequestError("Invalid linkTemplateType")
+        case _:
+            raise EntegyFailedRequestError("Unknown error")
