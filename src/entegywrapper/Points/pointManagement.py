@@ -1,5 +1,5 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.points import LeaderboardPosition, PointType
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.points import LeaderboardPosition, PointType
 
 
 def award_points(

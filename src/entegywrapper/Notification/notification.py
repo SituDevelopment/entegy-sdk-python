@@ -1,5 +1,5 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.profile import ProfileIdentifier
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.profile import ProfileIdentifier
 
 
 def send_notification(

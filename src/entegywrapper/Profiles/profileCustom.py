@@ -1,5 +1,5 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.profile import CustomProfileField
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.profile import CustomProfileField
 
 
 def get_profile_custom(self, key: str) -> CustomProfileField:

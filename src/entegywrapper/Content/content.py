@@ -1,6 +1,6 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
-from src.entegywrapper.schemas.schedule import Schedule
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
+from entegywrapper.schemas.schedule import Schedule
 
 
 def get_content(

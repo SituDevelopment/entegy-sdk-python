@@ -1,7 +1,7 @@
 import os
 import sys
 
-from src.entegywrapper.schemas.content import Document, ExternalContent, TemplateType
+from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
 
 sys.path.append(os.path.dirname(__file__))
 

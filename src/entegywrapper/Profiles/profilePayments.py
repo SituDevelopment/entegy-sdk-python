@@ -1,5 +1,5 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.profile import PaymentInfo
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.profile import PaymentInfo
 
 
 def add_profile_payment(

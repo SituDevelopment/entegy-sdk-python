@@ -1,5 +1,5 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
-from src.entegywrapper.schemas.content import Category, TemplateType
+from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.schemas.content import Category, TemplateType
 
 
 def available_categories(

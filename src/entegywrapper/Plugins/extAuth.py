@@ -1,4 +1,4 @@
-from src.entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.errors import EntegyFailedRequestError
 
 
 def external_authentication(self, profile_id: str, device_id: str) -> bool:
