@@ -23,4 +23,4 @@ dynamic = ["version"]
 "Releases" = "https://github.com/SituDevelopment/python3-entegy-API-wrapper/releases"
 
 [tool.setuptools.dynamic]
-version = {attr = "entegywrapper.__version__"}
+version = {attr = "entegywrapper.version.__version__"}
