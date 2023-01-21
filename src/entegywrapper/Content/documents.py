@@ -7,7 +7,11 @@ sys.path.append(os.path.dirname(__file__))
 
 
 def add_documents(
-    self, template_type: TemplateType, module_id: int, file_documents: list[Document]
+    self,
+    template_type: TemplateType,
+    file_documents: list[Document],
+    module_id: int | None = None,
+    external_reference: str | None = None,
 ):
     """
     Adds documents to a page.
@@ -15,25 +19,44 @@ def add_documents(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add the documents to
-        `module_id` (`int`): the moduleId of the page to add the documents to
         `file_documents` (`list[Document]`): the file documents to add
+        `module_id` (`int`): the moduleId of the page to add the documents to
+        `external_reference` (`str`): the externalReference of the page to add the documents to
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {
         "templateType": template_type,
-        "moduleId": module_id,
         "fileDocuments": file_documents,
     }
 
+    if module_id is not None:
+        data["moduleId"] = module_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("Please specify an identifier")
+
     response = self.post(self.api_endpoint + "/v2/Document/AddFile", data=data)
 
-    return response["response"] == 200
+    match response["response"]:
+        case 200:
+            return
+        case 400:
+            raise ValueError(response["message"])
+        case _:
+            raise ValueError("Unknown error")
 
 
 def add_external_content_documents(
     self,
     template_type: TemplateType,
-    module_id: int,
     external_content_items: list[ExternalContent],
+    module_id: int | None = None,
+    external_reference: str | None = None,
 ):
     """
     Adds external content documents to a page.
@@ -41,17 +64,35 @@ def add_external_content_documents(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add the documents to
-        `module_id` (`int`): the moduleId of the page to add the documents to
         `external_content_items` (`list[ExternalContent]`): the external content documents to add
+        `module_id` (`int`): the moduleId of the page to add the documents to
+        `external_reference` (`str`): the externalReference of the page to add the documents to
+
+    Raises
+    ------
+        `ValueError`: if no identifier is specified
+        `EntegyFailedRequestError`: if the API request fails
     """
     data = {
         "templateType": template_type,
-        "moduleId": module_id,
         "externalContentItems": external_content_items,
     }
+
+    if module_id is not None:
+        data["moduleId"] = module_id
+    elif external_reference is not None:
+        data["externalReference"] = external_reference
+    else:
+        raise ValueError("Please specify an identifier")
 
     response = self.post(
         self.api_endpoint + "/v2/Document/AddExternalContent", data=data
     )
 
-    return response["response"] == 200
+    match response["response"]:
+        case 200:
+            return
+        case 400:
+            raise ValueError(response["message"])
+        case _:
+            raise ValueError("Unknown error")
