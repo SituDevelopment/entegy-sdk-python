@@ -101,15 +101,16 @@ class EntegyAPI:
             `project_id` (`str`): Entegy project ID
             `region` (`str`, optional): project region: one of "AU", "US", "EU"; defaults to "AU"
         """
-        # if multiple API keys were given, ensure that the number of keys and
-        # secrets match
-        assert type(api_key) == type(api_secret)
-        if type(api_key) == list:
+        if isinstance(api_key, list):
+            assert isinstance(api_secret, list)
             assert len(api_key) == len(api_secret)
-            assert all(type(key) == str for key in api_key)
-            assert all(type(secret) == str for secret in api_secret)
-        assert type(project_id) == str
-        assert type(region) == str
+            assert all(isinstance(key, str) for key in api_key)
+            assert all(isinstance(secret, str) for secret in api_secret)
+        else:
+            assert isinstance(api_key, str)
+            assert isinstance(api_secret, str)
+        assert isinstance(project_id, str)
+        assert isinstance(region, str)
         assert region in API_ENDPOINTS.keys()
 
         self.api_key = api_key
