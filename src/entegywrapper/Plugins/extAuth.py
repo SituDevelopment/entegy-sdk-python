@@ -1,7 +1,7 @@
 from entegywrapper.errors import EntegyFailedRequestError
 
 
-def external_authentication(self, profile_id: str, device_id: str) -> bool:
+def external_authentication(self, profile_id: str, device_id: str) -> dict:
     """
     Authenticates a user's login via an external system.
 
@@ -12,7 +12,7 @@ def external_authentication(self, profile_id: str, device_id: str) -> bool:
 
     Returns
     -------
-        `bool`: whether this is the user's first login
+        `dict`: the response from the API
     """
     data = {"profileId": profile_id, "deviceId": device_id, "requestVersion": 1}
 
@@ -22,7 +22,7 @@ def external_authentication(self, profile_id: str, device_id: str) -> bool:
 
     match response["response"]:
         case 200:
-            return response["firstLogin"]
+            return response
         case 401:
             raise EntegyFailedRequestError("Profile Doesn't Exist")
         case 406:
