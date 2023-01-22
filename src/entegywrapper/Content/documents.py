@@ -1,6 +1,7 @@
 import os
 import sys
 
+from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
 
 sys.path.append(os.path.dirname(__file__))
@@ -45,10 +46,8 @@ def add_documents(
     match response["response"]:
         case 200:
             return
-        case 400:
-            raise ValueError(response["message"])
         case _:
-            raise ValueError("Unknown error")
+            raise EntegyFailedRequestError("Unknown error")
 
 
 def add_external_content_documents(
@@ -92,7 +91,5 @@ def add_external_content_documents(
     match response["response"]:
         case 200:
             return
-        case 400:
-            raise ValueError(response["message"])
         case _:
-            raise ValueError("Unknown error")
+            raise EntegyFailedRequestError("Unknown error")
