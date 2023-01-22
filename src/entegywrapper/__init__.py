@@ -113,10 +113,15 @@ class EntegyAPI:
         assert isinstance(region, str)
         assert region in API_ENDPOINTS.keys()
 
-        self.api_key = api_key
-        self.api_secret = api_secret
+        if isinstance(api_key, list):
+            self.api_key = list(map(lambda x: x.strip(), api_key))
+            self.api_secret = list(map(lambda x: x.strip(), api_secret))
+        else:
+            self.api_key = api_key.strip()
+            self.api_secret = api_secret.strip()
+
         self.current_key_pair = 0
-        self.project_id = project_id
+        self.project_id = project_id.strip()
 
         self.headers = CaseInsensitiveDict()
         self.headers["Content-Type"] = "application/json"
