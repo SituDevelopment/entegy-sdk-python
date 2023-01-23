@@ -56,7 +56,10 @@ def get_content(
 
     response = self.post(self.api_endpoint + "/v2/Content", data=data)
 
-    return response["content"]
+    if "content" in response:
+        return response["content"]
+
+    raise EntegyFailedRequestError("No content returned")
 
 
 def get_schedule_content(
