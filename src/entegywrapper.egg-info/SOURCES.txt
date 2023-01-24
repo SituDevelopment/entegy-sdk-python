@@ -13,7 +13,6 @@ src/entegywrapper/Content/__init__.py
 src/entegywrapper/Content/categories.py
 src/entegywrapper/Content/content.py
 src/entegywrapper/Content/documents.py
-src/entegywrapper/Content/icons.py
 src/entegywrapper/Content/multiLink.py
 src/entegywrapper/Notification/__init__.py
 src/entegywrapper/Notification/notification.py
