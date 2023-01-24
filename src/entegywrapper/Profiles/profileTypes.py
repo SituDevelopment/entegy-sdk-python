@@ -39,7 +39,9 @@ def get_profile_type(
         case 401:
             raise EntegyFailedRequestError("Profile type not found")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def create_profile_type(self, profile_type: ProfileType):
@@ -70,7 +72,9 @@ def create_profile_type(self, profile_type: ProfileType):
         case 406:
             raise EntegyFailedRequestError("External reference isn't unique")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def update_profile_type(
@@ -78,7 +82,7 @@ def update_profile_type(
     profile_type: ProfileType,
     *,
     name: str | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ):
     """
     Updates the profile type with the data passed in the profileType
@@ -119,7 +123,9 @@ def update_profile_type(
         case 406:
             raise EntegyFailedRequestError("External reference isn't unique")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def delete_profile_type(
@@ -157,7 +163,9 @@ def delete_profile_type(
         case 402:
             raise EntegyFailedRequestError("profile type in use")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def all_profile_types(self) -> list[ProfileType]:

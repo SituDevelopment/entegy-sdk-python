@@ -32,4 +32,6 @@ def external_authentication(self, profile_id: str, device_id: str) -> dict:
         case 408:
             raise EntegyFailedRequestError("Profile is not Active")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

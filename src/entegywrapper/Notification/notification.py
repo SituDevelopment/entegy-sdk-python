@@ -11,7 +11,7 @@ def send_notification(
     external_reference: str | None = None,
     internal_reference: str | None = None,
     badge_reference: str | None = None,
-    target_page: dict[str, str | int] | None = None
+    target_page: dict[str, str | int] | None = None,
 ) -> str:
     """
     Sends a notification to the specified profile.
@@ -79,7 +79,9 @@ def send_notification(
         case 405:
             raise EntegyFailedRequestError("Target page doesn't exist")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def send_bulk_notification(
@@ -88,7 +90,7 @@ def send_bulk_notification(
     message: str,
     profile_references: list[dict[ProfileIdentifier, str]],
     *,
-    target_page: dict[str, str | int] | None = None
+    target_page: dict[str, str | int] | None = None,
 ) -> str:
     """
     Sends a notification to the specified profiles.
@@ -153,4 +155,6 @@ def send_bulk_notification(
         case 405:
             raise EntegyFailedRequestError("Target page doesn't exist")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

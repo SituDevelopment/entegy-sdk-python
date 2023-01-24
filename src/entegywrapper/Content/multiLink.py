@@ -84,7 +84,9 @@ def add_multi_links(
         case 404:
             raise EntegyFailedRequestError("Invalid Multi Link")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def remove_multi_link(
@@ -140,7 +142,9 @@ def remove_multi_link(
         case 402:
             raise EntegyFailedRequestError("Invalid Link")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def remove_all_multi_links(
@@ -187,4 +191,6 @@ def remove_all_multi_links(
         case 402:
             raise EntegyFailedRequestError("Invalid linkTemplateType")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

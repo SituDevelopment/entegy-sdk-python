@@ -63,7 +63,9 @@ def add_check_in(
         case 402:
             raise EntegyFailedRequestError("Missing profile reference")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def get_attendees(

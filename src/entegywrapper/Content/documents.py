@@ -47,7 +47,9 @@ def add_documents(
         case 200:
             return
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def add_external_content_documents(
@@ -92,4 +94,6 @@ def add_external_content_documents(
         case 200:
             return
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
