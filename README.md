@@ -14,13 +14,7 @@
 
 ## Installation and Usage
 
-Install over HTTPS with:
-
-```bash
-pip install git+https://github.com/SituDevelopment/python3-entegy-API-wrapper.git
-```
-
-Install over SSH with:
+Install with:
 
 ```bash
 pip install git+ssh://git@github.com/SituDevelopment/python3-entegy-API-wrapper.git
