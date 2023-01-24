@@ -92,7 +92,9 @@ def update_profile_custom(self, key: str, custom_field: CustomProfileField):
         case 406:
             raise EntegyFailedRequestError("Exhausted number of text fields allowed")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def delete_profile_custom(self, key: str):
@@ -119,7 +121,9 @@ def delete_profile_custom(self, key: str):
         case 401:
             raise EntegyFailedRequestError("Key doesn't exist")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def all_profile_custom(self) -> list[CustomProfileField]:

@@ -47,7 +47,9 @@ def available_categories(
         case 402:
             raise EntegyFailedRequestError("templateType doesn't support categories")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def select_categories(
@@ -98,7 +100,9 @@ def select_categories(
         case 404:
             raise EntegyFailedRequestError("No categories")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def deselect_categories(
@@ -153,7 +157,9 @@ def deselect_categories(
         case 406:
             raise EntegyFailedRequestError("No categories to unselect")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def create_categories(
@@ -202,7 +208,9 @@ def create_categories(
         case 405:
             raise EntegyFailedRequestError("Missing name")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def create_child_categories(
@@ -247,7 +255,9 @@ def create_child_categories(
         case 405:
             raise EntegyFailedRequestError("Missing name")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def update_category(
@@ -290,7 +300,9 @@ def update_category(
         case 402:
             raise EntegyFailedRequestError("Missing name")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def delete_categories(
@@ -335,4 +347,6 @@ def delete_categories(
         case 404:
             raise EntegyFailedRequestError("Category doesn't exist")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

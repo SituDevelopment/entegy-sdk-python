@@ -11,7 +11,7 @@ def selected_profile_links(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ) -> Generator[list[Link], None, None]:
     """
     Yields all the profile links the specified profile has in blocks generated
@@ -63,7 +63,9 @@ def selected_profile_links(
             case 401:
                 raise EntegyFailedRequestError("Profile not found")
             case _:
-                raise EntegyFailedRequestError("Unknown error")
+                raise EntegyFailedRequestError(
+                    f"{response['response']}: {response.get('message', 'Unknown error')}"
+                )
 
 
 def page_profile_links(
@@ -71,7 +73,7 @@ def page_profile_links(
     template_type: TemplateType,
     *,
     module_id: int | None = None,
-    external_reference: str | None = None
+    external_reference: str | None = None,
 ) -> Generator[list[Profile], None, None]:
     """
     Yields all the profiles linked to a content page.
@@ -119,7 +121,9 @@ def page_profile_links(
             case 402:
                 raise EntegyFailedRequestError("Linked content not found")
             case _:
-                raise EntegyFailedRequestError("Unknown error")
+                raise EntegyFailedRequestError(
+                    f"{response['response']}: {response.get('message', 'Unknown error')}"
+                )
 
 
 def select_profile_link(
@@ -129,7 +133,7 @@ def select_profile_link(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ):
     """
     Selects the specified link for the specified profile.
@@ -169,7 +173,9 @@ def select_profile_link(
         case 402:
             raise EntegyFailedRequestError("Linked content not found")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]):
@@ -216,7 +222,9 @@ def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]
         case 404:
             raise EntegyFailedRequestError("Invalid moduleId or externalReference")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def deselect_profile_links(
@@ -226,7 +234,7 @@ def deselect_profile_links(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ):
     """
     Deselects a link for a profile.
@@ -264,7 +272,9 @@ def deselect_profile_links(
         case 402:
             raise EntegyFailedRequestError("Linked content not found")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def clear_profile_links(
@@ -274,7 +284,7 @@ def clear_profile_links(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ):
     """
     Clears all the selected links of a template type on the specified profile.
@@ -312,4 +322,6 @@ def clear_profile_links(
         case 402:
             raise EntegyFailedRequestError("Template type doesn't exist")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

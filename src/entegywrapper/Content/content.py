@@ -142,7 +142,9 @@ def create_content(self, content: Content, *, content_group: str = "Default") ->
         case 404:
             raise EntegyFailedRequestError("Missing Name")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def add_children_content(
@@ -199,7 +201,9 @@ def add_children_content(
         case 406:
             raise EntegyFailedRequestError("Duplicate External Reference")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def update_content(
@@ -294,4 +298,6 @@ def delete_content(
         case 401:
             raise EntegyFailedRequestError("Missing ID")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

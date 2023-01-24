@@ -10,7 +10,7 @@ def award_points(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ):
     """
     Awards the given number of points to the specified profile.
@@ -51,7 +51,9 @@ def award_points(
         case 402:
             raise EntegyFailedRequestError("Invalid point event")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def get_points(
@@ -60,7 +62,7 @@ def get_points(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ) -> int:
     """
     Returns the amount of points the specified profile has.
@@ -103,7 +105,9 @@ def get_points(
         case 402:
             raise EntegyFailedRequestError("Invalid point event")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
 
 
 def get_point_leaderboard(self) -> list[LeaderboardPosition]:
@@ -123,4 +127,6 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
         case 200:
             return response["leaderboard"]
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )

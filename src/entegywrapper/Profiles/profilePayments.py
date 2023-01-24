@@ -9,7 +9,7 @@ def add_profile_payment(
     profile_id: str | None = None,
     external_reference: str | None = None,
     internal_reference: str | None = None,
-    badge_reference: str | None = None
+    badge_reference: str | None = None,
 ):
     """
     Adds the given payment info to the specified profile.
@@ -55,4 +55,6 @@ def add_profile_payment(
         case 402:
             raise EntegyFailedRequestError("Duplicate transaction")
         case _:
-            raise EntegyFailedRequestError("Unknown error")
+            raise EntegyFailedRequestError(
+                f"{response['response']}: {response.get('message', 'Unknown error')}"
+            )
