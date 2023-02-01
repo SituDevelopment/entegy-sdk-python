@@ -30,7 +30,7 @@ TemplateType: TypeAlias = Literal[
 ]
 
 
-class Icon(int, Enum):
+class Icon(IntEnum):
     DOCUMENT: 0
     FACEBOOK: 1
     LINKEDIN: 2
