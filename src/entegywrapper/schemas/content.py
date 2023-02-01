@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import IntEnum
 from typing import Literal, TypeAlias, TypedDict
 
 from . import pageSettings, stringKeys
