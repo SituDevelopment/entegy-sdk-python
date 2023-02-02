@@ -14,3 +14,9 @@ class EntegyInvalidAPIKeyError(EntegyError):
     """Raised when the Entegy API returns an invalid API key response."""
 
     pass
+
+
+class EntegyNoDataError(EntegyError):
+    """Raised when the Entegy API responds with no data."""
+
+    pass
