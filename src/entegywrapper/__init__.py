@@ -182,48 +182,41 @@ class EntegyAPI:
         -------
             `dict`: response data
         """
-        response = None
         retry_count = 0
         permission_error_count = 0
 
         data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
+        response = None
         while response is None:
             response = method(endpoint, headers=self.headers, data=json.dumps(data))
 
-            # try catch used here as sometimes the response object comes through as
-            # a blank JSON object
             try:
-                if response.json()["response"] == 403:
-                    time.sleep(0.5)
-                    permission_error_count += 1
-                    if permission_error_count >= 5:
-                        raise EntegyInvalidAPIKeyError()
-                    response = None
+                data = response.json()
             except:
                 response = None
                 continue
 
-            assert response is not None
+            match data["response"]:
+                case 403:  # invalid API key
+                    if (permission_error_count := permission_error_count + 1) >= 5:
+                        raise EntegyInvalidAPIKeyError()
 
-            data = response.json()
-
-            if data["response"] == 489:
-                # if there is a rate limit issue, wait the remaining time and try again
-                if retry_count >= len(self.api_key):
-                    print(
-                        f"Rate limit reached, waiting {data['resetDuration']} seconds"
-                    )
-                    time.sleep(data["resetDuration"] + 2)
-                    print("Continuing...")
                     response = None
-                else:
-                    # update API key
-                    self.cycle_key()
-                    data["apiKey"] = self.get_key()
-                    print(f"Rate limit reached, trying alternate key: {data['apiKey']}")
-                    retry_count += 1
-                    response = None
+                case 489:  # rate-limit
+                    if retry_count >= len(self.api_key):
+                        duration = data["resetDuration"]
+                        print(f"Rate limit reached, waiting {duration} seconds")
+                        time.sleep(duration + 2)
+                        print("Continuing...")
+                        response = None
+                    else:
+                        self.cycle_key()
+                        key = self.get_key()
+                        data["apiKey"] = key
+                        print(f"Rate limit reached, trying alternate key: {key}")
+                        retry_count += 1
+                        response = None
 
         return data
 
