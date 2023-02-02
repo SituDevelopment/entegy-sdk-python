@@ -192,7 +192,7 @@ class EntegyAPI:
             response = method(endpoint, headers=self.headers, data=json.dumps(data))
 
             try:
-                data = response.json()
+                response = response.json()
             except:
                 failed_requests += 1
                 if failed_requests >= 5:
@@ -201,7 +201,7 @@ class EntegyAPI:
                 response = None
                 continue
 
-            match data["response"]:
+            match response["response"]:
                 case 403:  # invalid API key
                     failed_requests += 1
                     if failed_requests >= 5:
@@ -210,7 +210,7 @@ class EntegyAPI:
                     response = None
                 case 489:  # rate-limit
                     if keys_attempted >= len(self.api_key):
-                        duration = data["resetDuration"]
+                        duration = response["resetDuration"]
                         print(f"Rate limit reached, waiting {duration} seconds")
                         time.sleep(duration + 2)
                         print("Continuing...")
