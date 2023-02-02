@@ -7,7 +7,7 @@ import time
 from requests.structures import CaseInsensitiveDict
 from typing import Callable
 
-from entegywrapper.errors import EntegyInvalidAPIKeyError
+from entegywrapper.errors import EntegyInvalidAPIKeyError, EntegyNoDataError
 
 sys.path.append(os.path.dirname(__file__))
 
@@ -182,8 +182,8 @@ class EntegyAPI:
         -------
             `dict`: response data
         """
-        retry_count = 0
-        permission_error_count = 0
+        keys_attempted = 0
+        failed_requests = 0
 
         data |= {"apiKey": self.get_key(), "projectId": self.project_id}
 
@@ -194,28 +194,34 @@ class EntegyAPI:
             try:
                 data = response.json()
             except:
+                failed_requests += 1
+                if failed_requests >= 5:
+                    raise EntegyNoDataError()
+
                 response = None
                 continue
 
             match data["response"]:
                 case 403:  # invalid API key
-                    if (permission_error_count := permission_error_count + 1) >= 5:
+                    failed_requests += 1
+                    if failed_requests >= 5:
                         raise EntegyInvalidAPIKeyError()
 
                     response = None
                 case 489:  # rate-limit
-                    if retry_count >= len(self.api_key):
+                    if keys_attempted >= len(self.api_key):
                         duration = data["resetDuration"]
                         print(f"Rate limit reached, waiting {duration} seconds")
                         time.sleep(duration + 2)
                         print("Continuing...")
+                        keys_attempted = 0
                         response = None
                     else:
                         self.cycle_key()
                         key = self.get_key()
                         data["apiKey"] = key
                         print(f"Rate limit reached, trying alternate key: {key}")
-                        retry_count += 1
+                        keys_attempted += 1
                         response = None
 
         return data
