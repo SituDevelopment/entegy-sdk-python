@@ -35,7 +35,6 @@ class Icon(IntEnum):
     All icons can be found here: https://crowdcomms.entegy.com.au/Docs/Api/document-icons
     """
 
-    DOCUMENT = 0
     FACEBOOK = 1
     LINKEDIN = 2
     TWITTER = 3
@@ -66,6 +65,7 @@ class Icon(IntEnum):
     INBOX = 28
     EDIT = 31
     PEOPLE = 32
+    DOCUMENT = 35
     HOME = 37
     HOMESEARCH = 38
     DINER = 39
