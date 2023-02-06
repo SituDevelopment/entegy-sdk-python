@@ -224,7 +224,7 @@ class EntegyAPI:
                         keys_attempted += 1
                         response = None
 
-        return data
+        return response
 
     def post(self, endpoint: str, data: dict) -> dict:
         """
