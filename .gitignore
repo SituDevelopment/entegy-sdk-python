@@ -1,6 +1,6 @@
 testAPI.py
 
 build/
+node_modules/
 venv/
 __pycache__/
-node_modules/
