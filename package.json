@@ -1,0 +1,23 @@
+{
+    "name": "python3-entegy-api-wrapper",
+    "version": "1.0.0",
+    "description": "<div align=\"center\">     <a href=\"https://www.python.org/\">         <img src=\"https://forthebadge.com/images/badges/made-with-python.svg\">     </a>     <a href=\"https://github.com/psf/black\">         <img src=\"readmeimages/code-format-black.svg\">     </a>     <a href=\"https://www.python.org/downloads/release/python-3100/\">         <img src=\"readmeimages/python-3.10.svg\">     </a> </div>",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SituDevelopment/python3-entegy-API-wrapper.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/SituDevelopment/python3-entegy-API-wrapper/issues"
+    },
+    "homepage": "https://github.com/SituDevelopment/python3-entegy-API-wrapper#readme",
+    "devDependencies": {
+        "prettier": "^2.8.7"
+    }
+}

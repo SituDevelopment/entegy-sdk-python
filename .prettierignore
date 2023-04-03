@@ -1,0 +1,9 @@
+*
+
+# whitelist
+!**
+
+!*.js
+!*.json
+!*.css
+!*.html
