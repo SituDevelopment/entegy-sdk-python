@@ -3,3 +3,5 @@ testAPI.py
 build/
 venv/
 __pycache__/
+
+node_modules/
