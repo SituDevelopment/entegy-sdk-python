@@ -1,4 +1,4 @@
-from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
@@ -59,7 +59,7 @@ def get_content(
     if "content" in response:
         return response["content"]
 
-    raise EntegyFailedRequestError("No content returned")
+    raise EntegyNoDataError("No content returned")
 
 
 def get_schedule_content(
@@ -112,7 +112,10 @@ def get_schedule_content(
 
     response = self.post(self.api_endpoint + "/v2/Content/Schedule", data=data)
 
-    return response["content"]
+    if "content" in response:
+        return response["content"]
+
+    raise EntegyNoDataError("No content returned")
 
 
 def create_content(self, content: Content, *, content_group: str = "Default") -> int:
