@@ -56,10 +56,10 @@ def get_content(
 
     response = self.post(self.api_endpoint + "/v2/Content", data=data)
 
-    if "content" in response:
-        return response["content"]
+    if "content" not in response:
+        raise EntegyNoDataError("No content returned")
 
-    raise EntegyNoDataError("No content returned")
+    return response["content"]
 
 
 def get_schedule_content(
@@ -112,10 +112,10 @@ def get_schedule_content(
 
     response = self.post(self.api_endpoint + "/v2/Content/Schedule", data=data)
 
-    if "content" in response:
-        return response["content"]
+    if "content" not in response:
+        raise EntegyNoDataError("No content returned")
 
-    raise EntegyNoDataError("No content returned")
+    return response["content"]
 
 
 def create_content(self, content: Content, *, content_group: str = "Default") -> int:
