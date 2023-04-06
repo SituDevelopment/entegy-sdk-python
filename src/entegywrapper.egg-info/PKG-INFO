@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: entegywrapper
-Version: 2.0.3
+Version: 2.0.4
 Summary: A Python 3.10 wrapper for the Entegy API
 Author-email: Cameron Jensen <cameron@situ.com.au>, William Sawyer <william@situ.com.au>, Nathan Thomas <nathan@situ.com.au>
 Project-URL: Homepage, https://github.com/SituDevelopment/python3-entegy-API-wrapper
