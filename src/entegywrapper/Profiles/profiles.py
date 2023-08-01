@@ -1,4 +1,4 @@
-from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
 from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
@@ -342,9 +342,7 @@ def sync_profiles(
         case 404:
             raise EntegyFailedRequestError("Invalid updateReferenceType")
         case 500:
-            raise EntegyFailedRequestError(
-                "An error occurred while syncing the profile"
-            )
+            raise EntegyServerError("Internal server error")
         case _:
             raise EntegyFailedRequestError(
                 f"{response['response']}: {response.get('message', 'Unknown error')}"
