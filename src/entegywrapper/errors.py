@@ -20,3 +20,9 @@ class EntegyNoDataError(EntegyError):
     """Raised when the Entegy API responds with no data."""
 
     pass
+
+
+class EntegyServerError(EntegyError):
+    """Raised when the Entegy API returns a server error response."""
+
+    pass
