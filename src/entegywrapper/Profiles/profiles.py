@@ -334,7 +334,7 @@ def sync_profiles(
         case 200:
             return {"results": response["results"]}
         case 201:
-            return {"results": response["results"], "errors": ["errors"]}
+            return {"results": response["results"], "errors": response["errors"]}
         case 400:
             raise EntegyFailedRequestError("Multiple errors detected")
         case 401:
