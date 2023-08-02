@@ -204,9 +204,7 @@ def add_children_content(
         case 406:
             raise EntegyFailedRequestError("Duplicate External Reference")
         case _:
-            raise EntegyFailedRequestError(
-                f"{response['response']}: {response.get('message', 'Unknown error')}"
-            )
+            raise EntegyFailedRequestError(response)
 
 
 def update_content(
