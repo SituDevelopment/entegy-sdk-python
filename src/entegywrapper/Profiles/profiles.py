@@ -1,3 +1,5 @@
+from typing import Generator
+
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
 from entegywrapper.schemas.profile import (
     Profile,
@@ -6,8 +8,6 @@ from entegywrapper.schemas.profile import (
     ProfileType,
     ProfileUpdate,
 )
-
-from typing import Generator
 
 
 def all_profiles(
@@ -331,10 +331,8 @@ def sync_profiles(
     response = self.post(self.api_endpoint + "/v2/Profile/Sync", data=data)
 
     match response["response"]:
-        case 200:
-            return {"results": response["results"]}
-        case 201:
-            return {"results": response["results"], "errors": ["errors"]}
+        case 200 | 201:
+            return response["results"]
         case 400:
             raise EntegyFailedRequestError("Multiple errors detected")
         case 401:
