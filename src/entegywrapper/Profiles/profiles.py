@@ -320,7 +320,7 @@ def sync_profiles(
 
     Returns
     -------
-        `list[dict]`: profileIds and `newProfile` flags for each profile in the given list
+        `dict[str, list]`: a dictionary containing the results of the sync and any errors
     """
     data = {
         "updateReferenceType": update_reference_type,
@@ -331,8 +331,10 @@ def sync_profiles(
     response = self.post(self.api_endpoint + "/v2/Profile/Sync", data=data)
 
     match response["response"]:
-        case 200 | 201:
-            return response["results"]
+        case 200:
+            return {"results": response["results"]}
+        case 201:
+            return {"results": response["results"], "errors": ["errors"]}
         case 400:
             raise EntegyFailedRequestError("Multiple errors detected")
         case 401:
