@@ -1,0 +1,31 @@
+name: Check Dependencies
+
+on:
+  pull_request:
+    types: [edited, opened, ready_for_review, reopened, synchronize, unlocked]
+    branches:
+      - prod
+
+jobs:
+  pip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Dependencies
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - run: pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:"
+  npm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Dependencies
+        uses: actions/setup-node@v3
+        with:
+            node-version: "18"
+      - run: npm install
+
+ 
