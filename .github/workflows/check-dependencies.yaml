@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:"
+      - run: '[[ -f requirements.txt ]] && pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:" || echo "requirements.txt not found"'
   npm:
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +26,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
             node-version: "18"
-      - run: npm install
+      - run: '[[ -f package.json && -f package-lock.json ]] && npm install || echo "package.json and/or package-lock.json not found"'
 
  
