@@ -11,4 +11,3 @@ jobs:
         with:
           target: minor
           github-token: ${{ secrets.DEPENDABOT_AUTO_MERGE_PAT }}
-
