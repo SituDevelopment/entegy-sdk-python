@@ -17,6 +17,18 @@
             "options": {
                 "printWidth": 120
             }
+        },
+        {
+            "files": "**/*.html.jinja",
+            "options": {
+                "parser": "html"
+            }
+        },
+        {
+            "files": "**/*.yaml",
+            "options": {
+                "tabWidth": 2
+            }
         }
     ]
 }
