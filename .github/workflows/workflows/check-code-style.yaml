@@ -1,0 +1,79 @@
+name: Check Code Style
+
+on: pull_request
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.find-python.outputs.result }}
+      web: ${{ steps.find-web.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -H "Authorization: token ${{ secrets.DOWNLOAD_FIND_BY_EXTENSION }}" https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
+          chmod +x find-by-extension
+      - id: find-python
+        run: |
+          if [[ -n $(./find-by-extension ".py") ]]; then
+              echo "result=true" >> "$GITHUB_OUTPUT"
+          else
+              echo "result=false" >> "$GITHUB_OUTPUT"
+          fi
+      - id: find-web
+        run: |
+          if [[ -n $(./find-by-extension ".cjs" ".css" ".html" ".html.jinja" ".js" ".json" ".jsx" ".md" ".scss" ".ts" ".tsx" ".yaml" ".yml") ]]; then
+            echo "result=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  black:
+    if: fromJSON(needs.find.outputs.python)
+    needs: find
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: psf/black@stable
+
+  isort:
+    if: fromJSON(needs.find.outputs.python)
+    needs: find
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: isort/isort-action@v1
+        with:
+          configuration: "--check-only --diff --profile black"
+          requirements-files: "requirements.txt"
+
+  prettier:
+    if: fromJSON(needs.find.outputs.web)
+    needs: find
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Installing Prettier
+        run: npm install --global prettier
+      - name: Running Prettier
+        run: prettier --check .
+
+  pylint:
+    if: fromJSON(needs.find.outputs.python)
+    needs: find
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Installing Pylint
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+      - name: Running Pylint
+        run: pylint .
+
