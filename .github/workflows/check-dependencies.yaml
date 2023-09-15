@@ -1,29 +1,62 @@
 name: Check Dependencies
 
-on:
-  pull_request:
-    types: [edited, opened, ready_for_review, reopened, synchronize, unlocked]
-    branches:
-      - prod
+on: pull_request
 
 jobs:
+  find:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.find-python.outputs.result }}
+      web: ${{ steps.find-web.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl -H "Authorization: token ${{ secrets.DOWNLOAD_FIND_BY_EXTENSION }}" https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
+          chmod +x find-by-extension
+      - id: find-python
+        run: |
+          if [[ -n $(./find-by-extension ".py") ]]; then
+              echo "result=true" >> "$GITHUB_OUTPUT"
+          else
+              echo "result=false" >> "$GITHUB_OUTPUT"
+          fi
+      - id: find-web
+        run: |
+          if [[ -n $(./find-by-extension ".cjs" ".css" ".html" ".html.jinja" ".js" ".json" ".jsx" ".md" ".scss" ".ts" ".tsx" ".yaml" ".yml") ]]; then
+            echo "result=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=false" >> "$GITHUB_OUTPUT"
+          fi
+
   pip:
+    if: fromJSON(needs.find.outputs.python)
+    needs: find
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Dependencies
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - run: '([[ -f requirements.txt ]] && pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:" --target=dependencies && exit 0) || (echo "requirements.txt not found" && exit 0)'
+      - run: |
+          if [[ -f requirements.txt ]]; then
+              pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:" --target=dependencies
+          else
+              echo "requirements.txt not found"
+          fi
+
   npm:
+    if: fromJSON(needs.find.outputs.web)
+    needs: find
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Dependencies
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
-            node-version: "18"
-      - run: '([[ -f package.json && -f package-lock.json ]] && npm install && exit 0) || (echo "package.json and/or package-lock.json not found" && exit 0)'
+          node-version: "18"
+      - run: |
+          if [[ -f package.json && -f package-lock.json ]]; then
+              npm install
+          else
+              echo "package.json and/or package-lock.json not found"
+          fi
+
