@@ -3,7 +3,6 @@ from typing import Literal, TypeAlias, TypedDict
 
 from . import pageSettings, stringKeys
 
-
 TemplateType: TypeAlias = Literal[
     "Schedule",
     "ScheduleDay",

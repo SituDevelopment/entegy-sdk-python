@@ -1,11 +1,11 @@
 import json
 import os
-import requests
 import sys
 import time
-
-from requests.structures import CaseInsensitiveDict
 from typing import Callable
+
+import requests
+from requests.structures import CaseInsensitiveDict
 
 from entegywrapper.errors import EntegyInvalidAPIKeyError, EntegyNoDataError
 
@@ -19,69 +19,69 @@ API_ENDPOINTS = {
 
 
 class EntegyAPI:
-    from .Profiles.profiles import (
-        all_profiles,
-        create_profile,
-        get_profile,
-        delete_profile,
-        update_profile,
-        sync_profiles,
-        send_welcome_email,
-    )
-    from .Profiles.profileTypes import (
-        get_profile_type,
-        create_profile_type,
-        update_profile_type,
-        delete_profile_type,
-        all_profile_types,
-    )
-    from .Profiles.profileCustom import (
-        get_profile_custom,
-        create_profile_custom,
-        update_profile_custom,
-        delete_profile_custom,
-        all_profile_custom,
-    )
-    from .Profiles.profileLinks import (
-        selected_profile_links,
-        page_profile_links,
-        select_profile_link,
-        multi_select_profile_links,
-        deselect_profile_links,
-        clear_profile_links,
-    )
-    from .Profiles.profilePayments import add_profile_payment
-    from .Content.content import (
-        get_content,
-        get_schedule_content,
-        create_content,
-        add_children_content,
-        update_content,
-        delete_content,
+    from .AttendanceTracking.attendanceTracking import (
+        add_check_in,
+        get_attended,
+        get_attendees,
     )
     from .Content.categories import (
         available_categories,
-        select_categories,
-        deselect_categories,
         create_categories,
         create_child_categories,
-        update_category,
         delete_categories,
+        deselect_categories,
+        select_categories,
+        update_category,
+    )
+    from .Content.content import (
+        add_children_content,
+        create_content,
+        delete_content,
+        get_content,
+        get_schedule_content,
+        update_content,
     )
     from .Content.documents import add_documents, add_external_content_documents
     from .Content.multiLink import (
-        get_multi_links,
         add_multi_links,
-        remove_multi_link,
+        get_multi_links,
         remove_all_multi_links,
+        remove_multi_link,
     )
-    from .Points.pointManagement import award_points, get_point_leaderboard, get_points
+    from .Notification.notification import send_bulk_notification, send_notification
     from .Plugins.extAuth import external_authentication
-    from .Notification.notification import send_notification, send_bulk_notification
-    from .AttendanceTracking.attendanceTracking import (
-        add_check_in,
-        get_attendees,
-        get_attended,
+    from .Points.pointManagement import award_points, get_point_leaderboard, get_points
+    from .Profiles.profileCustom import (
+        all_profile_custom,
+        create_profile_custom,
+        delete_profile_custom,
+        get_profile_custom,
+        update_profile_custom,
+    )
+    from .Profiles.profileLinks import (
+        clear_profile_links,
+        deselect_profile_links,
+        multi_select_profile_links,
+        page_profile_links,
+        select_profile_link,
+        selected_profile_links,
+    )
+    from .Profiles.profilePayments import add_profile_payment
+    from .Profiles.profiles import (
+        all_profiles,
+        create_profile,
+        delete_profile,
+        get_profile,
+        send_welcome_email,
+        sync_profiles,
+        update_profile,
+    )
+    from .Profiles.profileTypes import (
+        all_profile_types,
+        create_profile_type,
+        delete_profile_type,
+        get_profile_type,
+        update_profile_type,
     )
 
     def __init__(

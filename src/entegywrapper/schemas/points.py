@@ -2,7 +2,6 @@ from typing import Literal, TypeAlias, TypedDict
 
 from . import profile
 
-
 PointType: TypeAlias = Literal[
     "Comment",
     "CommentWithImage",
