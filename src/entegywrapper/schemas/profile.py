@@ -2,7 +2,6 @@ from typing import Literal, TypeAlias, TypedDict
 
 from . import project
 
-
 ProfileExtendedPrivacy: TypeAlias = Literal["Public", "Connections", "Hidden"]
 
 

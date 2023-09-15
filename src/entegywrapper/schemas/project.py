@@ -1,6 +1,5 @@
 from typing import Literal, TypeAlias, TypedDict
 
-
 ApiKeyPermission: TypeAlias = Literal[
     "ViewContent",
     "EditContent",

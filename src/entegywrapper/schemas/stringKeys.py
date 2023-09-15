@@ -1,6 +1,5 @@
 from typing import Literal, TypeAlias
 
-
 ContactInformationKeys: TypeAlias = Literal[
     "phoneNumber",
     "emailAddress",
