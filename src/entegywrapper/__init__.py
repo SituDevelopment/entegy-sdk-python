@@ -19,12 +19,12 @@ API_ENDPOINTS = {
 
 
 class EntegyAPI:
-    from .AttendanceTracking.attendanceTracking import (
+    from .attendance_tracking.attendance_tracking import (
         add_check_in,
         get_attended,
         get_attendees,
     )
-    from .Content.categories import (
+    from .content.categories import (
         available_categories,
         create_categories,
         create_child_categories,
@@ -33,7 +33,7 @@ class EntegyAPI:
         select_categories,
         update_category,
     )
-    from .Content.content import (
+    from .content.content import (
         add_children_content,
         create_content,
         delete_content,
@@ -41,24 +41,24 @@ class EntegyAPI:
         get_schedule_content,
         update_content,
     )
-    from .Content.documents import add_documents, add_external_content_documents
-    from .Content.multiLink import (
+    from .content.documents import add_documents, add_external_content_documents
+    from .content.multi_link import (
         add_multi_links,
         get_multi_links,
         remove_all_multi_links,
         remove_multi_link,
     )
-    from .Notification.notification import send_bulk_notification, send_notification
-    from .Plugins.extAuth import external_authentication
-    from .Points.pointManagement import award_points, get_point_leaderboard, get_points
-    from .Profiles.profileCustom import (
+    from .notification.notification import send_bulk_notification, send_notification
+    from .plugins.ext_auth import external_authentication
+    from .points.point_management import award_points, get_point_leaderboard, get_points
+    from .profiles.profile_custom import (
         all_profile_custom,
         create_profile_custom,
         delete_profile_custom,
         get_profile_custom,
         update_profile_custom,
     )
-    from .Profiles.profileLinks import (
+    from .profiles.profile_links import (
         clear_profile_links,
         deselect_profile_links,
         multi_select_profile_links,
@@ -66,8 +66,15 @@ class EntegyAPI:
         select_profile_link,
         selected_profile_links,
     )
-    from .Profiles.profilePayments import add_profile_payment
-    from .Profiles.profiles import (
+    from .profiles.profile_payments import add_profile_payment
+    from .profiles.profile_types import (
+        all_profile_types,
+        create_profile_type,
+        delete_profile_type,
+        get_profile_type,
+        update_profile_type,
+    )
+    from .profiles.profiles import (
         all_profiles,
         create_profile,
         delete_profile,
@@ -75,13 +82,6 @@ class EntegyAPI:
         send_welcome_email,
         sync_profiles,
         update_profile,
-    )
-    from .Profiles.profileTypes import (
-        all_profile_types,
-        create_profile_type,
-        delete_profile_type,
-        get_profile_type,
-        update_profile_type,
     )
 
     def __init__(

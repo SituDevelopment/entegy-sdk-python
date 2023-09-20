@@ -1,7 +1,7 @@
 from enum import IntEnum
 from typing import Literal, TypeAlias, TypedDict
 
-from . import pageSettings, stringKeys
+from . import page_settings, string_keys
 
 TemplateType: TypeAlias = Literal[
     "Schedule",
@@ -143,8 +143,8 @@ class Content(TypedDict):
     moduleId: int
     externalReference: str
     mainImage: str
-    strings: dict[stringKeys.StringKey, str]
-    pageSettings: dict[pageSettings.PageSetting, bool]
+    strings: dict[string_keys.StringKey, str]
+    pageSettings: dict[page_settings.PageSetting, bool]
     sortOrder: int
 
 
@@ -169,7 +169,7 @@ class ContentChildCreateRequired(TypedDict):
 class ContentChildCreateNotRequired(TypedDict, total=False):
     externalReference: str
     mainImage: str
-    strings: dict[stringKeys.StringKey, str]
+    strings: dict[string_keys.StringKey, str]
     links: list[Link]
     sortOrder: int
 

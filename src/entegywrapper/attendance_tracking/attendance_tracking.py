@@ -1,5 +1,5 @@
 from entegywrapper.errors import EntegyFailedRequestError
-from entegywrapper.schemas.attendanceTracking import Attended, Attendee
+from entegywrapper.schemas.attendance_tracking import Attended, Attendee
 
 
 def add_check_in(
