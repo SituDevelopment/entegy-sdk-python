@@ -8,8 +8,13 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/entegywrapper
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -24,5 +29,3 @@ jobs:
         run: python -m build
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@v1.8.10
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
