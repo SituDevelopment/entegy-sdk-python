@@ -6,16 +6,17 @@ build-backend = "setuptools.build_meta"
 name = "entegywrapper"
 description = "Python SDK for the Entegy API"
 authors = [
-  { name="Cameron Jensen", email="cameron@situ.com.au" },
-  { name="William Sawyer", email="william@situ.com.au" },
-  { name="Nathan Thomas", email="nathan@situ.com.au" },
+  { name = "Situ Developer", email = "developer@situ.com.au" },
+  { name = "Cameron Jensen", email = "cameron@situ.com.au" },
+  { name = "William Sawyer", email = "william@situ.com.au" },
+  { name = "Nathan Thomas", email = "nathan@situ.com.au" },
 ]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["requests"]
 classifiers = [
-    "License :: OSI Approved :: BSD License",
-    "Programming Language :: Python :: 3.10",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python :: 3.10",
 ]
 dynamic = ["version"]
 
@@ -24,4 +25,4 @@ dynamic = ["version"]
 "Releases" = "https://github.com/SituDevelopment/python3-entegy-API-wrapper/releases"
 
 [tool.setuptools.dynamic]
-version = {attr = "entegywrapper.version.__version__"}
+version = { attr = "entegywrapper.version.__version__" }
