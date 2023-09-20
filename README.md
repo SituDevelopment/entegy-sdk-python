@@ -1,26 +1,12 @@
 # Entegy APIv2 Wrapper
 
-<div align="center">
-    <a href="https://www.python.org/">
-        <img src="https://forthebadge.com/images/badges/made-with-python.svg">
-    </a>
-    <a href="https://github.com/psf/black">
-        <img src="readmeimages/code-format-black.svg">
-    </a>
-    <a href="https://www.python.org/downloads/release/python-3100/">
-        <img src="readmeimages/python-3.10.svg">
-    </a>
-</div>
-
-## Installation and Usage
-
-Install with:
+## Installation
 
 ```bash
-pip install git+ssh://git@github.com/SituDevelopment/python3-entegy-API-wrapper.git
+pip install entegywrapper
 ```
 
-Import with:
+## Usage
 
 ```python
 from entegywrapper import EntegyAPI
@@ -66,9 +52,3 @@ from entegywrapper import EntegyAPI
     -   [Project API Keys](https://situ.entegysuite.com.au/Docs/Api/projectapikey-get)
 -   Submission Forms
     -   [Submission Form - Get](https://situ.entegysuite.com.au/Docs/Api/submission-form-get)
-
-## To deploy new version
-
-```python
-python -m build
-```
