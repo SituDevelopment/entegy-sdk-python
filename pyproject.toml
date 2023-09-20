@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "entegywrapper"
-description = "A Python 3.10 wrapper for the Entegy API"
+description = "Python SDK for the Entegy API"
 authors = [
   { name="Cameron Jensen", email="cameron@situ.com.au" },
   { name="William Sawyer", email="william@situ.com.au" },
