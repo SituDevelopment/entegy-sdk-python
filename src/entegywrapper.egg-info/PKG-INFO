@@ -1,38 +1,25 @@
 Metadata-Version: 2.1
 Name: entegywrapper
-Version: 3.0.0
-Summary: A Python 3.10 wrapper for the Entegy API
-Author-email: Cameron Jensen <cameron@situ.com.au>, William Sawyer <william@situ.com.au>, Nathan Thomas <nathan@situ.com.au>
+Version: 4.0.0
+Summary: Python SDK for the Entegy API
+Author-email: Situ Developer <developer@situ.com.au>, Cameron Jensen <cameron@situ.com.au>, William Sawyer <william@situ.com.au>, Nathan Thomas <nathan@situ.com.au>
 Project-URL: Homepage, https://github.com/SituDevelopment/python3-entegy-API-wrapper
 Project-URL: Releases, https://github.com/SituDevelopment/python3-entegy-API-wrapper/releases
 Classifier: License :: OSI Approved :: BSD License
 Classifier: Programming Language :: Python :: 3.10
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
+Requires-Dist: requests
 
 # Entegy APIv2 Wrapper
 
-<div align="center">
-    <a href="https://www.python.org/">
-        <img src="https://forthebadge.com/images/badges/made-with-python.svg">
-    </a>
-    <a href="https://github.com/psf/black">
-        <img src="readmeimages/code-format-black.svg">
-    </a>
-    <a href="https://www.python.org/downloads/release/python-3100/">
-        <img src="readmeimages/python-3.10.svg">
-    </a>
-</div>
-
-## Installation and Usage
-
-Install with:
+## Installation
 
 ```bash
-pip install git+ssh://git@github.com/SituDevelopment/python3-entegy-API-wrapper.git
+pip install entegywrapper
 ```
 
-Import with:
+## Usage
 
 ```python
 from entegywrapper import EntegyAPI
@@ -78,9 +65,3 @@ from entegywrapper import EntegyAPI
     -   [Project API Keys](https://situ.entegysuite.com.au/Docs/Api/projectapikey-get)
 -   Submission Forms
     -   [Submission Form - Get](https://situ.entegysuite.com.au/Docs/Api/submission-form-get)
-
-## To deploy new version
-
-```python
-python -m build
-```
