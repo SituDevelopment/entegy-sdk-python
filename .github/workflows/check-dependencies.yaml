@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          curl -H "Authorization: token ${{ secrets.DOWNLOAD_FIND_BY_EXTENSION }}" https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
+          curl https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
           chmod +x find-by-extension
       - id: find-python
         run: |
