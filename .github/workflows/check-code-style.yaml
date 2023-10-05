@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          curl https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
+          curl -H "Authorization: token ${{ secrets.DOWNLOAD_FIND_BY_EXTENSION }}" https://raw.githubusercontent.com/SituDevelopment/automation/main/find-by-extension -o find-by-extension
           chmod +x find-by-extension
       - id: find-python
         run: |
@@ -56,10 +56,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
-      - name: Installing Prettier
-        run: npm install --global prettier
+      - name: Installing Dependencies
+        run: npm install
       - name: Running Prettier
-        run: prettier --check .
+        run: npx prettier --check .
 
   pylint:
     if: fromJSON(needs.find.outputs.python)
