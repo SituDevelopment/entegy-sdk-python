@@ -27,7 +27,7 @@ pkginfo==1.9.6
 platformdirs==3.11.0
 pycparser==2.21
 Pygments==2.16.1
-pylint==2.17.6
+pylint==3.0.1
 pyproject_hooks==1.0.0
 readme-renderer==42.0
 requests==2.31.0
