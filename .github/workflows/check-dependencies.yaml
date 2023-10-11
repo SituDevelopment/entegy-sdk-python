@@ -39,9 +39,10 @@ jobs:
           python-version: "3.10"
       - run: |
           if [[ -f requirements.txt ]]; then
-              pip install -r requirements.txt --platform manylinux2014_x86_64 --only-binary=":all:" --target=dependencies
+              pip install -r requirements.txt
           else
               echo "requirements.txt not found"
+              exit 1
           fi
 
   npm:
@@ -58,4 +59,5 @@ jobs:
               npm install
           else
               echo "package.json and/or package-lock.json not found"
+              exit 1
           fi
