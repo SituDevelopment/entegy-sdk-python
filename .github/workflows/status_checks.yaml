@@ -1,0 +1,10 @@
+name: Status Checks
+
+on: pull_request
+
+jobs:
+  code-style:
+    uses: SituDevelopment/.github/.github/workflows/check-code-style.yaml@main
+
+  dependencies:
+    uses: SituDevelopment/.github/.github/workflows/check-dependencies.yaml@main
