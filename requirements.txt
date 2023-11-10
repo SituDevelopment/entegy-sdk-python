@@ -21,7 +21,7 @@ nh3==0.2.14
 packaging==23.2
 pathspec==0.11.2
 pkginfo==1.9.6
-platformdirs==3.11.0
+platformdirs==4.0.0
 pycparser==2.21
 Pygments==2.16.1
 pyproject_hooks==1.0.0
