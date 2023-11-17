@@ -215,6 +215,8 @@ def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]
     response = self.post(self.api_endpoint + "/v2/ProfileLink/MultiSelect/", data=data)
 
     match response["response"]:
+        case 200:
+            return
         case 401:
             raise EntegyFailedRequestError("Profile doesn't exist")
         case 402:
@@ -267,6 +269,8 @@ def deselect_profile_links(
     response = self.post(self.api_endpoint + "/v2/ProfileLink/Deselect/", data=data)
 
     match response["response"]:
+        case 200:
+            return
         case 401:
             raise EntegyFailedRequestError("Profile doesn't exist")
         case 402:
@@ -317,6 +321,8 @@ def clear_profile_links(
     response = self.post(self.api_endpoint + "/v2/ProfileLink/Clear/", data=data)
 
     match response["response"]:
+        case 200:
+            return
         case 401:
             raise EntegyFailedRequestError("Profile doesn't exist")
         case 402:
