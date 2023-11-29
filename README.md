@@ -1,4 +1,4 @@
-# Entegy APIv2 Wrapper
+# Python SDK for the Entegy APIA
 
 ## Installation
 
