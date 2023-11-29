@@ -1,4 +1,4 @@
-# Python SDK for the Entegy APIA
+# Python SDK for the Entegy API
 
 ## Installation
 
