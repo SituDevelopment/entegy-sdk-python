@@ -1,0 +1,7 @@
+name: Label Pull Requests
+
+on: pull_request
+
+jobs:
+  labeller:
+    uses: SituDevelopment/.github/.github/workflows/labeller.yaml@main
