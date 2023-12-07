@@ -6,8 +6,7 @@ enhancement:
 
 dependencies:
   - changed-files:
-      - any-glob-to-any-file:
-          ["package.json", "package-lock.json", "requirements.txt"]
+      - any-glob-to-any-file: ["package.json", "package-lock.json", "requirements.txt"]
 
 documentation:
   - changed-files:
@@ -19,8 +18,7 @@ github_actions:
 
 javascript:
   - changed-files:
-      - any-glob-to-any-file:
-          ["*.js", "*.ts", "package.json", "package-lock.json"]
+      - any-glob-to-any-file: ["*.js", "*.ts", "package.json", "package-lock.json"]
 
 python:
   - changed-files:
