@@ -7,13 +7,7 @@ enhancement:
 dependencies:
   - changed-files:
       - any-glob-to-any-file:
-          [
-            "package.json",
-            "package-lock.json",
-            "requirements.txt",
-            "composer.json",
-            "composer.lock",
-          ]
+          ["package.json", "package-lock.json", "requirements.txt"]
 
 documentation:
   - changed-files:
@@ -25,11 +19,8 @@ github_actions:
 
 javascript:
   - changed-files:
-      - any-glob-to-any-file: ["*.js", "*.ts", "package.json", "package-lock.json"]
-
-php:
-  - changed-files:
-      - any-glob-to-any-file: ["*.php", "composer.json", "composer.lock"]
+      - any-glob-to-any-file:
+          ["*.js", "*.ts", "package.json", "package-lock.json"]
 
 python:
   - changed-files:
