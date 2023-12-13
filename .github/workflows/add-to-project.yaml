@@ -10,6 +10,7 @@ jobs:
     secrets: inherit
 
   internal:
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v0.5.0
