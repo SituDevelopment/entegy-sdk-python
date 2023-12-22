@@ -7,7 +7,7 @@ click==8.1.7
 cryptography==41.0.7
 docutils==0.20.1
 idna==3.6
-importlib-metadata==7.0.0
+importlib-metadata==7.0.1
 isort==5.13.2
 jaraco.classes==3.3.0
 jeepney==0.8.0
