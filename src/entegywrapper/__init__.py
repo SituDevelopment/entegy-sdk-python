@@ -80,6 +80,7 @@ class EntegyAPI:
         delete_profile,
         get_profile,
         send_welcome_email,
+        sync_profile_block,
         sync_profiles,
         update_profile,
     )

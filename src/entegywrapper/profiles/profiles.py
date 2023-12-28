@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from typing import Generator
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
 from entegywrapper.schemas.profile import (
     Profile,
@@ -8,6 +11,9 @@ from entegywrapper.schemas.profile import (
     ProfileType,
     ProfileUpdate,
 )
+
+MAX_SYNCED_PROFILES = 100
+"""The maximum number of profiles that can be synced at once."""
 
 
 def all_profiles(
@@ -306,7 +312,7 @@ def sync_profiles(
     profiles: list[Profile],
     *,
     group_by_first_profile: bool = False,
-) -> list[dict[str, str | bool]]:
+) -> dict[str, list]:
     """
     Updates or creates profiles in bulk.
 
@@ -324,9 +330,54 @@ def sync_profiles(
     -------
         `dict[str, list]`: a dictionary containing the results of the sync and any errors
     """
+    parent = []
+    block_size = MAX_SYNCED_PROFILES
+
+    if group_by_first_profile:
+        parent.append(profiles[0])
+        block_size -= 1
+
+    result = {"results": [], "errors": []}
+
+    for start in range(len(parent), len(profiles), block_size):
+        response = self.sync_profile_block(
+            update_reference_type,
+            parent + profiles[start : start + block_size],
+            group_by_first_profile,
+        )
+        result["results"].extend(response["results"])
+        result["errors"].extend(response["errors"])
+
+    return result
+
+
+def sync_profile_block(
+    self,
+    update_reference_type: ProfileIdentifier,
+    profile_block: list[Profile],
+    *,
+    group_by_first_profile: bool = False,
+) -> dict[str, list]:
+    """
+    Updates or creates a block of profiles.
+
+    Parameters
+    ----------
+        `update_reference_type` (`Identifier`): the identifier to use to match profiles for updating
+        `profile_block` (`list[Profile]`): the list of profiles to create or update
+        `group_by_first_profile` (`bool`, optional): whether the parent profile of all profiles in this sync should be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent); defaults to `False`
+
+    Raises
+    ------
+        `EntegyFailedRequestError`: if the API request fails
+
+    Returns
+    -------
+        `dict[str, list]`: a dictionary containing the results of the sync and any errors
+    """
     data = {
         "updateReferenceType": update_reference_type,
-        "profiles": profiles,
+        "profiles": profile_block,
         "groupByFirstProfile": group_by_first_profile,
     }
 
@@ -334,7 +385,7 @@ def sync_profiles(
 
     match response["response"]:
         case 200:
-            return {"results": response["results"]}
+            return {"results": response["results"], "errors": []}
         case 201:
             return {"results": response["results"], "errors": response["errors"]}
         case 400:
