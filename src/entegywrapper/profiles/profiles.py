@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Generator
+from typing import Generator, Optional
 
 from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
@@ -21,10 +21,10 @@ def all_profiles(
     *,
     include_custom_fields: bool = False,
     include_permissions: bool = False,
-    status: str | None = None,
-    profile_type: ProfileType | None = None,
-    updated_after: str | None = None,
-    created_after: str | None = None,
+    status: Optional[str] = None,
+    profile_type: Optional[ProfileType] = None,
+    updated_after: Optional[str] = None,
+    created_after: Optional[str] = None,
 ) -> Generator[Profile, None, None]:
     """
     Yields all user profiles.
@@ -81,10 +81,10 @@ def all_profiles(
 def get_profile(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
     include_custom_fields: bool = False,
     include_permissions: bool = False,
 ) -> Profile:
@@ -147,10 +147,10 @@ def get_profile(
 def delete_profile(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Deletes the user profile specified by the given identifier.
@@ -255,10 +255,10 @@ def update_profile(
     self,
     profile_object: ProfileUpdate,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Updates the user profile specified by the given identifier using the fields
@@ -431,10 +431,10 @@ def sync_profile_block(
 def send_welcome_email(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Re-sends the welcome email for a given profile on a given project.

@@ -1,9 +1,11 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.profile import ProfileType
 
 
 def get_profile_type(
-    self, *, name: str | None = None, external_reference: str | None = None
+    self, *, name: Optional[str] = None, external_reference: Optional[str] = None
 ) -> ProfileType:
     """
     Returns the profile type specified by the given identifier.
@@ -83,8 +85,8 @@ def update_profile_type(
     self,
     profile_type: ProfileType,
     *,
-    name: str | None = None,
-    external_reference: str | None = None,
+    name: Optional[str] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Updates the profile type with the data passed in the profileType
@@ -134,7 +136,7 @@ def update_profile_type(
 
 
 def delete_profile_type(
-    self, *, name: str | None = None, external_reference: str | None = None
+    self, *, name: Optional[str] = None, external_reference: Optional[str] = None
 ):
     """
     Deletes a profile type. The type cannot be in use.

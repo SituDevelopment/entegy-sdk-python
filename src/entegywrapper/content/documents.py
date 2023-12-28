@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Optional
 
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
@@ -11,8 +12,8 @@ def add_documents(
     self,
     template_type: TemplateType,
     file_documents: list[Document],
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Adds documents to a page.
@@ -60,8 +61,8 @@ def add_external_content_documents(
     self,
     template_type: TemplateType,
     external_content_items: list[ExternalContent],
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Adds external content documents to a page.

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, TemplateType
 
@@ -6,8 +8,8 @@ def available_categories(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ) -> list[Category]:
     """
     Returns the list of available categories for the page specified by the given
@@ -60,8 +62,8 @@ def select_categories(
     template_type: TemplateType,
     categories: list[Category],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ) -> bool:
     """
     Selects the specified categories for the specified content page.
@@ -117,8 +119,8 @@ def deselect_categories(
     template_type: TemplateType,
     categories: list[Category],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ) -> bool:
     """
     Deselects the specified categories for the specified content page.
@@ -178,8 +180,8 @@ def create_categories(
     template_type: TemplateType,
     categories: list[Category],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Creates categories under a root page.
@@ -232,8 +234,8 @@ def create_child_categories(
     self,
     categories: list[Category],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Creates categories under another category.
@@ -282,8 +284,8 @@ def update_category(
     self,
     name: str,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Changes the name of a category.
@@ -331,8 +333,8 @@ def delete_categories(
     template_type: TemplateType,
     categories: list[Category],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Creates categories under another category.
