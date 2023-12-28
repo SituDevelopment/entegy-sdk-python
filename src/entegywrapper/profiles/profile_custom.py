@@ -68,6 +68,7 @@ def update_profile_custom(self, key: str, custom_field: CustomProfileField):
     Parameters
     ----------
         `key` (`str`): the key of the custom field to update
+
         `custom_field` (`CustomProfileField`): the fields to update
 
     Raises

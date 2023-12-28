@@ -8,6 +8,7 @@ def external_authentication(self, profile_id: str, device_id: str) -> dict:
     Parameters
     ----------
         `profile_id` (`str`): the profileId that is logging in
+
         `device_id` (`int`): the deviceId that is logging in
 
     Returns

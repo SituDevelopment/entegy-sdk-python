@@ -18,10 +18,15 @@ def award_points(
     Parameters
     ----------
         `point_type` (`PointType`): the type of points to assign
+
         `points` (`int`): the amount of points to assign
+
         `profile_id` (`str`, optional): the profileId for the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -70,8 +75,11 @@ def get_points(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId for the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises

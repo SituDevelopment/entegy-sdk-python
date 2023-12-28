@@ -19,11 +19,17 @@ def send_notification(
     Parameters
     ----------
         `title` (`str`): the title of the notification
+
         `message` (`str`): the message of the notification
+
         `profile_id` (`str`): the profileId of the profile to send the notification to
+
         `external_reference` (`str`, optional): the externalReference of the profile to send the ; defaults to `None`notification to
+
         `internal_reference` (`str`, optional): the internalReference of the profile to send the ; defaults to `None`notification to
+
         `badge_reference` (`str`, optional): the badgeReference of the profile to send the notification to; defaults to `None`
+
         `target_page` (`dict[str, str | int]`, optional): the page to view when the notification is clicked; defaults to `None`
 
     The format of `target_page` is as follows:
@@ -37,6 +43,7 @@ def send_notification(
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -98,8 +105,11 @@ def send_bulk_notification(
     Parameters
     ----------
         `title` (`str`): the title of the notification
+
         `message` (`str`): the message of the notification
+
         `profile_references` (`list[dict[str, str]]`): the profile references to send the notification to
+
         `target_page` (`dict[str, str | int]`, optional): the page to view when the notification is clicked; defaults to `None`
 
     The format of `profile_references` is as follows:

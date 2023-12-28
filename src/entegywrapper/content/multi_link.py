@@ -15,7 +15,9 @@ def get_multi_links(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
+
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
     Raises
@@ -54,13 +56,17 @@ def add_multi_links(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add links to
+
         `module_id` (`int`): the moduleId of the page to add links to
+
         `multi_links` (`list[Link]`, optional): the links to add; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "multiLinks": multi_links}
@@ -105,15 +111,21 @@ def remove_multi_link(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to remove links from
+
         `target_template_type` (`TemplateType`): the templateType of the multi link to remove
+
         `module_id` (`int`, optional): the moduleId of the page to remove links from; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page to remove links from; defaults to `None`
+
         `target_module_id` (`int`, optional): the moduleId of the multi link to remove; defaults to `None`
+
         `target_external_reference` (`str`, optional): the externalReference of the multi link to remove; defaults to `None`
 
     Raises
     ------
         `ValueError`: if either no page or no target identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "targetTemplateType": target_template_type}
@@ -161,8 +173,11 @@ def remove_all_multi_links(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
+
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
+
         `link_template_type` (`TemplateType`, optional): the templateType of the page; defaults to `None`
 
     Raises

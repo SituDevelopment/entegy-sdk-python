@@ -16,12 +16,15 @@ def available_categories(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
+
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -66,13 +69,17 @@ def select_categories(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page selecting the categories
+
         `categories` (`list[Category]`): the categories to select
+
         `module_id` (`int`, optional): the moduleId of the page selecting the categories; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page selecting the categories; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -119,13 +126,17 @@ def deselect_categories(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to unselect the categories from
+
         `categories` (`list[Category]`): the categories to select
+
         `module_id` (`int`, optional): the moduleId of the page to unselect the categories from; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page to unselect the categories from; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -176,13 +187,17 @@ def create_categories(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page holding the categories
+
         `categories` (`list[Category]`): the categories to create
+
         `module_id` (`int`, optional): the moduleId of the page holding the categories; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page holding the categories; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "categories": categories}
@@ -226,12 +241,15 @@ def create_child_categories(
     Parameters
     ----------
         `categories` (`list[Category]`): the categories to create
+
         `module_id` (`int`): the moduleId of the page holding the categories
+
         `external_reference` (`int`): the externalReference of the page holding the categories
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"categories": categories}
@@ -273,12 +291,15 @@ def update_category(
     Parameters
     ----------
         `name` (`str`): the new name of the category
+
         `module_id` (`int`, optional): the moduleId of the category; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the category; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"name": name}
@@ -319,13 +340,17 @@ def delete_categories(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
+
         `categories` (`list[Category]`): the categories to delete
+
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"templateType": template_type, "categories": categories}
