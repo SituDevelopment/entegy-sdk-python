@@ -31,7 +31,7 @@ TemplateType: TypeAlias = Literal[
 
 class Icon(IntEnum):
     """
-    All icons can be found here: https://crowdcomms.entegy.com.au/Docs/Api/document-icons
+    All icons can be found here: https://situ.entegy.com.au/Docs/Api/document-icons.
     """
 
     FACEBOOK = 1

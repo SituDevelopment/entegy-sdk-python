@@ -20,13 +20,17 @@ def add_documents(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add the documents to
+
         `file_documents` (`list[Document]`): the file documents to add
+
         `module_id` (`int`): the moduleId of the page to add the documents to
+
         `external_reference` (`str`): the externalReference of the page to add the documents to
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {
@@ -65,13 +69,17 @@ def add_external_content_documents(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page to add the documents to
+
         `external_content_items` (`list[ExternalContent]`): the external content documents to add
+
         `module_id` (`int`): the moduleId of the page to add the documents to
+
         `external_reference` (`str`): the externalReference of the page to add the documents to
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {

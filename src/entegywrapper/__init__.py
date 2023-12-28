@@ -98,8 +98,11 @@ class EntegyAPI:
         Parameters
         ----------
             `api_key` (`str | list[str]`): Entegy API key(s)
+
             `api_secret` (`str | list[str]`): Entegy API secret key(s)
+
             `project_id` (`str`): Entegy project ID
+
             `region` (`str`, optional): project region: one of "AU", "US", "EU"; defaults to "AU"
         """
         if isinstance(api_key, list):
@@ -172,7 +175,9 @@ class EntegyAPI:
         Parameters
         ----------
             `method` (`Callable`): method to use to send the request
+
             `endpoint` (`str`): API endpoint to which to post
+
             `data` (`dict`): data to post
 
         Raises
@@ -234,6 +239,7 @@ class EntegyAPI:
         Parameters
         ----------
             `endpoint` (`str`): API endpoint to which to post
+
             `data` (`dict`): data to post
 
         Returns
@@ -249,6 +255,7 @@ class EntegyAPI:
         Parameters
         ----------
             `endpoint` (`str`): API endpoint from which to delete
+
             `data` (`dict`): data to delete
 
         Returns

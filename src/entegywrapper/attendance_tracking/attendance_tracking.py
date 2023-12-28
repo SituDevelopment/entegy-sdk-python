@@ -18,15 +18,21 @@ def add_check_in(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `profile_external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `profile_badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
         `profile_internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `session_module_id` (`str`, optional): the moduleId of the session; defaults to `None`
+
         `session_external_reference` (`str`, optional): the externalReference of the session; defaults to `None`
 
     Raises
     ------
         `ValueError`: if the profile or session identifier is not specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -81,6 +87,7 @@ def get_attendees(
     Parameters
     ----------
         `module_id` (`str`, optional): the moduleId of the session; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the session; defaults to `None`
 
     Raises
@@ -123,8 +130,11 @@ def get_attended(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
 
     Raises

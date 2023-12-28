@@ -17,14 +17,19 @@ def add_profile_payment(
     Parameters
     ----------
         `payment_info` (`PaymentInfo`): the payment information to add
+
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profileId": profile_id}

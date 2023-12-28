@@ -32,10 +32,15 @@ def all_profiles(
     Parameters
     ----------
         `include_custom_fields` (`bool`, optional): whether to include custom fields for each profile; defaults to `False`
+
         `include_permissions` (`bool`, optional): whether to include permissions for each profile; defaults to `False`
+
         `status` (`str`, optional): only select profiles with this status; defaults to `None`
+
         `profile_type` (`ProfileType`, optional): only select profiles of this type; defaults to `None`
+
         `updated_after` (`str`, optional): only select profiles updated after this time; defaults to `None`
+
         `created_after` (`str`, optional): only select profiles created after this time; defaults to `None`
 
     Yields
@@ -89,15 +94,21 @@ def get_profile(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
+
         `include_custom_fields` (`bool`, optional): whether to include custom fields for each profile; defaults to `False`
+
         `include_permissions` (`bool`, optional): whether to include permissions for each profile; defaults to `False`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -147,13 +158,17 @@ def delete_profile(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {}
@@ -252,14 +267,19 @@ def update_profile(
     Parameters
     ----------
         `profile_object` (`ProfileUpdate`): the profile fields to update
+
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profile": profile_object}
@@ -319,7 +339,9 @@ def sync_profiles(
     Parameters
     ----------
         `update_reference_type` (`Identifier`): the identifier to use to match profiles for updating
+
         `profiles` (`list[Profile]`): the list of profiles to create or update
+
         `group_by_first_profile` (`bool`, optional): whether the parent profile of all profiles in this sync should be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent); defaults to `False`
 
     Raises
@@ -364,7 +386,9 @@ def sync_profile_block(
     Parameters
     ----------
         `update_reference_type` (`Identifier`): the identifier to use to match profiles for updating
+
         `profile_block` (`list[Profile]`): the list of profiles to create or update
+
         `group_by_first_profile` (`bool`, optional): whether the parent profile of all profiles in this sync should be set to the first profile in the profiles list (except the first profile itself, which will be set to have no parent); defaults to `False`
 
     Raises
@@ -418,8 +442,11 @@ def send_welcome_email(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises

@@ -11,11 +11,13 @@ def get_profile_type(
     Parameters
     ----------
         `name` (`str`, optional): the name of the profile type; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Returns
@@ -90,12 +92,15 @@ def update_profile_type(
     Parameters
     ----------
         `profile_type` (`ProfileType`): the data to update
+
         `name` (`str`, optional): the name of the profile type; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {"profileType": profile_type}
@@ -137,11 +142,13 @@ def delete_profile_type(
     Parameters
     ----------
         `name` (`str`, optional): the name of the profile type; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile type; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
     """
     data = {}

@@ -20,13 +20,17 @@ def selected_profile_links(
     Parameters
     ----------
         `profile_id` (`str`, optional): the profileId of the profile to get; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile to get; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile to get; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile to get; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Yields
@@ -81,12 +85,15 @@ def page_profile_links(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of the page
+
         `module_id` (`int`, optional): the moduleId of the page; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the page; defaults to `None`
 
     Raises
     ------
         `ValueError`: if no identifier is specified
+
         `EntegyFailedRequestError`: if the API request fails
 
     Yields
@@ -141,9 +148,13 @@ def select_profile_link(
     Parameters
     ----------
         `link` (`Link`): the link to select
+
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -244,9 +255,13 @@ def deselect_profile_links(
     Parameters
     ----------
         `link` (`Link`): the link to deselect
+
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
@@ -296,9 +311,13 @@ def clear_profile_links(
     Parameters
     ----------
         `template_type` (`TemplateType`): the templateType of links to clear
+
         `profile_id` (`str`, optional): the profileId of the profile; defaults to `None`
+
         `external_reference` (`str`, optional): the externalReference of the profile; defaults to `None`
+
         `internal_reference` (`str`, optional): the internalReference of the profile; defaults to `None`
+
         `badge_reference` (`str`, optional): the badgeReference of the profile; defaults to `None`
 
     Raises
