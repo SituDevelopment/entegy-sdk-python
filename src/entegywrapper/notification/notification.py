@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import ProfileIdentifier
 
@@ -7,11 +9,11 @@ def send_notification(
     title: str,
     message: str,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
-    target_page: dict[str, str | int] | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
+    target_page: Optional[dict[str, str | int]] = None,
 ) -> str:
     """
     Sends a notification to the specified profile.
@@ -97,7 +99,7 @@ def send_bulk_notification(
     message: str,
     profile_references: list[dict[ProfileIdentifier, str]],
     *,
-    target_page: dict[str, str | int] | None = None,
+    target_page: Optional[dict[str, str | int]] = None,
 ) -> str:
     """
     Sends a notification to the specified profiles.

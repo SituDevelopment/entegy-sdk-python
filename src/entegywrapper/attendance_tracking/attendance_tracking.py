@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.attendance_tracking import Attended, Attendee
 
@@ -5,12 +7,12 @@ from entegywrapper.schemas.attendance_tracking import Attended, Attendee
 def add_check_in(
     self,
     *,
-    profile_id: str | None = None,
-    profile_external_reference: str | None = None,
-    profile_internal_reference: str | None = None,
-    profile_badge_reference: str | None = None,
-    session_module_id: str | None = None,
-    session_external_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    profile_external_reference: Optional[str] = None,
+    profile_internal_reference: Optional[str] = None,
+    profile_badge_reference: Optional[str] = None,
+    session_module_id: Optional[str] = None,
+    session_external_reference: Optional[str] = None,
 ) -> bool:
     """
     Checks the specified profile into the specified session.
@@ -77,8 +79,8 @@ def add_check_in(
 def get_attendees(
     self,
     *,
-    module_id: str | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
 ) -> list[Attendee]:
     """
     Returns the attendees who attended the session specified by the given
@@ -118,10 +120,10 @@ def get_attendees(
 def get_attended(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    badge_reference: str | None = None,
-    internal_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
 ) -> list[Attended]:
     """
     Returns the sessions attended by the profile specified by the given

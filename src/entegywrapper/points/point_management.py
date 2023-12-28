@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.points import LeaderboardPosition, PointType
 
@@ -7,10 +9,10 @@ def award_points(
     point_type: PointType,
     points: int,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Awards the given number of points to the specified profile.
@@ -64,10 +66,10 @@ def award_points(
 def get_points(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ) -> int:
     """
     Returns the amount of points the specified profile has.

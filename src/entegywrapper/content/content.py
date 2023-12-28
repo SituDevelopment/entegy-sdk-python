@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
@@ -7,8 +9,8 @@ def get_content(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
     include_categories: bool = False,
     include_documents: bool = False,
     include_links: bool = False,
@@ -73,8 +75,8 @@ def get_content(
 def get_schedule_content(
     self,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
     include_categories: bool = False,
     include_documents: bool = False,
     include_links: bool = False,
@@ -172,8 +174,8 @@ def add_children_content(
     child_template_type: TemplateType,
     children: list[ContentChildCreate],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Adds children to templateType.
@@ -233,8 +235,8 @@ def update_content(
     template_type: TemplateType,
     content: Content,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Updates data within a content item.
@@ -286,8 +288,8 @@ def delete_content(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Deletes a content resource from the Entegy System. Any content deleted is

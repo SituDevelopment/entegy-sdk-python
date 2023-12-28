@@ -1,3 +1,5 @@
+from typing import Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, NamedLink, TemplateType
 
@@ -6,8 +8,8 @@ def get_multi_links(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ) -> list[NamedLink]:
     """
     Returns all the multi links associated with the content page.
@@ -47,8 +49,8 @@ def add_multi_links(
     template_type: TemplateType,
     multi_links: list[Link],
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ):
     """
     Adds multi links to a content page.
@@ -100,10 +102,10 @@ def remove_multi_link(
     template_type: TemplateType,
     target_template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
-    target_module_id: int | None = None,
-    target_external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
+    target_module_id: Optional[int] = None,
+    target_external_reference: Optional[str] = None,
 ):
     """
     Removes a single multi link from a page.
@@ -163,9 +165,9 @@ def remove_all_multi_links(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
-    link_template_type: TemplateType | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
+    link_template_type: Optional[TemplateType] = None,
 ):
     """
     Removes all the multi links from a page.

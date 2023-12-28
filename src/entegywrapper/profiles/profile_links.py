@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Generator, Optional
 
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, TemplateType
@@ -8,10 +8,10 @@ from entegywrapper.schemas.profile import Profile
 def selected_profile_links(
     self,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ) -> Generator[list[Link], None, None]:
     """
     Yields all the profile links the specified profile has in blocks generated
@@ -76,8 +76,8 @@ def page_profile_links(
     self,
     template_type: TemplateType,
     *,
-    module_id: int | None = None,
-    external_reference: str | None = None,
+    module_id: Optional[int] = None,
+    external_reference: Optional[str] = None,
 ) -> Generator[list[Profile], None, None]:
     """
     Yields all the profiles linked to a content page.
@@ -137,10 +137,10 @@ def select_profile_link(
     self,
     link: Link,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Selects the specified link for the specified profile.
@@ -244,10 +244,10 @@ def deselect_profile_links(
     self,
     link: Link,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Deselects a link for a profile.
@@ -300,10 +300,10 @@ def clear_profile_links(
     self,
     template_type: TemplateType,
     *,
-    profile_id: str | None = None,
-    external_reference: str | None = None,
-    internal_reference: str | None = None,
-    badge_reference: str | None = None,
+    profile_id: Optional[str] = None,
+    external_reference: Optional[str] = None,
+    internal_reference: Optional[str] = None,
+    badge_reference: Optional[str] = None,
 ):
     """
     Clears all the selected links of a template type on the specified profile.
