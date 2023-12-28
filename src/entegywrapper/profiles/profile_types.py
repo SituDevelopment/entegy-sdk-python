@@ -1,4 +1,4 @@
-from entegywrapper.errors import EntegyFailedRequestError
+from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.profile import ProfileType
 
 
@@ -172,6 +172,10 @@ def all_profile_types(self) -> list[ProfileType]:
     """
     Returns a list of all profile types.
 
+    Raises
+    ------
+        `EntegyNoDataError`: if no profile types are found
+
     Returns
     -------
         `list[ProfileType]`: all profile types
@@ -179,5 +183,8 @@ def all_profile_types(self) -> list[ProfileType]:
     data = {}
 
     response = self.post(self.api_endpoint + "/v2/ProfileType/All", data=data)
+
+    if "profileTypes" not in response:
+        raise EntegyNoDataError("No profile types found")
 
     return response["profileTypes"]
