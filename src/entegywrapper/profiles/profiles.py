@@ -413,7 +413,7 @@ def sync_profile_block(
         case 201:
             return {"results": response["results"], "errors": response["errors"]}
         case 400:
-            raise EntegyFailedRequestError("Multiple errors detected")
+            return {"errors": response["errors"]}
         case 401:
             raise EntegyFailedRequestError("Nothing given to update")
         case 402:
