@@ -143,9 +143,9 @@ class EntegyAPI:
             `str`: API Key
         """
         if isinstance(self.api_key, list):
-            self.headers[
-                "Authorization"
-            ] = f"ApiKey {self.api_secret[self.current_key_pair]}"
+            self.headers["Authorization"] = (
+                f"ApiKey {self.api_secret[self.current_key_pair]}"
+            )
             return self.api_key[self.current_key_pair]
 
         self.headers["Authorization"] = f"ApiKey {self.api_secret}"
