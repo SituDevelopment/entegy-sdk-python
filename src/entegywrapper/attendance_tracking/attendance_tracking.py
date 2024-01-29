@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.attendance_tracking import Attended, Attendee
 
 
 def add_check_in(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     profile_external_reference: Optional[str] = None,
@@ -77,7 +78,7 @@ def add_check_in(
 
 
 def get_attendees(
-    self,
+    self: EntegyAPI,
     *,
     module_id: Optional[str] = None,
     external_reference: Optional[str] = None,
@@ -118,7 +119,7 @@ def get_attendees(
 
 
 def get_attended(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,

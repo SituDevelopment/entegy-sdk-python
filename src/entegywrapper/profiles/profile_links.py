@@ -1,12 +1,13 @@
 from typing import Generator, Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, TemplateType
 from entegywrapper.schemas.profile import Profile
 
 
 def selected_profile_links(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,
@@ -73,7 +74,7 @@ def selected_profile_links(
 
 
 def page_profile_links(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,
@@ -134,7 +135,7 @@ def page_profile_links(
 
 
 def select_profile_link(
-    self,
+    self: EntegyAPI,
     link: Link,
     *,
     profile_id: Optional[str] = None,
@@ -189,7 +190,9 @@ def select_profile_link(
             )
 
 
-def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]):
+def multi_select_profile_links(
+    self: EntegyAPI, profiles: list[dict[str, str | list[Link]]]
+):
     """
     Selects multiple pages on multiple profiles.
 
@@ -241,7 +244,7 @@ def multi_select_profile_links(self, profiles: list[dict[str, str | list[Link]]]
 
 
 def deselect_profile_links(
-    self,
+    self: EntegyAPI,
     link: Link,
     *,
     profile_id: Optional[str] = None,
@@ -297,7 +300,7 @@ def deselect_profile_links(
 
 
 def clear_profile_links(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     profile_id: Optional[str] = None,

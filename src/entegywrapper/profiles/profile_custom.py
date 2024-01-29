@@ -1,8 +1,9 @@
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import CustomProfileField
 
 
-def get_profile_custom(self, key: str) -> CustomProfileField:
+def get_profile_custom(self: EntegyAPI, key: str) -> CustomProfileField:
     """
     Returns the custom field specified by the given key.
 
@@ -29,7 +30,7 @@ def get_profile_custom(self, key: str) -> CustomProfileField:
             raise EntegyFailedRequestError("Key doesn't exist")
 
 
-def create_profile_custom(self, custom_field: CustomProfileField):
+def create_profile_custom(self: EntegyAPI, custom_field: CustomProfileField):
     """
     Creates a new custom field for profiles.
 
@@ -60,7 +61,7 @@ def create_profile_custom(self, custom_field: CustomProfileField):
             raise EntegyFailedRequestError("Exhausted number of text fields allowed")
 
 
-def update_profile_custom(self, key: str, custom_field: CustomProfileField):
+def update_profile_custom(self: EntegyAPI, key: str, custom_field: CustomProfileField):
     """
     Updates the custom profile field specified by the given key with data from
     the given custom field.
@@ -98,7 +99,7 @@ def update_profile_custom(self, key: str, custom_field: CustomProfileField):
             )
 
 
-def delete_profile_custom(self, key: str):
+def delete_profile_custom(self: EntegyAPI, key: str):
     """
     Deletes a custom field.
 

@@ -17,7 +17,7 @@ MAX_SYNCED_PROFILES = 100
 
 
 def all_profiles(
-    self,
+    self: EntegyAPI,
     *,
     include_custom_fields: bool = False,
     include_permissions: bool = False,
@@ -79,7 +79,7 @@ def all_profiles(
 
 
 def get_profile(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,
@@ -145,7 +145,7 @@ def get_profile(
 
 
 def delete_profile(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,
@@ -197,7 +197,7 @@ def delete_profile(
             )
 
 
-def create_profile(self, profile_object: ProfileCreate) -> str:
+def create_profile(self: EntegyAPI, profile_object: ProfileCreate) -> str:
     """
     Creates the given profile within the Entegy project, returning the newly
     created profileId.
@@ -252,7 +252,7 @@ def create_profile(self, profile_object: ProfileCreate) -> str:
 
 
 def update_profile(
-    self,
+    self: EntegyAPI,
     profile_object: ProfileUpdate,
     *,
     profile_id: Optional[str] = None,
@@ -327,7 +327,7 @@ def update_profile(
 
 
 def sync_profiles(
-    self,
+    self: EntegyAPI,
     update_reference_type: ProfileIdentifier,
     profiles: list[Profile],
     *,
@@ -374,7 +374,7 @@ def sync_profiles(
 
 
 def sync_profile_block(
-    self,
+    self: EntegyAPI,
     update_reference_type: ProfileIdentifier,
     profile_block: list[Profile],
     *,
@@ -429,7 +429,7 @@ def sync_profile_block(
 
 
 def send_welcome_email(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,

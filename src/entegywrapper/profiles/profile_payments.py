@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import PaymentInfo
 
 
 def add_profile_payment(
-    self,
+    self: EntegyAPI,
     payment_info: PaymentInfo,
     *,
     profile_id: Optional[str] = None,

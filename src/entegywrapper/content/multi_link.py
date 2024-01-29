@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, NamedLink, TemplateType
 
 
 def get_multi_links(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,
@@ -45,7 +46,7 @@ def get_multi_links(
 
 
 def add_multi_links(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     multi_links: list[Link],
     *,
@@ -98,7 +99,7 @@ def add_multi_links(
 
 
 def remove_multi_link(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     target_template_type: TemplateType,
     *,
@@ -162,7 +163,7 @@ def remove_multi_link(
 
 
 def remove_all_multi_links(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,

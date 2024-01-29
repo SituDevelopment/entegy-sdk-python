@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, TemplateType
 
 
 def available_categories(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,
@@ -58,7 +59,7 @@ def available_categories(
 
 
 def select_categories(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     categories: list[Category],
     *,
@@ -115,7 +116,7 @@ def select_categories(
 
 
 def deselect_categories(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     categories: list[Category],
     *,
@@ -176,7 +177,7 @@ def deselect_categories(
 
 
 def create_categories(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     categories: list[Category],
     *,
@@ -231,7 +232,7 @@ def create_categories(
 
 
 def create_child_categories(
-    self,
+    self: EntegyAPI,
     categories: list[Category],
     *,
     module_id: Optional[int] = None,
@@ -281,7 +282,7 @@ def create_child_categories(
 
 
 def update_category(
-    self,
+    self: EntegyAPI,
     name: str,
     *,
     module_id: Optional[int] = None,
@@ -329,7 +330,7 @@ def update_category(
 
 
 def delete_categories(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     categories: list[Category],
     *,
