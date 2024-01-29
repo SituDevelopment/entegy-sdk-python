@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import ProfileIdentifier
 
 
 def send_notification(
-    self,
+    self: EntegyAPI,
     title: str,
     message: str,
     *,
@@ -94,7 +95,7 @@ def send_notification(
 
 
 def send_bulk_notification(
-    self,
+    self: EntegyAPI,
     title: str,
     message: str,
     profile_references: list[dict[ProfileIdentifier, str]],

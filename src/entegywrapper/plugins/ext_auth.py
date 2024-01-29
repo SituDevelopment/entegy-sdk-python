@@ -1,7 +1,8 @@
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 
 
-def external_authentication(self, profile_id: str, device_id: str) -> dict:
+def external_authentication(self: EntegyAPI, profile_id: str, device_id: str) -> dict:
     """
     Authenticates a user's login via an external system.
 

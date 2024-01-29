@@ -2,6 +2,7 @@ import os
 import sys
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
 
@@ -9,7 +10,7 @@ sys.path.append(os.path.dirname(__file__))
 
 
 def add_documents(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     file_documents: list[Document],
     module_id: Optional[int] = None,
@@ -58,7 +59,7 @@ def add_documents(
 
 
 def add_external_content_documents(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     external_content_items: list[ExternalContent],
     module_id: Optional[int] = None,

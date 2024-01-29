@@ -1,11 +1,12 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.points import LeaderboardPosition, PointType
 
 
 def award_points(
-    self,
+    self: EntegyAPI,
     point_type: PointType,
     points: int,
     *,
@@ -64,7 +65,7 @@ def award_points(
 
 
 def get_points(
-    self,
+    self: EntegyAPI,
     *,
     profile_id: Optional[str] = None,
     external_reference: Optional[str] = None,

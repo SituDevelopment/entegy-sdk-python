@@ -1,12 +1,13 @@
 from typing import Optional
 
+from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
 
 def get_content(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,
@@ -73,7 +74,7 @@ def get_content(
 
 
 def get_schedule_content(
-    self,
+    self: EntegyAPI,
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -135,7 +136,9 @@ def get_schedule_content(
     return response["content"]
 
 
-def create_content(self, content: Content, *, content_group: str = "Default") -> int:
+def create_content(
+    self: EntegyAPI, content: Content, *, content_group: str = "Default"
+) -> int:
     """
     Creates a root content item.
 
@@ -169,7 +172,7 @@ def create_content(self, content: Content, *, content_group: str = "Default") ->
 
 
 def add_children_content(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     child_template_type: TemplateType,
     children: list[ContentChildCreate],
@@ -231,7 +234,7 @@ def add_children_content(
 
 
 def update_content(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     content: Content,
     *,
@@ -285,7 +288,7 @@ def update_content(
 
 
 def delete_content(
-    self,
+    self: EntegyAPI,
     template_type: TemplateType,
     *,
     module_id: Optional[int] = None,
