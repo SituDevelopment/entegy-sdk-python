@@ -1,5 +1,5 @@
 astroid==3.0.2
-black==24.1.0
+black==24.1.1
 build==1.0.3
 certifi==2023.11.17
 cffi==1.16.0
