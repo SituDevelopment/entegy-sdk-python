@@ -18,9 +18,7 @@ def external_authentication(self: EntegyAPI, profile_id: str, device_id: str) ->
     """
     data = {"profileId": profile_id, "deviceId": device_id, "requestVersion": 1}
 
-    response = self.post(
-        self.api_endpoint + "/v2/Authentication/ExternalProfile", data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Authentication/ExternalProfile", data=data)
 
     match response["response"]:
         case 200:

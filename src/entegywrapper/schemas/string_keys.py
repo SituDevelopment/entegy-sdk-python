@@ -36,17 +36,13 @@ Session: TypeAlias = Literal["startTime", "endTime", "askAQuestionEnabled", "cop
 SessionSegment: TypeAlias = Literal["startTime", "endTime", "copy"]
 
 
-Exhibitor: TypeAlias = (
-    ContactInformationKeys | Literal["subtitle", "copy", "markerX", "markerY"]
-)
+Exhibitor: TypeAlias = ContactInformationKeys | Literal["subtitle", "copy", "markerX", "markerY"]
 
 
 GenericGroup: TypeAlias = Literal["cellStyle"]
 
 
-GenericGroupItem: TypeAlias = (
-    ContactInformationKeys | Literal["subtitle", "keywords", "copy"]
-)
+GenericGroupItem: TypeAlias = ContactInformationKeys | Literal["subtitle", "keywords", "copy"]
 
 StringKey: TypeAlias = (
     About

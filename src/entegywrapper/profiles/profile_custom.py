@@ -113,9 +113,7 @@ def delete_profile_custom(self: EntegyAPI, key: str):
     """
     data = {"key": key}
 
-    response = self.delete(
-        self.api_endpoint + "/v2/ProfileCustomField/Delete", data=data
-    )
+    response = self.delete(self.api_endpoint + "/v2/ProfileCustomField/Delete", data=data)
 
     match response["response"]:
         case 200:

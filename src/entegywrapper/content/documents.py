@@ -96,9 +96,7 @@ def add_external_content_documents(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.post(
-        self.api_endpoint + "/v2/Document/AddExternalContent", data=data
-    )
+    response = self.post(self.api_endpoint + "/v2/Document/AddExternalContent", data=data)
 
     match response["response"]:
         case 200:

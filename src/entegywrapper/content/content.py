@@ -136,9 +136,7 @@ def get_schedule_content(
     return response["content"]
 
 
-def create_content(
-    self: EntegyAPI, content: Content, *, content_group: str = "Default"
-) -> int:
+def create_content(self: EntegyAPI, content: Content, *, content_group: str = "Default") -> int:
     """
     Creates a root content item.
 

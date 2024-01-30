@@ -238,9 +238,7 @@ def create_profile(self: EntegyAPI, profile_object: ProfileCreate) -> str:
         case 408:
             raise EntegyFailedRequestError("Project not set to use Profile Passwords")
         case 409:
-            raise EntegyFailedRequestError(
-                "Profile password doesn't meet password requirements"
-            )
+            raise EntegyFailedRequestError("Profile password doesn't meet password requirements")
         case 410:
             raise EntegyFailedRequestError(
                 "Parent profile already has a parent - profile hierarchy is limited to one level"
@@ -313,9 +311,7 @@ def update_profile(
         case 408:
             raise EntegyFailedRequestError("Project not set to use Profile Passwords")
         case 409:
-            raise EntegyFailedRequestError(
-                "Profile password doesn't meet password requirements"
-            )
+            raise EntegyFailedRequestError("Profile password doesn't meet password requirements")
         case 410:
             raise EntegyFailedRequestError(
                 "Parent profile already has a parent - profile hierarchy is limited to one level"

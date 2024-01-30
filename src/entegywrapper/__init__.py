@@ -19,11 +19,7 @@ API_ENDPOINTS = {
 
 
 class EntegyAPI:
-    from .attendance_tracking.attendance_tracking import (
-        add_check_in,
-        get_attended,
-        get_attendees,
-    )
+    from .attendance_tracking.attendance_tracking import add_check_in, get_attended, get_attendees
     from .content.categories import (
         available_categories,
         create_categories,
@@ -143,9 +139,7 @@ class EntegyAPI:
             `str`: API Key
         """
         if isinstance(self.api_key, list):
-            self.headers["Authorization"] = (
-                f"ApiKey {self.api_secret[self.current_key_pair]}"
-            )
+            self.headers["Authorization"] = f"ApiKey {self.api_secret[self.current_key_pair]}"
             return self.api_key[self.current_key_pair]
 
         self.headers["Authorization"] = f"ApiKey {self.api_secret}"

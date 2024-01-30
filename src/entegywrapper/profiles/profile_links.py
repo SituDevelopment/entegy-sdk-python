@@ -190,9 +190,7 @@ def select_profile_link(
             )
 
 
-def multi_select_profile_links(
-    self: EntegyAPI, profiles: list[dict[str, str | list[Link]]]
-):
+def multi_select_profile_links(self: EntegyAPI, profiles: list[dict[str, str | list[Link]]]):
     """
     Selects multiple pages on multiple profiles.
 

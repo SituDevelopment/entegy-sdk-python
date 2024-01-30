@@ -141,9 +141,7 @@ ProfileIdentifier: TypeAlias = Literal[
 PaymentStatus: TypeAlias = Literal["Pending", "Cancelled", "Paid", "Refunded"]
 
 
-PaymentMethod: TypeAlias = Literal[
-    "None", "CreditCard", "DirectDeposit", "Cash", "Cheque", "Other"
-]
+PaymentMethod: TypeAlias = Literal["None", "CreditCard", "DirectDeposit", "Cash", "Cheque", "Other"]
 
 
 class PaymentInfoRequired(TypedDict):
