@@ -1,6 +1,9 @@
 bug:
   - head-branch: ["bug/*"]
 
+chore:
+  - head-branch: ["chore/*"]
+
 enhancement:
   - head-branch: ["feature/*"]
 
