@@ -1,8 +1,12 @@
-from typing import Optional
+from __future__ import annotations
 
-from entegywrapper import EntegyAPI
+from typing import TYPE_CHECKING, Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import ProfileIdentifier
+
+# if TYPE_CHECKING:
+from entegywrapper import EntegyAPI
 
 
 def send_notification(

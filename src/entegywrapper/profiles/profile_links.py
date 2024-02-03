@@ -1,9 +1,13 @@
-from typing import Generator, Optional
+from __future__ import annotations
 
-from entegywrapper import EntegyAPI
+from typing import TYPE_CHECKING, Generator, Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, TemplateType
 from entegywrapper.schemas.profile import Profile
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def selected_profile_links(

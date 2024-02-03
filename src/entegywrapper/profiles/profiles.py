@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from typing import Generator, Optional
+from typing import TYPE_CHECKING, Generator, Optional
 
-from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
 from entegywrapper.schemas.profile import (
     Profile,
@@ -11,6 +10,9 @@ from entegywrapper.schemas.profile import (
     ProfileType,
     ProfileUpdate,
 )
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 MAX_SYNCED_PROFILES = 100
 """The maximum number of profiles that can be synced at once."""

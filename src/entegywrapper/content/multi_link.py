@@ -1,8 +1,12 @@
-from typing import Optional
+from __future__ import annotations
 
-from entegywrapper import EntegyAPI
+from typing import TYPE_CHECKING, Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Link, NamedLink, TemplateType
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def get_multi_links(

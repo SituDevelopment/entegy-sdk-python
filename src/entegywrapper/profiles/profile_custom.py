@@ -1,6 +1,12 @@
-from entegywrapper import EntegyAPI
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.profile import CustomProfileField
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def get_profile_custom(self: EntegyAPI, key: str) -> CustomProfileField:

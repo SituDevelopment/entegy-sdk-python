@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 import os
 import sys
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
-from entegywrapper import EntegyAPI
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Document, ExternalContent, TemplateType
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 sys.path.append(os.path.dirname(__file__))
 

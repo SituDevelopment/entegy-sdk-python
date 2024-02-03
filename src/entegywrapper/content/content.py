@@ -1,9 +1,13 @@
-from typing import Optional
+from __future__ import annotations
 
-from entegywrapper import EntegyAPI
+from typing import TYPE_CHECKING, Optional
+
 from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def get_content(

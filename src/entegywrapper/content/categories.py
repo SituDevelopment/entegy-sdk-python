@@ -1,8 +1,12 @@
-from typing import Optional
+from __future__ import annotations
 
-from entegywrapper import EntegyAPI
+from typing import TYPE_CHECKING, Optional
+
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, TemplateType
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def available_categories(

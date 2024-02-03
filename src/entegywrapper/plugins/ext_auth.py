@@ -1,5 +1,11 @@
-from entegywrapper import EntegyAPI
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from entegywrapper.errors import EntegyFailedRequestError
+
+if TYPE_CHECKING:
+    from entegywrapper import EntegyAPI
 
 
 def external_authentication(self: EntegyAPI, profile_id: str, device_id: str) -> dict:
