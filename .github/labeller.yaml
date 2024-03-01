@@ -4,7 +4,7 @@ bug:
 chore:
   - head-branch: ["chore/*"]
 
-enhancement:
+feature:
   - head-branch: ["feature/*"]
 
 dependencies:
