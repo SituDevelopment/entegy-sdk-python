@@ -119,7 +119,7 @@ def get_attendees(
     if response["response"] == 401:
         raise EntegyFailedRequestError("Missing profile reference")
 
-    return response["attendees"]
+    return [Attendee(**attendee) for attendee in response["attendees"]]
 
 
 def get_attended(
@@ -170,4 +170,4 @@ def get_attended(
     if response["response"] == 401:
         raise EntegyFailedRequestError("Missing profile reference")
 
-    return response["sessions"]
+    return [Attended(**attended) for attended in response["sessions"]]

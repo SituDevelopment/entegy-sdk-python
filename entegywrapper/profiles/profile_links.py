@@ -56,7 +56,7 @@ def selected_profile_links(
         raise ValueError("Please specify an identifier")
 
     response = self.post(self.api_endpoint + "/v2/ProfileLink/Selected/", data=data)
-    yield response["profileLinks"]
+    yield [Link(**link) for link in response["profileLinks"]]
 
     while (
         response["pagination"]["start"] + response["pagination"]["limit"]
@@ -68,7 +68,7 @@ def selected_profile_links(
 
         match response["response"]:
             case 200:
-                yield response["profileLinks"]
+                yield [Link(**link) for link in response["profileLinks"]]
             case 401:
                 raise EntegyFailedRequestError("Profile not found")
             case _:
@@ -115,7 +115,7 @@ def page_profile_links(
         raise ValueError("Please specify an identifier")
 
     response = self.post(self.api_endpoint + "/v2/ProfileLink/Page/", data=data)
-    yield response["profiles"]
+    yield [Profile(**profile) for profile in response["profiles"]]
 
     while (
         response["pagination"]["index"] + response["pagination"]["limit"]
@@ -127,7 +127,7 @@ def page_profile_links(
 
         match response["response"]:
             case 200:
-                yield response["profiles"]
+                yield [Profile(**profile) for profile in response["profiles"]]
             case 401:
                 raise EntegyFailedRequestError("Profile not found")
             case 402:

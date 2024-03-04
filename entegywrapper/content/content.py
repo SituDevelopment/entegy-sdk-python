@@ -74,7 +74,7 @@ def get_content(
     if "content" not in response:
         raise EntegyNoDataError("No content returned")
 
-    return response["content"]
+    return Content(**response["content"])
 
 
 def get_schedule_content(
@@ -137,7 +137,7 @@ def get_schedule_content(
     if "content" not in response:
         raise EntegyNoDataError("No content returned")
 
-    return response["content"]
+    return Schedule(**response["content"])
 
 
 def create_content(self: EntegyAPI, content: Content, *, content_group: str = "Default") -> int:

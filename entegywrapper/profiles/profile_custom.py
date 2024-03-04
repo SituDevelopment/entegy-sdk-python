@@ -31,7 +31,7 @@ def get_profile_custom(self: EntegyAPI, key: str) -> CustomProfileField:
 
     match response["response"]:
         case 200:
-            return response["customField"]
+            return CustomProfileField(**response["customField"])
         case 401:
             raise EntegyFailedRequestError("Key doesn't exist")
 
@@ -144,4 +144,4 @@ def all_profile_custom(self) -> list[CustomProfileField]:
 
     response = self.post(self.api_endpoint + "/v2/ProfileCustomField/All", data=data)
 
-    return response["customFields"]
+    return [CustomProfileField(**custom_field) for custom_field in response["customFields"]]

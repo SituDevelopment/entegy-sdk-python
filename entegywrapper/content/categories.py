@@ -51,7 +51,7 @@ def available_categories(
 
     match response["response"]:
         case 200:
-            return response["availableCategories"]
+            return [Category(**category) for category in response["availableCategories"]]
         case 401:
             raise EntegyFailedRequestError("Missing Id")
         case 402:

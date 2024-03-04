@@ -46,7 +46,7 @@ def get_multi_links(
 
     response = self.post(self.api_endpoint + "/v2/MultiLink", data=data)
 
-    return response["multiLinks"]
+    return [NamedLink(**link) for link in response["multiLinks"]]
 
 
 def add_multi_links(
