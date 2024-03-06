@@ -11,7 +11,7 @@ profile = "black"
 
 [tool.poetry]
 name = "entegywrapper"
-version = "4.0.0"
+version = "5.0.0"
 description = "Python SDK for the Entegy API"
 authors = [
     "Situ Development <developer@situ.com.au>",
