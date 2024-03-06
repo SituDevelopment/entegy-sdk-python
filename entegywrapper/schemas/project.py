@@ -1,4 +1,6 @@
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, Optional, TypeAlias
+
+from pydantic import BaseModel
 
 ApiKeyPermission: TypeAlias = Literal[
     "ViewContent",
@@ -17,7 +19,7 @@ Region: TypeAlias = Literal[
 ]
 
 
-class ProjectEventInfo(TypedDict):
+class ProjectEventInfo(BaseModel):
     startDate: str
     endDate: str
 
@@ -52,24 +54,24 @@ SoftwareElement: TypeAlias = Literal[
 ]
 
 
-class Project(TypedDict, total=False):
-    projectId: str
-    regionId: Region
-    regionName: str
-    externalReference: str
-    internalReference: str
-    projectName: str
-    projectShortName: str
-    iconUrl: str
-    eventCode: str
-    renewalDate: str
-    status: ProjectStatus
-    type: ProjectType
-    softwareElements: list[SoftwareElement]
-    eventInfo: ProjectEventInfo
+class Project(BaseModel):
+    projectId: Optional[str] = None
+    regionId: Optional[Region] = None
+    regionName: Optional[str] = None
+    externalReference: Optional[str] = None
+    internalReference: Optional[str] = None
+    projectName: Optional[str] = None
+    projectShortName: Optional[str] = None
+    iconUrl: Optional[str] = None
+    eventCode: Optional[str] = None
+    renewalDate: Optional[str] = None
+    status: Optional[ProjectStatus] = None
+    type: Optional[ProjectType] = None
+    softwareElements: Optional[list[SoftwareElement]] = None
+    eventInfo: Optional[ProjectEventInfo] = None
 
 
-class ProjectApiKey(TypedDict):
+class ProjectApiKey(BaseModel):
     apiKeyId: str
     description: str
     expireDate: str

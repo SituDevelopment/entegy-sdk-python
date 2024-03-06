@@ -1,7 +1,10 @@
 from enum import IntEnum
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, Optional, TypeAlias
 
-from . import page_settings, string_keys
+from pydantic import BaseModel
+
+from .page_settings import PageSetting
+from .string_keys import StringKey
 
 TemplateType: TypeAlias = Literal[
     "Schedule",
@@ -99,14 +102,14 @@ class Icon(IntEnum):
     ALARMBELLCOG = 78
 
 
-class Document(TypedDict):
+class Document(BaseModel):
     name: str
     externalReference: str
     icon: Icon
     fileUrl: str
 
 
-class ExternalContent(TypedDict):
+class ExternalContent(BaseModel):
     name: str
     externalReference: str
     icon: Icon
@@ -114,72 +117,55 @@ class ExternalContent(TypedDict):
     type: str
 
 
-class Link(TypedDict):
+class Link(BaseModel):
     templateType: TemplateType
     moduleId: int
     externalReference: str
 
 
-class NamedLink(Link, TypedDict, total=False):
+class NamedLink(Link):
     name: str
 
 
-class CategoryRequired(TypedDict):
+class Category(BaseModel):
     moduleId: int
     externalReference: str
+    name: Optional[str] = None
 
 
-class CategoryNotRequired(TypedDict, total=False):
-    name: str
-
-
-class Category(CategoryRequired, CategoryNotRequired):
-    pass
-
-
-class Content(TypedDict):
+class Content(BaseModel):
     contentType: str
     templateType: TemplateType
     moduleId: int
     externalReference: str
     mainImage: str
-    strings: dict[string_keys.StringKey, str]
-    pageSettings: dict[page_settings.PageSetting, bool]
+    strings: dict[StringKey, str]
+    pageSettings: dict[PageSetting, bool]
     sortOrder: int
 
 
-class ContentPage(Content, TypedDict):
+class ContentPage(Content):
     documents: list[Document]
     links: list[Link]
     multiLinks: list[NamedLink]
     selectedCategories: list[Category]
 
 
-class ContentChild(Content, TypedDict):
+class ContentChild(Content):
     documents: list[Document]
     links: list[Link]
     multiLinks: list[NamedLink]
     selectedCategories: list[Category]
 
 
-class ContentChildCreateRequired(TypedDict):
+class ContentChildCreate(BaseModel):
     name: str
+    externalReference: Optional[str] = None
+    mainImage: Optional[str] = None
+    strings: Optional[dict[StringKey, str]] = None
+    links: Optional[list[Link]] = None
+    sortOrder: Optional[int] = None
 
 
-class ContentChildCreateNotRequired(TypedDict, total=False):
-    externalReference: str
-    mainImage: str
-    strings: dict[string_keys.StringKey, str]
-    links: list[Link]
-    sortOrder: int
-
-
-class ContentChildCreate(ContentChildCreateRequired, ContentChildCreateNotRequired):
-    pass
-
-
-class ContentParent(Content, TypedDict):
+class ContentParent(Content):
     children: list[ContentChild]
-
-
-ContentIdentifier: TypeAlias = Literal["moduleId", "externalReference"]

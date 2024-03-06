@@ -1,64 +1,59 @@
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, Optional, TypeAlias
 
-from . import project
+from pydantic import BaseModel
+
+from .project import ProjectEventInfo, ProjectStatus, ProjectType, SoftwareElement
 
 ProfileExtendedPrivacy: TypeAlias = Literal["Public", "Connections", "Hidden"]
 
 
-class Permissions(TypedDict, total=False):
-    loggedInApp: bool
-    loggedInCapture: bool
-    showInList: bool
-    allowMessaging: bool
-    showEmail: ProfileExtendedPrivacy
-    showContactNumber: ProfileExtendedPrivacy
-    apiManaged: bool
-    printedBadge: bool
-    optedOutOfEmails: bool
-    acceptedTerms: bool
+class Permissions(BaseModel):
+    loggedInApp: Optional[bool] = None
+    loggedInCapture: Optional[bool] = None
+    showInList: Optional[bool] = None
+    allowMessaging: Optional[bool] = None
+    showEmail: Optional[ProfileExtendedPrivacy] = None
+    showContactNumber: Optional[ProfileExtendedPrivacy] = None
+    apiManaged: Optional[bool] = None
+    printedBadge: Optional[bool] = None
+    optedOutOfEmails: Optional[bool] = None
+    acceptedTerms: Optional[bool] = None
 
 
-class ProfileReference(TypedDict, total=False):
-    profileId: str
-    externalReference: str
-    internalReference: str
-    badgeReference: str
-    secondaryId: str
+class ProfileReference(BaseModel):
+    profileId: Optional[str] = None
+    externalReference: Optional[str] = None
+    internalReference: Optional[str] = None
+    badgeReference: Optional[str] = None
+    secondaryId: Optional[str] = None
 
 
-class ProfileRequired(TypedDict):
+class Profile(BaseModel):
     type: str
     firstName: str
     lastName: str
+    profileId: Optional[str] = None
+    externalReference: Optional[str] = None
+    internalReference: Optional[str] = None
+    badgeReference: Optional[str] = None
+    accessCode: Optional[str] = None  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
+    password: Optional[str] = None
+    title: Optional[str] = None
+    displayName: Optional[str] = None
+    organization: Optional[str] = None
+    position: Optional[str] = None
+    email: Optional[str] = None
+    contactNumber: Optional[str] = None
+    imageUrl: Optional[str] = None
+    created: Optional[str] = None
+    lastUpdated: Optional[str] = None
+    enabled: Optional[bool] = None
+    permissions: Optional[Permissions] = None
+    customFields: Optional[dict[str, str]] = None
+    parentProfile: Optional[ProfileReference] = None
 
 
-class ProfileNotRequired(TypedDict, total=False):
-    profileId: str
-    externalReference: str
-    internalReference: str
-    badgeReference: str
-    accessCode: str  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
-    password: str
-    title: str
-    displayName: str
-    organization: str
-    position: str
-    email: str
-    contactNumber: str
-    imageUrl: str
-    created: str
-    lastUpdated: str
-    enabled: bool
-    permissions: Permissions
-    customFields: dict[str, str]
-    parentProfile: ProfileReference
-
-
-class Profile(ProfileRequired, ProfileNotRequired):
-    pass
-
-
-class ProfileType(TypedDict):
+class ProfileType(BaseModel):
     name: str
     isOrganiser: bool
     allowAppLogin: bool
@@ -77,13 +72,13 @@ CustomProfileFieldType: TypeAlias = Literal[
 ]
 
 
-class MultiChoiceOptions(TypedDict):
+class MultiChoiceOptions(BaseModel):
     optionId: int
     name: str
     externalMappings: str
 
 
-class CustomProfileFieldRequired(TypedDict):
+class CustomProfileField(BaseModel):
     key: str
     name: str
     required: bool
@@ -92,45 +87,38 @@ class CustomProfileFieldRequired(TypedDict):
     type: CustomProfileFieldType
     sortOrder: int
     externallyManaged: bool
+    options: Optional[list[MultiChoiceOptions]]
 
 
-class CustomProfileFieldNotRequired(TypedDict, total=False):
-    options: list[MultiChoiceOptions]
-
-
-class CustomProfileField(CustomProfileFieldRequired, CustomProfileFieldNotRequired):
-    pass
-
-
-class ProfileCreate(TypedDict):
+class ProfileCreate(BaseModel):
     externalReference: str
     projectName: str
     projectShortName: str
     eventCode: str
     renewalDate: str
-    status: project.ProjectStatus
-    type: project.ProjectType
-    softwareElements: list[project.SoftwareElement]
-    eventInfo: project.ProjectEventInfo
+    status: ProjectStatus
+    type: ProjectType
+    softwareElements: list[SoftwareElement]
+    eventInfo: ProjectEventInfo
 
 
-class ProfileUpdate(TypedDict, total=False):
-    type: str
-    firstName: str
-    lastName: str
-    externalReference: str
-    badgeReference: str
-    accessCode: str  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
-    password: str
-    title: str
-    organization: str
-    position: str
-    email: str
-    contactNumber: str
-    imageUrl: str
-    enabled: bool
-    permissions: Permissions
-    customFields: dict[str, str]
+class ProfileUpdate(BaseModel):
+    type: Optional[str] = None
+    firstName: Optional[str] = None
+    lastName: Optional[str] = None
+    externalReference: Optional[str] = None
+    badgeReference: Optional[str] = None
+    accessCode: Optional[str] = None  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
+    password: Optional[str] = None
+    title: Optional[str] = None
+    organization: Optional[str] = None
+    position: Optional[str] = None
+    email: Optional[str] = None
+    contactNumber: Optional[str] = None
+    imageUrl: Optional[str] = None
+    enabled: Optional[bool] = None
+    permissions: Optional[Permissions] = None
+    customFields: Optional[dict[str, str]] = None
 
 
 ProfileIdentifier: TypeAlias = Literal[
@@ -144,29 +132,22 @@ PaymentStatus: TypeAlias = Literal["Pending", "Cancelled", "Paid", "Refunded"]
 PaymentMethod: TypeAlias = Literal["None", "CreditCard", "DirectDeposit", "Cash", "Cheque", "Other"]
 
 
-class PaymentInfoRequired(TypedDict):
+class PaymentInfo(BaseModel):
     profileId: str
     externalReference: str
     internalReference: str
     badgeReference: str
     currency: str
     amount: int
-
-
-class PaymentInfoNotRequired(TypedDict, total=False):
-    description: str
-    amountTax: int
-    amountTaxRate: float
-    platformFee: int
-    platformFeeTax: int
-    platformFeeTaxRate: float
-    platformFeeInvoiceId: str
-    transactionId: str
-    gateway: str
-    gatewayAccountId: str
-    status: PaymentStatus
-    method: PaymentMethod
-
-
-class PaymentInfo(PaymentInfoRequired, PaymentInfoNotRequired):
-    pass
+    description: Optional[str] = None
+    amountTax: Optional[int] = None
+    amountTaxRate: Optional[float] = None
+    platformFee: Optional[int] = None
+    platformFeeTax: Optional[int] = None
+    platformFeeTaxRate: Optional[float] = None
+    platformFeeInvoiceId: Optional[str] = None
+    transactionId: Optional[str] = None
+    gateway: Optional[str] = None
+    gatewayAccountId: Optional[str] = None
+    status: Optional[PaymentStatus] = None
+    method: Optional[PaymentMethod] = None

@@ -66,7 +66,7 @@ def all_profiles(
 
     response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
     for profile in response["profiles"]:
-        yield profile
+        yield Profile(**profile)
 
     while (
         response["pagination"]["start"] + response["pagination"]["limit"]
@@ -77,7 +77,7 @@ def all_profiles(
         response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
 
     for profile in response["profiles"]:
-        yield profile
+        yield Profile(**profile)
 
 
 def get_profile(
@@ -137,7 +137,7 @@ def get_profile(
 
     match response["response"]:
         case 200:
-            return response["profile"]
+            return Profile(**response["profile"])
         case 400:
             raise EntegyFailedRequestError("Profile doesn't exist")
         case _:

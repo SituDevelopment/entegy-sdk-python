@@ -47,7 +47,7 @@ def get_profile_type(
 
     match response["response"]:
         case 200:
-            return response["profileType"]
+            return ProfileType(**response["profileType"])
         case 401:
             raise EntegyFailedRequestError("Profile type not found")
         case _:
@@ -207,4 +207,4 @@ def all_profile_types(self) -> list[ProfileType]:
     if "profileTypes" not in response:
         raise EntegyNoDataError("No profile types found")
 
-    return response["profileTypes"]
+    return [ProfileType(**profile_type) for profile_type in response["profileTypes"]]

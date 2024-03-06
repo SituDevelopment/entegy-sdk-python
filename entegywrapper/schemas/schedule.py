@@ -1,32 +1,30 @@
-from typing import TypedDict
-
-from . import content
+from .content import Category, Content, Document, Link, NamedLink
 
 
-class ScheduleDay(content.Content, TypedDict):
-    children: list[content.Content]
+class ScheduleDay(Content):
+    children: list[Content]
 
 
-class Schedule(content.Content, TypedDict):
+class Schedule(Content):
     days: list[ScheduleDay]
 
 
-class SessionSegment(content.Content, TypedDict):
-    links: list[content.Link]
-    multiLinks: list[content.NamedLink]
-    documents: list[content.Document]
+class SessionSegment(Content):
+    links: list[Link]
+    multiLinks: list[NamedLink]
+    documents: list[Document]
 
 
-class Session(content.Content, TypedDict):
-    links: list[content.Link]
-    multiLinks: list[content.NamedLink]
-    documents: list[content.Document]
-    selectedCategories: list[content.Category]
+class Session(Content):
+    links: list[Link]
+    multiLinks: list[NamedLink]
+    documents: list[Document]
+    selectedCategories: list[Category]
     segments: list[SessionSegment]
 
 
-class SessionGroup(content.Content, TypedDict):
-    documents: list[content.Document]
-    links: list[content.Link]
-    multiLinks: list[content.NamedLink]
-    selectedCategories: list[content.Category]
+class SessionGroup(Content):
+    documents: list[Document]
+    links: list[Link]
+    multiLinks: list[NamedLink]
+    selectedCategories: list[Category]

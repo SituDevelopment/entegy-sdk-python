@@ -140,7 +140,7 @@ def get_point_leaderboard(self) -> list[LeaderboardPosition]:
 
     match response["response"]:
         case 200:
-            return response["leaderboard"]
+            return [LeaderboardPosition(**position) for position in response["leaderboard"]]
         case _:
             raise EntegyFailedRequestError(
                 f"{response['response']}: {response.get('message', 'Unknown error')}"

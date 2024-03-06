@@ -113,9 +113,11 @@ class EntegyAPI:
         assert isinstance(region, str)
         assert region in API_ENDPOINTS.keys()
 
-        if isinstance(api_key, list):
+        if isinstance(api_key, list) and isinstance(api_secret, list):
             self.api_key = list(map(lambda x: x.strip(), api_key))
             self.api_secret = list(map(lambda x: x.strip(), api_secret))
+        elif isinstance(api_key, list) or isinstance(api_secret, list):
+            raise ValueError("API key and secret must both be lists or both be strings")
         else:
             self.api_key = api_key.strip()
             self.api_secret = api_secret.strip()

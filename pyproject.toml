@@ -11,10 +11,10 @@ profile = "black"
 
 [tool.poetry]
 name = "entegywrapper"
-version = "4.0.0"
+version = "5.0.0"
 description = "Python SDK for the Entegy API"
 authors = [
-    "Situ Developer <developer@situ.com.au>",
+    "Situ Development <developer@situ.com.au>",
     "William Sawyer <william@situ.com.au>",
     "Nathan Thomas <nathan@situ.com.au>",
 ]
@@ -28,14 +28,13 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.10.0"
 
-requests = "^2.31.0"
+requests = "~=2.31.0"
+pydantic = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]
-
 black = "*"
 isort = "*"
 pylint = "*"
-pytest = "*"
 
-[tool.setuptools.dynamic]
-version = { attr = "entegywrapper.version.__version__" }
+[tool.poetry.group.test.dependencies]
+pytest = "*"

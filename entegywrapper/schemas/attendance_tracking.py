@@ -1,13 +1,14 @@
-from typing import TypedDict
+from pydantic import BaseModel
 
-from . import content, profile
+from .content import NamedLink
+from .profile import Profile
 
 
-class Attendee(TypedDict):
-    profile: profile.Profile
+class Attendee(BaseModel):
+    profile: Profile
     checkInTime: str
 
 
-class Attended(TypedDict):
-    session: content.NamedLink
+class Attended(BaseModel):
+    session: NamedLink
     checkInTime: str

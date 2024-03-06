@@ -1,6 +1,8 @@
-from typing import Literal, TypeAlias, TypedDict
+from typing import Literal, TypeAlias
 
-from . import profile
+from pydantic import BaseModel
+
+from .profile import Profile
 
 PointType: TypeAlias = Literal[
     "Comment",
@@ -25,7 +27,7 @@ PointType: TypeAlias = Literal[
 ]
 
 
-class Achievement(TypedDict):
+class Achievement(BaseModel):
     achievementId: int
     title: str
     message: str
@@ -39,8 +41,8 @@ class AchievementUnlocked(Achievement):
     unlockedTime: str
 
 
-class LeaderboardPosition(TypedDict):
-    profile: profile.Profile
+class LeaderboardPosition(BaseModel):
+    profile: Profile
     position: int
     points: int
     unlockedAchievementsCount: int
