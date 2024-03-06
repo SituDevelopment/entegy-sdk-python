@@ -4,6 +4,8 @@
 
 ```bash
 pip install entegywrapper
+
+poetry add entegywrapper
 ```
 
 ## Usage
