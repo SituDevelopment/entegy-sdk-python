@@ -32,8 +32,9 @@ requests = "~=2.31.0"
 pydantic = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]
-
 black = "*"
 isort = "*"
 pylint = "*"
+
+[tool.poetry.group.test.dependencies]
 pytest = "*"
