@@ -37,6 +37,3 @@ black = "*"
 isort = "*"
 pylint = "*"
 pytest = "*"
-
-[tool.setuptools.dynamic]
-version = { attr = "entegywrapper.version.__version__" }
