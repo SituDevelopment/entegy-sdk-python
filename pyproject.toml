@@ -14,7 +14,7 @@ name = "entegywrapper"
 version = "4.0.0"
 description = "Python SDK for the Entegy API"
 authors = [
-    "Situ Developer <developer@situ.com.au>",
+    "Situ Development <developer@situ.com.au>",
     "William Sawyer <william@situ.com.au>",
     "Nathan Thomas <nathan@situ.com.au>",
 ]
