@@ -1,18 +1,30 @@
 name: Publish to PyPI
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: main
 
 permissions:
   contents: read
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      is-greater: ${{ steps.check-version.outputs.local_version_is_higher }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: check-version
+        uses: maybe-hello-world/pyproject-check-version@v4
+
   publish:
     runs-on: ubuntu-latest
     environment:
       name: pypi
       url: https://pypi.org/project/entegywrapper
+    if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
+    needs: check-version
     permissions:
       id-token: write
     steps:
