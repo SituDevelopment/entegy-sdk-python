@@ -141,7 +141,7 @@ class Content(BaseModel):
     mainImage: str
     strings: dict[StringKey, str]
     pageSettings: dict[PageSetting, bool]
-    sortOrder: int
+    sortOrder: Optional[int] = None
 
 
 class ContentPage(Content):
