@@ -85,7 +85,7 @@ class CustomProfileField(BaseModel):
     userAccess: str
     profileVisibility: str
     type: CustomProfileFieldType
-    sortOrder: int
+    sortOrder: Optional[int] = None
     externallyManaged: bool
     options: Optional[list[MultiChoiceOptions]]
 
