@@ -131,7 +131,7 @@ class Category(BaseModel):
     moduleId: int
     externalReference: str
     name: Optional[str] = None
-    childCategories: list[Category] = []
+    childCategories: list["Category"] = []
 
 
 class Content(BaseModel):
