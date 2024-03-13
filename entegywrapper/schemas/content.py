@@ -8,7 +8,7 @@ from .page_settings import PageSetting
 
 class TemplateType(Enum):
     @classmethod
-    def _missing_(cls, value: str) -> cls | None:
+    def _missing_(cls, value):
         """Enables case-insensitive lookup."""
         value = value.lower()
         for member in cls.__members__.values():
