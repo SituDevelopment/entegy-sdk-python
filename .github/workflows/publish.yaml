@@ -28,6 +28,7 @@ jobs:
     permissions:
       id-token: write
     steps:
+      - uses: actions/checkout@v4
       - run: gh release create --generate-notes --target main "v${{ needs.check-version.outputs.version }}"
 
   publish-to-pypi:
