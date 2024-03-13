@@ -142,20 +142,11 @@ class Content(BaseModel):
     strings: dict[str, str]
     pageSettings: dict[PageSetting, bool]
     sortOrder: Optional[int] = None
-
-
-class ContentPage(Content):
-    documents: list[Document]
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    selectedCategories: list[Category]
-
-
-class ContentChild(Content):
-    documents: list[Document]
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    selectedCategories: list[Category]
+    documents: Optional[list[Document]] = None
+    links: Optional[list[Link]] = None
+    multiLinks: Optional[list[NamedLink]] = None
+    selectedCategories: Optional[list[Category]] = None
+    children: Optional[list["Content"]] = None
 
 
 class ContentChildCreate(BaseModel):
@@ -165,7 +156,3 @@ class ContentChildCreate(BaseModel):
     strings: Optional[dict[str, str]] = None
     links: Optional[list[Link]] = None
     sortOrder: Optional[int] = None
-
-
-class ContentParent(Content):
-    children: list[ContentChild]
