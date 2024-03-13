@@ -21,9 +21,6 @@ jobs:
 
   release-to-github:
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/project/entegywrapper
     if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
     needs: check-version
     permissions:
