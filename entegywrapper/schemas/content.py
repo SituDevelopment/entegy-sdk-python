@@ -1,34 +1,34 @@
-from enum import IntEnum
-from typing import Literal, Optional, TypeAlias
+from enum import Enum, IntEnum
+from typing import Optional
 
 from pydantic import BaseModel
 
 from .page_settings import PageSetting
 
-TemplateType: TypeAlias = Literal[
-    "Schedule",
-    "ScheduleDay",
-    "Session",
-    "SessionGroup",
-    "SessionSegement",
-    "Stream",
-    "SessionType",
-    "Speakers",
-    "Speaker",
-    "About",
-    "Exhibitors",
-    "Exhibitor",
-    "GenericGroup",
-    "GenericGroupPage",
-    "FloorPlan",
-    "Room",
-    "Abstracts",
-    "Abstract",
-    "HTMLGroup",
-    "HTMLPage",
-    "Sponsors",
-    "Sponsor",
-]
+
+class TemplateType(Enum):
+    SCHEDULE = "Schedule"
+    SCHEDULE_DAY = "ScheduleDay"
+    SESSION = "Session"
+    SESSION_GROUP = "SessionGroup"
+    SESSION_SEGEMENT = "SessionSegement"
+    STREAM = "Stream"
+    SESSION_TYPE = "SessionType"
+    SPEAKERS = "Speakers"
+    SPEAKER = "Speaker"
+    ABOUT = "About"
+    EXHIBITORS = "Exhibitors"
+    EXHIBITOR = "Exhibitor"
+    GENERIC_GROUP = "GenericGroup"
+    GENERIC_GROUP_PAGE = "GenericGroupPage"
+    FLOOR_PLAN = "FloorPlan"
+    ROOM = "Room"
+    ABSTRACTS = "Abstracts"
+    ABSTRACT = "Abstract"
+    HTML_GROUP = "HTMLGroup"
+    HTML_PAGE = "HTMLPage"
+    SPONSORS = "Sponsors"
+    SPONSOR = "Sponsor"
 
 
 class Icon(IntEnum):

@@ -1,22 +1,22 @@
-from typing import Literal, Optional, TypeAlias
+from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel
 
-ApiKeyPermission: TypeAlias = Literal[
-    "ViewContent",
-    "EditContent",
-    "EditProfiles",
-    "ViewProfiles",
-    "Achievements",
-    "SendNotifications",
-]
+
+class ApiKeyPermission(Enum):
+    VIEW_CONTENT = "ViewContent"
+    EDIT_CONTENT = "EditContent"
+    EDIT_PROFILES = "EditProfiles"
+    VIEW_PROFILES = "ViewProfiles"
+    ACHIEVEMENTS = "Achievements"
+    SEND_NOTIFICATIONS = "SendNotifications"
 
 
-Region: TypeAlias = Literal[
-    "61a948f2-d505-4b0b-81de-31af6925647e",
-    "2b9bd3fc-405e-4df5-888d-f5323e2b5093",
-    "86f89b50-1bbb-4019-9ca2-b2d9f4167064",
-]
+class Region(Enum):
+    AU = "61a948f2-d505-4b0b-81de-31af6925647e"
+    US = "2b9bd3fc-405e-4df5-888d-f5323e2b5093"
+    EU = "86f89b50-1bbb-4019-9ca2-b2d9f4167064"
 
 
 class ProjectEventInfo(BaseModel):
@@ -24,34 +24,37 @@ class ProjectEventInfo(BaseModel):
     endDate: str
 
 
-ProjectType: TypeAlias = Literal["Event" "Ongoing" "Demo" "Portal", "DemoTemplate"]
+class ProjectType(Enum):
+    EVENT = "Event"
+    ONGOING = "Ongoing"
+    DEMO = "Demo"
+    PORTAL = "Portal"
+    DEMO_TEMPLATE = "DemoTemplate"
 
 
-ProjectStatus: TypeAlias = Literal[
-    "Draft",
-    "HandOver",
-    "PopulateAndTesting",
-    "Production",
-    "Finished",
-    "Expired",
-    "Canceled",
-]
+class ProjectStatus(Enum):
+    DRAFT = "Draft"
+    HAND_OVER = "HandOver"
+    POPULATE_AND_TESTING = "PopulateAndTesting"
+    PRODUCTION = "Production"
+    FINISHED = "Finished"
+    EXPIRED = "Expired"
+    CANCELED = "Canceled"
 
 
-SoftwareElement: TypeAlias = Literal[
-    "App",
-    "StoreListing",
-    "Engage",
-    "Capture",
-    "Track",
-    "Interact",
-    "Registration",
-    "Market",
-    "Kiosk",
-    "KioskAdditional",
-    "EmailDomain",
-    "FloorPlan",
-]
+class SoftwareElement(Enum):
+    APP = "App"
+    STORE_LISTING = "StoreListing"
+    ENGAGE = "Engage"
+    CAPTURE = "Capture"
+    TRACK = "Track"
+    INTERACT = "Interact"
+    REGISTRATION = "Registration"
+    MARKET = "Market"
+    KIOSK = "Kiosk"
+    KIOSK_ADDITIONAL = "KioskAdditional"
+    EMAIL_DOMAIN = "EmailDomain"
+    FLOOR_PLAN = "FloorPlan"
 
 
 class Project(BaseModel):
