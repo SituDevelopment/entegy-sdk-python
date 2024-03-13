@@ -12,7 +12,7 @@ class TemplateType(Enum):
         """Enables case-insensitive lookup."""
         value = value.lower()
         for member in cls.__members__.values():
-            if member.lower() == value:
+            if member.value.lower() == value:
                 return member
 
     ABOUT = "About"
