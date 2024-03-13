@@ -9,7 +9,7 @@ feature:
 
 dependencies:
   - changed-files:
-      - any-glob-to-any-file: ["package.json", "package-lock.json", "requirements.txt"]
+      - any-glob-to-any-file: ["package.json", "package-lock.json", "poetry.lock", "pyproject.toml"]
 
 documentation:
   - changed-files:
@@ -25,4 +25,4 @@ javascript:
 
 python:
   - changed-files:
-      - any-glob-to-any-file: ["*.py", "requirements.txt"]
+      - any-glob-to-any-file: ["*.py", "poetry.lock", "pyproject.toml"]
