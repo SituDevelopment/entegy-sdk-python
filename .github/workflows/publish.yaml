@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       is-greater: ${{ steps.check-version.outputs.local_version_is_higher }}
-      version: ${{ steps.check-version.outputs.version }}
+      version: ${{ steps.check-version.outputs.local_version }}
     steps:
       - uses: actions/checkout@v4
 
