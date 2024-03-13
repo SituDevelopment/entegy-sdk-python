@@ -4,7 +4,6 @@ from typing import Literal, Optional, TypeAlias
 from pydantic import BaseModel
 
 from .page_settings import PageSetting
-from .string_keys import StringKey
 
 TemplateType: TypeAlias = Literal[
     "Schedule",
@@ -140,7 +139,7 @@ class Content(BaseModel):
     moduleId: int
     externalReference: str
     mainImage: str
-    strings: dict[StringKey, str]
+    strings: dict[str, str]
     pageSettings: dict[PageSetting, bool]
     sortOrder: Optional[int] = None
 
@@ -163,7 +162,7 @@ class ContentChildCreate(BaseModel):
     name: str
     externalReference: Optional[str] = None
     mainImage: Optional[str] = None
-    strings: Optional[dict[StringKey, str]] = None
+    strings: Optional[dict[str, str]] = None
     links: Optional[list[Link]] = None
     sortOrder: Optional[int] = None
 
