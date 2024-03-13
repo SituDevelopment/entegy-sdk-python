@@ -140,7 +140,7 @@ class Content(BaseModel):
     externalReference: str
     mainImage: str
     strings: dict[str, str]
-    pageSettings: dict[PageSetting, bool]
+    pageSettings: Optional[dict[PageSetting, bool]] = None
     sortOrder: Optional[int] = None
     documents: Optional[list[Document]] = None
     links: Optional[list[Link]] = None
