@@ -70,6 +70,7 @@ class CustomProfileFieldType(Enum):
     MULTI_CHOICE = "MultiChoice"
     SHORT_TEXT = "ShortText"
     MEDIUM_TEXT = "MediumText"
+    LONG_TEXT = "LongText"
     FACEBOOK = "Facebook"
     TWITTER = "Twitter"
     INSTAGRAM = "Instagram"
