@@ -1,10 +1,15 @@
-from typing import Literal, Optional, TypeAlias
+from enum import Enum
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
 from .project import ProjectEventInfo, ProjectStatus, ProjectType, SoftwareElement
 
-ProfileExtendedPrivacy: TypeAlias = Literal["Public", "Connections", "Hidden"]
+
+class ProfileExtendedPrivacy(Enum):
+    PUBLIC = "Public"
+    CONNECTIONS = "Connections"
+    HIDDEN = "Hidden"
 
 
 class Permissions(BaseModel):
@@ -49,7 +54,7 @@ class Profile(BaseModel):
     lastUpdated: Optional[str] = None
     enabled: Optional[bool] = None
     permissions: Optional[Permissions] = None
-    customFields: Optional[dict[str, str]] = None
+    customFields: Optional[dict[str, Any]] = None
     parentProfile: Optional[ProfileReference] = None
 
 
@@ -61,15 +66,15 @@ class ProfileType(BaseModel):
     moduleId: int
 
 
-CustomProfileFieldType: TypeAlias = Literal[
-    "MultiChoice",
-    "ShortText",
-    "MediumText",
-    "Facebook",
-    "Twitter",
-    "Instagram",
-    "Website",
-]
+class CustomProfileFieldType(Enum):
+    MULTI_CHOICE = "MultiChoice"
+    SHORT_TEXT = "ShortText"
+    MEDIUM_TEXT = "MediumText"
+    LONG_TEXT = "LongText"
+    FACEBOOK = "Facebook"
+    TWITTER = "Twitter"
+    INSTAGRAM = "Instagram"
+    WEBSITE = "Website"
 
 
 class MultiChoiceOptions(BaseModel):
@@ -118,18 +123,30 @@ class ProfileUpdate(BaseModel):
     imageUrl: Optional[str] = None
     enabled: Optional[bool] = None
     permissions: Optional[Permissions] = None
-    customFields: Optional[dict[str, str]] = None
+    customFields: Optional[dict[str, Any]] = None
 
 
-ProfileIdentifier: TypeAlias = Literal[
-    "profileId", "externalReference", "internalReference", "badgeReference"
-]
+class ProfileIdentifier(Enum):
+    PROFILE_ID = "profileId"
+    EXTERNAL_REFERENCE = "externalReference"
+    INTERNAL_REFERENCE = "internalReference"
+    BADGE_REFERENCE = "badgeReference"
 
 
-PaymentStatus: TypeAlias = Literal["Pending", "Cancelled", "Paid", "Refunded"]
+class PaymentStatus(Enum):
+    PENDING = "Pending"
+    CANCELLED = "Cancelled"
+    PAID = "Paid"
+    REFUNDED = "Refunded"
 
 
-PaymentMethod: TypeAlias = Literal["None", "CreditCard", "DirectDeposit", "Cash", "Cheque", "Other"]
+class PaymentMethod(Enum):
+    NONE = "None"
+    CREDIT_CARD = "CreditCard"
+    DIRECT_DEPOSIT = "DirectDeposit"
+    CASH = "Cash"
+    CHEQUE = "Cheque"
+    OTHER = "Other"
 
 
 class PaymentInfo(BaseModel):

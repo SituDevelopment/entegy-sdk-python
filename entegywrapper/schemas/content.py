@@ -1,35 +1,34 @@
-from enum import IntEnum
-from typing import Literal, Optional, TypeAlias
+from enum import Enum, IntEnum
+from typing import Optional
 
 from pydantic import BaseModel
 
 from .page_settings import PageSetting
-from .string_keys import StringKey
 
-TemplateType: TypeAlias = Literal[
-    "Schedule",
-    "ScheduleDay",
-    "Session",
-    "SessionGroup",
-    "SessionSegement",
-    "Stream",
-    "SessionType",
-    "Speakers",
-    "Speaker",
-    "About",
-    "Exhibitors",
-    "Exhibitor",
-    "GenericGroup",
-    "GenericGroupPage",
-    "FloorPlan",
-    "Room",
-    "Abstracts",
-    "Abstract",
-    "HTMLGroup",
-    "HTMLPage",
-    "Sponsors",
-    "Sponsor",
-]
+
+class TemplateType(Enum):
+    ABOUT = "About"
+    ABSTRACT = "Abstract"
+    ABSTRACTS = "Abstracts"
+    EXHIBITOR = "Exhibitor"
+    EXHIBITORS = "Exhibitors"
+    FLOOR_PLAN = "FloorPlan"
+    GENERIC_GROUP = "GenericGroup"
+    GENERIC_GROUP_PAGE = "GenericGroupPage"
+    HTML_GROUP = "HTMLGroup"
+    HTML_PAGE = "HTMLPage"
+    ROOM = "Room"
+    SCHEDULE = "Schedule"
+    SCHEDULE_DAY = "ScheduleDay"
+    SESSION = "Session"
+    SESSION_GROUP = "SessionGroup"
+    SESSION_SEGEMENT = "SessionSegement"
+    SESSION_TYPE = "SessionType"
+    SPEAKER = "Speaker"
+    SPEAKERS = "Speakers"
+    SPONSOR = "Sponsor"
+    SPONSORS = "Sponsors"
+    STREAM = "Stream"
 
 
 class Icon(IntEnum):
@@ -140,33 +139,20 @@ class Content(BaseModel):
     moduleId: int
     externalReference: str
     mainImage: str
-    strings: dict[StringKey, str]
+    strings: dict[str, str]
     pageSettings: dict[PageSetting, bool]
     sortOrder: Optional[int] = None
-
-
-class ContentPage(Content):
-    documents: list[Document]
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    selectedCategories: list[Category]
-
-
-class ContentChild(Content):
-    documents: list[Document]
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    selectedCategories: list[Category]
+    documents: Optional[list[Document]] = None
+    links: Optional[list[Link]] = None
+    multiLinks: Optional[list[NamedLink]] = None
+    selectedCategories: Optional[list[Category]] = None
+    children: Optional[list["Content"]] = None
 
 
 class ContentChildCreate(BaseModel):
     name: str
     externalReference: Optional[str] = None
     mainImage: Optional[str] = None
-    strings: Optional[dict[StringKey, str]] = None
+    strings: Optional[dict[str, str]] = None
     links: Optional[list[Link]] = None
     sortOrder: Optional[int] = None
-
-
-class ContentParent(Content):
-    children: list[ContentChild]
