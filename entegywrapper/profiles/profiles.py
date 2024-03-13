@@ -363,7 +363,7 @@ def sync_profiles(
         response = self.sync_profile_block(
             update_reference_type,
             parent + profiles[start : start + block_size],
-            group_by_first_profile,
+            group_by_first_profile=group_by_first_profile,
         )
         result["results"].extend(response["results"])
         result["errors"].extend(response["errors"])
@@ -399,7 +399,7 @@ def sync_profile_block(
     """
     data = {
         "updateReferenceType": update_reference_type,
-        "profiles": profile_block,
+        "profiles": [profile.model_dump() for profile in profile_block],
         "groupByFirstProfile": group_by_first_profile,
     }
 
