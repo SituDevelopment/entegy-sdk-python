@@ -12,13 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       is-greater: ${{ steps.check-version.outputs.local_version_is_higher }}
+      version: ${{ steps.check-version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
 
       - id: check-version
         uses: maybe-hello-world/pyproject-check-version@v4
 
-  publish:
+  release-to-github:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/entegywrapper
+    if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
+    needs: check-version
+    permissions:
+      id-token: write
+    steps:
+      - run: gh release create --generate-notes --target main "v${{ needs.check-version.outputs.version }}"
+
+  publish-to-pypi:
     runs-on: ubuntu-latest
     environment:
       name: pypi
