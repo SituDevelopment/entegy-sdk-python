@@ -1,4 +1,4 @@
-from typing import Literal, Optional, TypeAlias
+from typing import Literal, Optional, TypeAlias, Any
 
 from pydantic import BaseModel
 
@@ -49,7 +49,7 @@ class Profile(BaseModel):
     lastUpdated: Optional[str] = None
     enabled: Optional[bool] = None
     permissions: Optional[Permissions] = None
-    customFields: Optional[dict[str, str]] = None
+    customFields: Optional[dict[str, Any]] = None
     parentProfile: Optional[ProfileReference] = None
 
 
@@ -118,7 +118,7 @@ class ProfileUpdate(BaseModel):
     imageUrl: Optional[str] = None
     enabled: Optional[bool] = None
     permissions: Optional[Permissions] = None
-    customFields: Optional[dict[str, str]] = None
+    customFields: Optional[dict[str, Any]] = None
 
 
 ProfileIdentifier: TypeAlias = Literal[
