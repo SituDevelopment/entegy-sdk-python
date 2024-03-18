@@ -31,23 +31,12 @@ class EnumJSONEncoder(JSONEncoder):
         return super().default(obj)
 
 
-def json_dumps_with_enum(obj: Any, **kwargs: Any) -> str:
-    """
-    Provides ENUM support to json_dumps.
-
-    Parameters
-    ----------
-        `obj` (`Any`): The object being serialised.
-
-    Returns
-    -------
-        `str`: The json_dump of the obj with ENUM support.
-    """
-    return json.dumps(obj, cls=EnumJSONEncoder, **kwargs)
-
-
 class EntegyAPI:
-    from .attendance_tracking.attendance_tracking import add_check_in, get_attended, get_attendees
+    from .attendance_tracking.attendance_tracking import (
+        add_check_in,
+        get_attended,
+        get_attendees,
+    )
     from .content.categories import (
         available_categories,
         create_categories,
@@ -219,7 +208,9 @@ class EntegyAPI:
 
         response = None
         while response is None:
-            response = method(endpoint, headers=self.headers, data=json_dumps_with_enum(data))
+            response = method(
+                endpoint, headers=self.headers, data=json.dumps(data, cls=EnumJSONEncoder)
+            )
 
             try:
                 response = response.json()

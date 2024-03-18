@@ -144,7 +144,7 @@ def get_schedule_content(
     # We're requesting data off the schedule end-point, so let's go ahead and assume a Schedule
     # template type if it's not provided.
     if not response["content"].get("templateType"):
-        response["content"]["templateType"] = TemplateType.SCHEDULE
+        response["content"]["templateType"] = TemplateType.SCHEDULE.value
 
     return Schedule(**response["content"])
 
