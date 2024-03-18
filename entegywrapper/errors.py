@@ -1,5 +1,14 @@
+
+
+
 class EntegyError(Exception):
     """Base class for all Entegy errors."""
+
+    pass
+
+
+class EntegyDuplicateExternalReferenceError(EntegyError):
+    """Raised when the Entegy API returns a failed request response."""
 
     pass
 

@@ -10,6 +10,12 @@ class TemplateType(Enum):
     @classmethod
     def _missing_(cls, value):
         """Enables case-insensitive lookup."""
+        if value is None:
+            raise ValueError("None is not a valid value for this Enum.")
+
+        if not isinstance(value, str):
+            raise TypeError(f"Expected string type for value, got {type(value).__name__} instead.")
+
         value = value.lower()
         for member in cls.__members__.values():
             if member.value.lower() == value:
@@ -21,6 +27,7 @@ class TemplateType(Enum):
     EXHIBITOR = "Exhibitor"
     EXHIBITORS = "Exhibitors"
     FLOOR_PLAN = "FloorPlan"
+    FLOOR_PLANS = "FloorPlans"  # Doesn't exist in API docs :(
     GENERIC_GROUP = "GenericGroup"
     GENERIC_GROUP_PAGE = "GenericGroupPage"
     HTML_GROUP = "HTMLGroup"
@@ -30,7 +37,7 @@ class TemplateType(Enum):
     SCHEDULE_DAY = "ScheduleDay"
     SESSION = "Session"
     SESSION_GROUP = "SessionGroup"
-    SESSION_SEGEMENT = "SessionSegement"
+    SESSION_SEGMENT = "SessionSegment"  # Spelt SessionSegement in API docs :(
     SESSION_TYPE = "SessionType"
     SPEAKER = "Speaker"
     SPEAKERS = "Speakers"
@@ -142,12 +149,13 @@ class Category(BaseModel):
 
 
 class Content(BaseModel):
+    name: str
     contentType: str
     templateType: TemplateType
-    moduleId: int
     externalReference: str
     mainImage: str
     strings: dict[str, str]
+    moduleId: Optional[int]
     pageSettings: Optional[dict[PageSetting, bool]] = None
     sortOrder: Optional[int] = None
     documents: Optional[list[Document]] = None

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, Any
 
-from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
+from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError, EntegyDuplicateExternalReferenceError
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
@@ -137,10 +137,15 @@ def get_schedule_content(
     if "content" not in response:
         raise EntegyNoDataError("No content returned")
 
+    # We're requesting data off the schedule end-point, so let's go ahead and assume a Schedule 
+    # template type if it's not provided.
+    if not response["content"].get("templateType"):
+        response["content"]["templateType"] = TemplateType.SCHEDULE.value
+
     return Schedule(**response["content"])
 
 
-def create_content(self: EntegyAPI, content: Content, *, content_group: str = "Default") -> int:
+def create_content(self: EntegyAPI, content: dict[str, Any], *, content_group: str = "Default") -> int:
     """
     Creates a root content item.
 
@@ -164,9 +169,11 @@ def create_content(self: EntegyAPI, content: Content, *, content_group: str = "D
         case 401:
             raise EntegyFailedRequestError("Missing or invalid template type")
         case 402:
-            raise EntegyFailedRequestError("Duplicate External Reference")
+            raise EntegyDuplicateExternalReferenceError("Duplicate External Reference")
         case 404:
             raise EntegyFailedRequestError("Missing Name")
+        case 405:
+            raise EntegyFailedRequestError("Invalid Content Group")
         case _:
             raise EntegyFailedRequestError(
                 f"{response['response']}: {response.get('message', 'Unknown error')}"
@@ -177,7 +184,7 @@ def add_children_content(
     self: EntegyAPI,
     template_type: TemplateType,
     child_template_type: TemplateType,
-    children: list[ContentChildCreate],
+    children: list[dict[str, Any]],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -230,7 +237,7 @@ def add_children_content(
         case 405:
             raise EntegyFailedRequestError("Missing Children")
         case 406:
-            raise EntegyFailedRequestError("Duplicate External Reference")
+            raise EntegyDuplicateExternalReferenceError("Duplicate External Reference")
         case _:
             raise EntegyFailedRequestError(response)
 
@@ -238,7 +245,7 @@ def add_children_content(
 def update_content(
     self: EntegyAPI,
     template_type: TemplateType,
-    content: Content,
+    content: dict[str, Any],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,

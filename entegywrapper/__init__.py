@@ -2,7 +2,9 @@ import json
 import os
 import sys
 import time
-from typing import Callable
+from enum import Enum
+from json import JSONEncoder
+from typing import Any, Callable
 
 import requests
 from requests.structures import CaseInsensitiveDict
@@ -18,8 +20,38 @@ API_ENDPOINTS = {
 }
 
 
+class EnumJSONEncoder(JSONEncoder):
+    """
+    Custom JSON encoder that handles ENUMs.
+    """
+
+    def default(self, obj):
+        if isinstance(obj, Enum):
+            return obj.value
+        return super().default(obj)
+
+
+def json_dumps_with_enum(obj: Any, **kwargs: Any) -> str:
+    """
+    Provides ENUM support to json_dumps.
+
+    Parameters
+    ----------
+        `obj` (`Any`): The object being serialised.
+
+    Returns
+    -------
+        `str`: The json_dump of the obj with ENUM support.
+    """
+    return json.dumps(obj, cls=EnumJSONEncoder, **kwargs)
+
+
 class EntegyAPI:
-    from .attendance_tracking.attendance_tracking import add_check_in, get_attended, get_attendees
+    from .attendance_tracking.attendance_tracking import (
+        add_check_in,
+        get_attended,
+        get_attendees,
+    )
     from .content.categories import (
         available_categories,
         create_categories,
@@ -191,7 +223,7 @@ class EntegyAPI:
 
         response = None
         while response is None:
-            response = method(endpoint, headers=self.headers, data=json.dumps(data))
+            response = method(endpoint, headers=self.headers, data=json_dumps_with_enum(data))
 
             try:
                 response = response.json()
