@@ -1,6 +1,3 @@
-
-
-
 class EntegyError(Exception):
     """Base class for all Entegy errors."""
 

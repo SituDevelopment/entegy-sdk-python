@@ -47,11 +47,7 @@ def json_dumps_with_enum(obj: Any, **kwargs: Any) -> str:
 
 
 class EntegyAPI:
-    from .attendance_tracking.attendance_tracking import (
-        add_check_in,
-        get_attended,
-        get_attendees,
-    )
+    from .attendance_tracking.attendance_tracking import add_check_in, get_attended, get_attendees
     from .content.categories import (
         available_categories,
         create_categories,

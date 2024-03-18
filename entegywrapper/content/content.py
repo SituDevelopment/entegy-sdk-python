@@ -1,8 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional, Any
+from typing import TYPE_CHECKING, Any, Optional
 
-from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError, EntegyDuplicateExternalReferenceError
+from entegywrapper.errors import (
+    EntegyDuplicateExternalReferenceError,
+    EntegyFailedRequestError,
+    EntegyNoDataError,
+)
 from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
@@ -137,7 +141,7 @@ def get_schedule_content(
     if "content" not in response:
         raise EntegyNoDataError("No content returned")
 
-    # We're requesting data off the schedule end-point, so let's go ahead and assume a Schedule 
+    # We're requesting data off the schedule end-point, so let's go ahead and assume a Schedule
     # template type if it's not provided.
     if not response["content"].get("templateType"):
         response["content"]["templateType"] = TemplateType.SCHEDULE.value
@@ -145,7 +149,9 @@ def get_schedule_content(
     return Schedule(**response["content"])
 
 
-def create_content(self: EntegyAPI, content: dict[str, Any], *, content_group: str = "Default") -> int:
+def create_content(
+    self: EntegyAPI, content: dict[str, Any], *, content_group: str = "Default"
+) -> int:
     """
     Creates a root content item.
 
