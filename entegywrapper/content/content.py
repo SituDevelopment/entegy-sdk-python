@@ -7,7 +7,7 @@ from entegywrapper.errors import (
     EntegyFailedRequestError,
     EntegyNoDataError,
 )
-from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
+from entegywrapper.schemas.content import Content, ContentCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
 if TYPE_CHECKING:
@@ -150,7 +150,7 @@ def get_schedule_content(
 
 
 def create_content(
-    self: EntegyAPI, content: dict[str, Any], *, content_group: str = "Default"
+    self: EntegyAPI, content: ContentCreate, *, content_group: str = "Default"
 ) -> int:
     """
     Creates a root content item.
@@ -165,7 +165,7 @@ def create_content(
     ------
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"contentGroup": content_group, "content": content}
+    data = {"contentGroup": content_group, "content": content.model_dump()}
 
     response = self.post(self.api_endpoint + "/v2/Content/Create", data=data)
 

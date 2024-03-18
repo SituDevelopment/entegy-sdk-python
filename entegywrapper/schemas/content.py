@@ -165,6 +165,13 @@ class Content(BaseModel):
     children: Optional[list["Content"]] = None
 
 
+class ContentCreate(BaseModel):
+    name: str
+    templateType: TemplateType
+    externalReference: str
+    contentType: Optional[str] = None
+
+
 class ContentChildCreate(BaseModel):
     name: str
     externalReference: Optional[str] = None

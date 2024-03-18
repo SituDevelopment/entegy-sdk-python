@@ -32,11 +32,7 @@ class EnumJSONEncoder(JSONEncoder):
 
 
 class EntegyAPI:
-    from .attendance_tracking.attendance_tracking import (
-        add_check_in,
-        get_attended,
-        get_attendees,
-    )
+    from .attendance_tracking.attendance_tracking import add_check_in, get_attended, get_attendees
     from .content.categories import (
         available_categories,
         create_categories,
