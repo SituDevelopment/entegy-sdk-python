@@ -1,5 +1,5 @@
 from enum import Enum, IntEnum
-from typing import Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -142,7 +142,7 @@ class NamedLink(Link):
 
 
 class Category(BaseModel):
-    moduleId: int
+    moduleId: Optional[int]
     externalReference: str
     name: Optional[str] = None
     childCategories: list["Category"] = []
@@ -150,12 +150,12 @@ class Category(BaseModel):
 
 class Content(BaseModel):
     name: str
-    contentType: str
     templateType: TemplateType
     externalReference: str
     mainImage: str
     strings: dict[str, str]
-    moduleId: Optional[int]
+    contentType: Optional[str] = None
+    moduleId: Optional[int]  # Optional when creating, not optional when retrieving.
     pageSettings: Optional[dict[PageSetting, bool]] = None
     sortOrder: Optional[int] = None
     documents: Optional[list[Document]] = None
@@ -164,12 +164,50 @@ class Content(BaseModel):
     selectedCategories: Optional[list[Category]] = None
     children: Optional[list["Content"]] = None
 
+    def get_updated_content(self, other: "Content") -> dict[str, Any]:
+        """
+        Get a dictionary of updated content when comparing another content object against self.
+        The list of items that can be updated is guided by Entegy's API docs however a number of the
+        optional attributes have been left in. Time will tell if this is a valid assumption.
+
+        Return should really be an object. See:
+        https://github.com/SituDevelopment/entegy-sdk-python/issues/184
+
+        Parameters
+        ----------
+            `other` (`Content`): The content object against which to compare self.
+
+        Returns
+        -------
+            `dict[str, Any]`: The results dict. Could really use an object here. To be fixed in
+            https://github.com/SituDevelopment/entegy-sdk-python/issues/184
+        """
+        updated_content = {}
+        if self.name != other.name:
+            updated_content["name"] = other.name
+        if self.mainImage != other.mainImage:
+            updated_content["mainImage"] = other.mainImage
+        if self.strings != other.strings:
+            updated_content["strings"] = other.strings
+        if self.pageSettings != other.pageSettings:
+            updated_content["pageSettings"] = other.pageSettings
+        if self.sortOrder != other.sortOrder:
+            updated_content["sortOrder"] = other.sortOrder
+        if self.documents != other.documents:
+            updated_content["documents"] = other.documents
+        if self.links != other.links:
+            updated_content["links"] = other.links
+        if self.multiLinks != other.multiLinks:
+            updated_content["multiLinks"] = other.multiLinks
+        if self.selectedCategories != other.selectedCategories:
+            updated_content["selectedCategories"] = other.selectedCategories
+        return updated_content
+
 
 class ContentCreate(BaseModel):
     name: str
     templateType: TemplateType
     externalReference: str
-    contentType: Optional[str] = None
 
 
 class ContentChildCreate(BaseModel):
@@ -178,4 +216,3 @@ class ContentChildCreate(BaseModel):
     mainImage: Optional[str] = None
     strings: Optional[dict[str, str]] = None
     links: Optional[list[Link]] = None
-    sortOrder: Optional[int] = None

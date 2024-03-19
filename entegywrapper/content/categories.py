@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, TemplateType
@@ -65,7 +65,7 @@ def available_categories(
 def select_categories(
     self: EntegyAPI,
     template_type: TemplateType,
-    categories: list[Category],
+    categories: list[dict[str, Any]],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -93,7 +93,10 @@ def select_categories(
     -------
         `bool`: whether the categories were selected successfully
     """
-    data = {"templateType": template_type, "categories": categories}
+    data = {
+        "templateType": template_type,
+        "categories": categories,
+    }
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -106,7 +109,7 @@ def select_categories(
 
     match response["response"]:
         case 200:
-            return
+            return True
         case 401:
             raise EntegyFailedRequestError("Missing Id")
         case 402:

@@ -204,7 +204,7 @@ def add_children_content(
 
         `child_template_type` (`string`): the templateType for the children to create
 
-        `children` (`list[ContentChildCreate]`): the page data to add to the root templateType
+        `children` (`list[list[dict[str, Any]]]`): the page data to add to the root templateType
 
         `module_id` (`int`, optional): the name for the page; defaults to `None`
 
@@ -264,7 +264,8 @@ def update_content(
 
         `template_type` (`TemplateType`): the templateType to update
 
-        `content` (`Content`): the content to update
+        `content` (`Content`): the content to update - should really be an object.
+                               See: https://github.com/SituDevelopment/entegy-sdk-python/issues/184
 
         `module_id` (`int`, optional): the moduleId of the page to update; defaults to `None`
 
