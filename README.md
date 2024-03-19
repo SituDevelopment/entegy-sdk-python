@@ -12,6 +12,9 @@ poetry add entegywrapper
 
 ```python
 from entegywrapper import EntegyAPI
+
+api = EntegyAPI("api-key", "api-secret", "project-id", "project-region")
+api = EntegyAPI(["api-key-1", "api-key-2", "api-key-3"], ["api-secret-1", "api-secret-2", "api-secret-3"], "project-id", "project-region")
 ```
 
 ## Ported Modules
