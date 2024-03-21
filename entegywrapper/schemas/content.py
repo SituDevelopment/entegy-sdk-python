@@ -164,7 +164,7 @@ class Content(BaseModel):
     selectedCategories: Optional[list[Category]] = None
     children: Optional[list["Content"]] = None
 
-    def get_updated_content(self, other: "Content") -> dict[str, Any]:
+    def get_updated_content(self, new_content: "Content") -> dict[str, Any]:
         """
         Get a dictionary of updated content when comparing another content object against self.
         The list of items that can be updated is guided by Entegy's API docs however a number of the
@@ -182,25 +182,35 @@ class Content(BaseModel):
             `dict[str, Any]`: The results dict. Could really use an object here. To be fixed in
             https://github.com/SituDevelopment/entegy-sdk-python/issues/184
         """
+        old_content = self  # for improved comparison readability.
         updated_content = {}
-        if self.name != other.name:
-            updated_content["name"] = other.name
-        if self.mainImage != other.mainImage:
-            updated_content["mainImage"] = other.mainImage
-        if self.strings != other.strings:
-            updated_content["strings"] = other.strings
-        if self.pageSettings != other.pageSettings:
-            updated_content["pageSettings"] = other.pageSettings
-        if self.sortOrder != other.sortOrder:
-            updated_content["sortOrder"] = other.sortOrder
-        if self.documents != other.documents:
-            updated_content["documents"] = other.documents
-        if self.links != other.links:
-            updated_content["links"] = other.links
-        if self.multiLinks != other.multiLinks:
-            updated_content["multiLinks"] = other.multiLinks
-        if self.selectedCategories != other.selectedCategories:
-            updated_content["selectedCategories"] = other.selectedCategories
+        if old_content.name != new_content.name:
+            updated_content["name"] = new_content.name
+        
+        # mainImage is a special case as Entegy mutates what we send them.
+        # This means that every subsequent comparison will be falsy which would then kick off an update. 
+        if (not old_content.mainImage and new_content.mainImage):
+            updated_content["mainImage"] = new_content.mainImage
+        if old_content.strings != new_content.strings:
+            updated_content["strings"] = new_content.strings
+        if old_content.pageSettings != new_content.pageSettings:
+            updated_content["pageSettings"] = new_content.pageSettings
+        if old_content.sortOrder != new_content.sortOrder:
+            updated_content["sortOrder"] = new_content.sortOrder
+        if old_content.documents != new_content.documents:
+            updated_content["documents"] = new_content.documents
+        if old_content.links != new_content.links:
+            updated_content["links"] = new_content.links
+        if old_content.multiLinks != new_content.multiLinks:
+            updated_content["multiLinks"] = new_content.multiLinks
+        if old_content.selectedCategories != new_content.selectedCategories:
+            updated_content["selectedCategories"] = new_content.selectedCategories
+
+        # The update of content requires the presence of externalReference even though
+        # it may not be one of the fields that have been changed. :(
+        # Adding it here just in case.
+        updated_content["externalReference"] = old_content.externalReference
+
         return updated_content
 
 
