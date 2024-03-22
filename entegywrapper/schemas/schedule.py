@@ -1,14 +1,6 @@
 from .content import Category, Content, Document, Link, NamedLink
 
 
-class ScheduleDay(Content):
-    children: list[Content]
-
-
-class Schedule(Content):
-    days: list[ScheduleDay]
-
-
 class SessionSegment(Content):
     links: list[Link]
     multiLinks: list[NamedLink]
@@ -24,7 +16,14 @@ class Session(Content):
 
 
 class SessionGroup(Content):
-    documents: list[Document]
     links: list[Link]
     multiLinks: list[NamedLink]
-    selectedCategories: list[Category]
+    sessions: list[Session]
+
+
+class ScheduleDay(Content):
+    children: list[Session | SessionGroup]
+
+
+class Schedule(Content):
+    days: list[ScheduleDay]
