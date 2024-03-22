@@ -186,10 +186,10 @@ class Content(BaseModel):
         updated_content = {}
         if old_content.name != new_content.name:
             updated_content["name"] = new_content.name
-        
+
         # mainImage is a special case as Entegy mutates what we send them.
-        # This means that every subsequent comparison will be falsy which would then kick off an update. 
-        if (not old_content.mainImage and new_content.mainImage):
+        # This means that every subsequent comparison will be falsy which would then kick off an update.
+        if not old_content.mainImage and new_content.mainImage:
             updated_content["mainImage"] = new_content.mainImage
         if old_content.strings != new_content.strings:
             updated_content["strings"] = new_content.strings
