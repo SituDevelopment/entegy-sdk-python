@@ -1,24 +1,16 @@
-from .content import Category, Content, Document, Link, NamedLink
+from .content import Content
 
 
 class SessionSegment(Content):
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    documents: list[Document]
+    pass
 
 
 class Session(Content):
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    documents: list[Document]
-    selectedCategories: list[Category]
-    segments: list[SessionSegment]
+    segments: list[SessionSegment] = []
 
 
 class SessionGroup(Content):
-    links: list[Link]
-    multiLinks: list[NamedLink]
-    sessions: list[Session]
+    sessions: list[Session] = []
 
 
 class ScheduleDay(Content):
