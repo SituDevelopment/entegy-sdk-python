@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum, IntEnum
 from typing import Any, Optional
 
@@ -162,9 +164,9 @@ class Content(BaseModel):
     links: Optional[list[Link]] = None
     multiLinks: Optional[list[NamedLink]] = None
     selectedCategories: Optional[list[Category]] = None
-    children: Optional[list["Content"]] = None
+    children: Optional[list[Content]] = None
 
-    def get_updated_content(self, new_content: "Content") -> dict[str, Any]:
+    def get_updated_content(self, new_content: Content) -> dict[str, Any]:
         """
         Get a dictionary of updated content when comparing another content object against self.
         The list of items that can be updated is guided by Entegy's API docs however a number of the
