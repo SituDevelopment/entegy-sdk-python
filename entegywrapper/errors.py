@@ -4,6 +4,12 @@ class EntegyError(Exception):
     pass
 
 
+class EntegyDuplicateExternalReferenceError(EntegyError):
+    """Raised when the Entegy API returns a failed request response."""
+
+    pass
+
+
 class EntegyFailedRequestError(EntegyError):
     """Raised when the Entegy API returns a failed request response."""
 

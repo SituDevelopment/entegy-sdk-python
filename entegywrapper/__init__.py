@@ -2,7 +2,9 @@ import json
 import os
 import sys
 import time
-from typing import Callable
+from enum import Enum
+from json import JSONEncoder
+from typing import Any, Callable
 
 import requests
 from requests.structures import CaseInsensitiveDict
@@ -16,6 +18,17 @@ API_ENDPOINTS = {
     "US": "https://api-us.entegy.com.au",
     "EU": "https://api-eu.entegy.com.au",
 }
+
+
+class EnumJSONEncoder(JSONEncoder):
+    """
+    Custom JSON encoder that handles ENUMs.
+    """
+
+    def default(self, obj):
+        if isinstance(obj, Enum):
+            return obj.value
+        return super().default(obj)
 
 
 class EntegyAPI:
@@ -191,7 +204,9 @@ class EntegyAPI:
 
         response = None
         while response is None:
-            response = method(endpoint, headers=self.headers, data=json.dumps(data))
+            response = method(
+                endpoint, headers=self.headers, data=json.dumps(data, cls=EnumJSONEncoder)
+            )
 
             try:
                 response = response.json()

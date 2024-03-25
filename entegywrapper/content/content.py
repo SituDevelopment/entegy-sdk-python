@@ -1,9 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
-from entegywrapper.errors import EntegyFailedRequestError, EntegyNoDataError
-from entegywrapper.schemas.content import Content, ContentChildCreate, TemplateType
+from entegywrapper.errors import (
+    EntegyDuplicateExternalReferenceError,
+    EntegyFailedRequestError,
+    EntegyNoDataError,
+)
+from entegywrapper.schemas.content import Content, ContentCreate, TemplateType
 from entegywrapper.schemas.schedule import Schedule
 
 if TYPE_CHECKING:
@@ -137,10 +141,17 @@ def get_schedule_content(
     if "content" not in response:
         raise EntegyNoDataError("No content returned")
 
+    # We're requesting data off the schedule end-point, so let's go ahead and assume a Schedule
+    # template type if it's not provided.
+    if not response["content"].get("templateType"):
+        response["content"]["templateType"] = TemplateType.SCHEDULE
+
     return Schedule(**response["content"])
 
 
-def create_content(self: EntegyAPI, content: Content, *, content_group: str = "Default") -> int:
+def create_content(
+    self: EntegyAPI, content: ContentCreate, *, content_group: str = "Default"
+) -> int:
     """
     Creates a root content item.
 
@@ -154,7 +165,7 @@ def create_content(self: EntegyAPI, content: Content, *, content_group: str = "D
     ------
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"contentGroup": content_group, "content": content}
+    data = {"contentGroup": content_group, "content": content.model_dump()}
 
     response = self.post(self.api_endpoint + "/v2/Content/Create", data=data)
 
@@ -164,9 +175,11 @@ def create_content(self: EntegyAPI, content: Content, *, content_group: str = "D
         case 401:
             raise EntegyFailedRequestError("Missing or invalid template type")
         case 402:
-            raise EntegyFailedRequestError("Duplicate External Reference")
+            raise EntegyDuplicateExternalReferenceError("Duplicate External Reference")
         case 404:
             raise EntegyFailedRequestError("Missing Name")
+        case 405:
+            raise EntegyFailedRequestError("Invalid Content Group")
         case _:
             raise EntegyFailedRequestError(
                 f"{response['response']}: {response.get('message', 'Unknown error')}"
@@ -177,7 +190,7 @@ def add_children_content(
     self: EntegyAPI,
     template_type: TemplateType,
     child_template_type: TemplateType,
-    children: list[ContentChildCreate],
+    children: list[dict[str, Any]],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -191,7 +204,7 @@ def add_children_content(
 
         `child_template_type` (`string`): the templateType for the children to create
 
-        `children` (`list[ContentChildCreate]`): the page data to add to the root templateType
+        `children` (`list[list[dict[str, Any]]]`): the page data to add to the root templateType
 
         `module_id` (`int`, optional): the name for the page; defaults to `None`
 
@@ -230,7 +243,7 @@ def add_children_content(
         case 405:
             raise EntegyFailedRequestError("Missing Children")
         case 406:
-            raise EntegyFailedRequestError("Duplicate External Reference")
+            raise EntegyDuplicateExternalReferenceError("Duplicate External Reference")
         case _:
             raise EntegyFailedRequestError(response)
 
@@ -238,7 +251,7 @@ def add_children_content(
 def update_content(
     self: EntegyAPI,
     template_type: TemplateType,
-    content: Content,
+    content: dict[str, Any],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -251,7 +264,8 @@ def update_content(
 
         `template_type` (`TemplateType`): the templateType to update
 
-        `content` (`Content`): the content to update
+        `content` (`Content`): the content to update - should really be an object.
+                               See: https://github.com/SituDevelopment/entegy-sdk-python/issues/184
 
         `module_id` (`int`, optional): the moduleId of the page to update; defaults to `None`
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from enum import Enum, IntEnum
-from typing import Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -10,6 +12,12 @@ class TemplateType(Enum):
     @classmethod
     def _missing_(cls, value):
         """Enables case-insensitive lookup."""
+        if value is None:
+            raise ValueError("None is not a valid value for this Enum.")
+
+        if not isinstance(value, str):
+            raise TypeError(f"Expected string type for value, got {type(value).__name__} instead.")
+
         value = value.lower()
         for member in cls.__members__.values():
             if member.value.lower() == value:
@@ -21,6 +29,7 @@ class TemplateType(Enum):
     EXHIBITOR = "Exhibitor"
     EXHIBITORS = "Exhibitors"
     FLOOR_PLAN = "FloorPlan"
+    FLOOR_PLANS = "FloorPlans"  # Doesn't exist in API docs :(
     GENERIC_GROUP = "GenericGroup"
     GENERIC_GROUP_PAGE = "GenericGroupPage"
     HTML_GROUP = "HTMLGroup"
@@ -30,7 +39,7 @@ class TemplateType(Enum):
     SCHEDULE_DAY = "ScheduleDay"
     SESSION = "Session"
     SESSION_GROUP = "SessionGroup"
-    SESSION_SEGEMENT = "SessionSegement"
+    SESSION_SEGMENT = "SessionSegment"  # Spelt SessionSegement in API docs :(
     SESSION_TYPE = "SessionType"
     SPEAKER = "Speaker"
     SPEAKERS = "Speakers"
@@ -135,26 +144,83 @@ class NamedLink(Link):
 
 
 class Category(BaseModel):
-    moduleId: int
+    moduleId: Optional[int]
     externalReference: str
     name: Optional[str] = None
     childCategories: list["Category"] = []
 
 
 class Content(BaseModel):
-    contentType: str
+    name: str
     templateType: TemplateType
-    moduleId: int
     externalReference: str
     mainImage: str
     strings: dict[str, str]
+    contentType: Optional[str] = None
+    moduleId: Optional[int]  # Optional when creating, not optional when retrieving.
     pageSettings: Optional[dict[PageSetting, bool]] = None
     sortOrder: Optional[int] = None
     documents: Optional[list[Document]] = None
     links: Optional[list[Link]] = None
     multiLinks: Optional[list[NamedLink]] = None
     selectedCategories: Optional[list[Category]] = None
-    children: Optional[list["Content"]] = None
+    children: Optional[list[Content]] = None
+
+    def get_updated_content(self, new_content: Content) -> dict[str, Any]:
+        """
+        Get a dictionary of updated content when comparing another content object against self.
+        The list of items that can be updated is guided by Entegy's API docs however a number of the
+        optional attributes have been left in. Time will tell if this is a valid assumption.
+
+        Return should really be an object. See:
+        https://github.com/SituDevelopment/entegy-sdk-python/issues/184
+
+        Parameters
+        ----------
+            `other` (`Content`): The content object against which to compare self.
+
+        Returns
+        -------
+            `dict[str, Any]`: The results dict. Could really use an object here. To be fixed in
+            https://github.com/SituDevelopment/entegy-sdk-python/issues/184
+        """
+        old_content = self  # for improved comparison readability.
+        updated_content = {}
+
+        # mainImage is a special case as Entegy mutates what we send them.
+        # This means that every subsequent comparison will be falsy which would then kick off an update.
+        if not old_content.mainImage and new_content.mainImage:
+            updated_content["mainImage"] = new_content.mainImage
+
+        if old_content.name != new_content.name:
+            updated_content["name"] = new_content.name
+        if old_content.strings != new_content.strings:
+            updated_content["strings"] = new_content.strings
+        if old_content.pageSettings != new_content.pageSettings:
+            updated_content["pageSettings"] = new_content.pageSettings
+        if old_content.sortOrder != new_content.sortOrder:
+            updated_content["sortOrder"] = new_content.sortOrder
+        if old_content.documents != new_content.documents:
+            updated_content["documents"] = new_content.documents
+        if old_content.links != new_content.links:
+            updated_content["links"] = new_content.links
+        if old_content.multiLinks != new_content.multiLinks:
+            updated_content["multiLinks"] = new_content.multiLinks
+        if old_content.selectedCategories != new_content.selectedCategories:
+            updated_content["selectedCategories"] = new_content.selectedCategories
+
+        # The update of content requires the presence of externalReference even though
+        # it may not be one of the fields that have been changed. :(
+        # Adding it here just in case.
+        updated_content["externalReference"] = old_content.externalReference
+
+        return updated_content
+
+
+class ContentCreate(BaseModel):
+    name: str
+    templateType: TemplateType
+    externalReference: str
 
 
 class ContentChildCreate(BaseModel):
@@ -163,4 +229,3 @@ class ContentChildCreate(BaseModel):
     mainImage: Optional[str] = None
     strings: Optional[dict[str, str]] = None
     links: Optional[list[Link]] = None
-    sortOrder: Optional[int] = None
