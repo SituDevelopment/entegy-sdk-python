@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any, Optional, Union
 
 from entegywrapper.errors import EntegyFailedRequestError
-from entegywrapper.schemas.content import Category, TemplateType
+from entegywrapper.schemas.content import Category, ContentCreate, TemplateType
 
 if TYPE_CHECKING:
     from entegywrapper import EntegyAPI
@@ -38,7 +38,7 @@ def available_categories(
     -------
         `list[Category]`: the available categories
     """
-    data = {"templateType": template_type}
+    data: dict[str, Any] = {"templateType": template_type}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -186,7 +186,7 @@ def deselect_categories(
 def create_categories(
     self: EntegyAPI,
     template_type: TemplateType,
-    categories: list[Category],
+    categories: list[Category] | list[ContentCreate],
     *,
     module_id: Optional[int] = None,
     external_reference: Optional[str] = None,
@@ -198,7 +198,7 @@ def create_categories(
     ----------
         `template_type` (`TemplateType`): the templateType of the page holding the categories
 
-        `categories` (`list[Category]`): the categories to create
+        `categories` (`list[Union[Category, ContentCreate]]`): the categories to create
 
         `module_id` (`int`, optional): the moduleId of the page holding the categories; defaults to `None`
 
@@ -210,7 +210,10 @@ def create_categories(
 
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"templateType": template_type, "categories": categories}
+    data = {
+        "templateType": template_type,
+        "categories": [category.model_dump() for category in categories],
+    }
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -262,7 +265,7 @@ def create_child_categories(
 
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"categories": categories}
+    data = {"categories": [category.model_dump() for category in categories]}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -312,7 +315,7 @@ def update_category(
 
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"name": name}
+    data: dict[str, Any] = {"name": name}
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -363,7 +366,10 @@ def delete_categories(
 
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"templateType": template_type, "categories": categories}
+    data = {
+        "templateType": template_type,
+        "categories": [category.model_dump() for category in categories],
+    }
 
     if module_id is not None:
         data["moduleId"] = module_id
@@ -372,7 +378,7 @@ def delete_categories(
     else:
         raise ValueError("Please specify an identifier")
 
-    response = self.delete(self.api_endpoint + "/v2/Categories/Delete", data=data)
+    response = self.post(self.api_endpoint + "/v2/Categories/Delete", data=data)
 
     match response["response"]:
         case 200:
