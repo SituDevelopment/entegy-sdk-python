@@ -198,7 +198,7 @@ def create_categories(
     ----------
         `template_type` (`TemplateType`): the templateType of the page holding the categories
 
-        `categories` (`list[Union[Category, ContentCreate]]`): the categories to create
+        `categories` (`list[Category | ContentCreate]]`): the categories to create
 
         `module_id` (`int`, optional): the moduleId of the page holding the categories; defaults to `None`
 
