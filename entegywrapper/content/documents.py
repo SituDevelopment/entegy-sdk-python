@@ -41,7 +41,7 @@ def add_documents(
     """
     data = {
         "templateType": template_type,
-        "fileDocuments": file_documents,
+        "fileDocuments": [document.model_dump() for document in file_documents],
     }
 
     if module_id is not None:

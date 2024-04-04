@@ -135,7 +135,7 @@ class ExternalContent(BaseModel):
 
 class Link(BaseModel):
     templateType: TemplateType
-    moduleId: int
+    moduleId: Optional[int] = None  # Optional when creating, not optional when retrieving.
     externalReference: str
 
 
@@ -144,9 +144,9 @@ class NamedLink(Link):
 
 
 class Category(BaseModel):
-    moduleId: Optional[int]
     externalReference: str
-    name: Optional[str] = None
+    name: str
+    moduleId: Optional[int] = None  # Optional when creating, not optional when retrieving.
     childCategories: list["Category"] = []
 
 
@@ -157,7 +157,7 @@ class Content(BaseModel):
     mainImage: str
     strings: dict[str, str]
     contentType: Optional[str] = None
-    moduleId: Optional[int]  # Optional when creating, not optional when retrieving.
+    moduleId: Optional[int] = None  # Optional when creating, not optional when retrieving.
     pageSettings: Optional[dict[PageSetting, bool]] = None
     sortOrder: Optional[int] = None
     documents: Optional[list[Document]] = None

@@ -76,7 +76,10 @@ def add_multi_links(
 
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"templateType": template_type, "multiLinks": multi_links}
+    data = {
+        "templateType": template_type,
+        "multiLinks": [link.model_dump() for link in multi_links],
+    }
 
     if module_id is not None:
         data["moduleId"] = module_id
