@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Optional, Union
+from typing import TYPE_CHECKING, Any, Optional
 
 from entegywrapper.errors import EntegyFailedRequestError
 from entegywrapper.schemas.content import Category, ContentCreate, TemplateType
@@ -166,7 +166,7 @@ def deselect_categories(
 
     match response["response"]:
         case 200:
-            return
+            return True
         case 401:
             raise EntegyFailedRequestError("Missing Id")
         case 402:
@@ -182,6 +182,7 @@ def deselect_categories(
                 f"{response['response']}: {response.get('message', 'Unknown error')}"
             )
 
+    return False
 
 def create_categories(
     self: EntegyAPI,
