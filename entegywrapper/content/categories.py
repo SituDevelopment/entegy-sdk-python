@@ -184,6 +184,7 @@ def deselect_categories(
 
     return False
 
+
 def create_categories(
     self: EntegyAPI,
     template_type: TemplateType,
