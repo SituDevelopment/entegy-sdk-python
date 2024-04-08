@@ -154,7 +154,7 @@ class Content(BaseModel):
     name: str
     templateType: TemplateType
     externalReference: str
-    mainImage: str
+    mainImage: Optional[str] = None
     strings: dict[str, str]
     contentType: Optional[str] = None
     moduleId: Optional[int] = None  # Optional when creating, not optional when retrieving.
