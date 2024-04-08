@@ -76,8 +76,8 @@ def all_profiles(
 
         response = self.post(self.api_endpoint + "/v2/Profile/All", data=data)
 
-    for profile in response["profiles"]:
-        yield Profile(**profile)
+        for profile in response["profiles"]:
+            yield Profile(**profile)
 
 
 def get_profile(
