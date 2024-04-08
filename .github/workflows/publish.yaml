@@ -22,7 +22,7 @@ jobs:
   release-to-github:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.RELEASE_PAT }}
     if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
     needs: check-version
     permissions:
