@@ -7,8 +7,9 @@ from json import JSONEncoder
 from typing import Any, Callable
 
 import requests
-from entegywrapper.errors import EntegyInvalidAPIKeyError, EntegyNoDataError
 from requests.structures import CaseInsensitiveDict
+
+from entegywrapper.errors import EntegyInvalidAPIKeyError, EntegyNoDataError
 
 sys.path.append(os.path.dirname(__file__))
 
