@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING, Generator, Optional
 
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
@@ -13,6 +14,9 @@ from entegywrapper.schemas.profile import (
 
 if TYPE_CHECKING:
     from entegywrapper import EntegyAPI
+
+logger = logging.getLogger(__name__)
+
 
 MAX_SYNCED_PROFILES = 100
 """The maximum number of profiles that can be synced at once."""
@@ -351,24 +355,28 @@ def sync_profiles(
         `dict[str, list]`: a dictionary containing the results of the sync and any errors
     """
     parent = []
-    block_size = MAX_SYNCED_PROFILES
+    batch_size = MAX_SYNCED_PROFILES
 
     if group_by_first_profile:
         parent.append(profiles[0])
-        block_size -= 1
+        batch_size -= 1
 
-    result = {"results": [], "errors": []}
+    response_summary = {"results": [], "errors": []}
 
-    for start in range(len(parent), len(profiles), block_size):
+    for start in range(len(parent), len(profiles), batch_size):
         response = self.sync_profile_block(
             update_reference_type,
-            parent + profiles[start : start + block_size],
+            parent + profiles[start : start + batch_size],
             group_by_first_profile=group_by_first_profile,
         )
-        result["results"].extend(response["results"])
-        result["errors"].extend(response["errors"])
+        results = response.get("results", [])  # If all errors then results key not even provided.
+        if not results:
+            logger.warning(f"No results returned in batch starting {start}. Check errors!")
 
-    return result
+        response_summary["results"].extend(results)
+        response_summary["errors"].extend(response.get("errors", []))
+
+    return response_summary
 
 
 def sync_profile_block(
