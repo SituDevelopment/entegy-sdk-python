@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Generator, Optional
+from typing import TYPE_CHECKING, Any, Generator, Optional
 
 from entegywrapper.errors import EntegyFailedRequestError, EntegyServerError
 from entegywrapper.schemas.profile import (
@@ -53,7 +53,7 @@ def all_profiles(
     ------
         `Generator[Profile, None, None]`: user profiles
     """
-    data = {
+    data: dict[str, Any] = {
         "pagination": {"start": 0, "limit": 1000},
         "includeCustomFields": include_custom_fields,
         "includePermissions": include_permissions,

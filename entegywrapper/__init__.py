@@ -4,12 +4,12 @@ import sys
 import time
 from enum import Enum
 from json import JSONEncoder
-from typing import Any, Callable
+from typing import Callable
 
 import requests
 from requests.structures import CaseInsensitiveDict
 
-from entegywrapper.errors import EntegyInvalidAPIKeyError, EntegyNoDataError
+from .errors import EntegyInvalidAPIKeyError, EntegyNoDataError
 
 sys.path.append(os.path.dirname(__file__))
 
