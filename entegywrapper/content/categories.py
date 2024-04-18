@@ -153,7 +153,10 @@ def deselect_categories(
     -------
         `bool`: whether the categories were deselected successfully
     """
-    data = {"templateType": template_type, "categories": categories}
+    data = {
+        "templateType": template_type,
+        "categories": [category.model_dump() for category in categories],
+    }
 
     if module_id is not None:
         data["moduleId"] = module_id
