@@ -48,7 +48,7 @@ def create_profile_custom(self: EntegyAPI, custom_field: CustomProfileField):
     ------
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"customField": custom_field}
+    data = {"customField": custom_field.model_dump()}
 
     response = self.post(self.api_endpoint + "/v2/ProfileCustomField/Create", data=data)
 
@@ -82,7 +82,7 @@ def update_profile_custom(self: EntegyAPI, key: str, custom_field: CustomProfile
     ------
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"key": key, "customField": custom_field}
+    data = {"key": key, "customField": custom_field.model_dump()}
 
     response = self.post(self.api_endpoint + "/v2/ProfileCustomField/Update", data=data)
 
