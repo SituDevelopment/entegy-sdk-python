@@ -92,7 +92,7 @@ class CustomProfileField(BaseModel):
     type: CustomProfileFieldType
     sortOrder: Optional[int] = None
     externallyManaged: bool
-    options: Optional[list[MultiChoiceOptions]]
+    options: Optional[list[MultiChoiceOptions]] = None
 
 
 class ProfileCreate(BaseModel):
