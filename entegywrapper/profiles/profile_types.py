@@ -68,7 +68,7 @@ def create_profile_type(self: EntegyAPI, profile_type: ProfileType):
     ------
         `EntegyFailedRequestError`: if the API request fails
     """
-    data = {"profileType": profile_type}
+    data = {"profileType": profile_type.model_dump()}
 
     response = self.post(self.api_endpoint + "/v2/ProfileType/Create", data=data)
 
