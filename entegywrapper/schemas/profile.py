@@ -60,10 +60,11 @@ class Profile(BaseModel):
 
 class ProfileType(BaseModel):
     name: str
-    isOrganiser: bool
-    allowAppLogin: bool
-    price: int
-    moduleId: int
+    externalReference: str
+    isOrganiser: Optional[bool]
+    allowAppLogin: Optional[bool]
+    price: Optional[int]
+    moduleId: Optional[int]
 
 
 class CustomProfileFieldType(Enum):
