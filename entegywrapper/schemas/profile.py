@@ -81,7 +81,7 @@ class CustomProfileFieldType(Enum):
 class MultiChoiceOptions(BaseModel):
     optionId: int
     name: str
-    externalMappings: str
+    externalMappings: Optional[str] = None
 
 
 class CustomProfileField(BaseModel):
