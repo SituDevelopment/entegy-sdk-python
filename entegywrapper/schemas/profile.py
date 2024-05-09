@@ -45,7 +45,7 @@ class Profile(BaseModel):
     password: Optional[str] = None
     title: Optional[str] = None
     displayName: Optional[str] = None
-    organization: Optional[str] = None
+    organisation: Optional[str] = None
     position: Optional[str] = None
     email: Optional[str] = None
     contactNumber: Optional[str] = None
@@ -117,7 +117,7 @@ class ProfileUpdate(BaseModel):
     accessCode: Optional[str] = None  # ^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$
     password: Optional[str] = None
     title: Optional[str] = None
-    organization: Optional[str] = None
+    organisation: Optional[str] = None
     position: Optional[str] = None
     email: Optional[str] = None
     contactNumber: Optional[str] = None
