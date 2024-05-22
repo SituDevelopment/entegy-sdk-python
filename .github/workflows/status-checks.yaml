@@ -3,10 +3,10 @@ name: Status Checks
 on: pull_request
 
 jobs:
-  code-style:
-    uses: SituDevelopment/.github/.github/workflows/check-code-style.yaml@main
+  all:
+    uses: SituDevelopment/.github/.github/workflows/all.yaml@main
+
+  python:
+    uses: SituDevelopment/.github/.github/workflows/python.yaml@main
     with:
       python-root: entegywrapper
-
-  dependencies:
-    uses: SituDevelopment/.github/.github/workflows/check-dependencies.yaml@main
