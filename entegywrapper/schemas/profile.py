@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 from .project import ProjectEventInfo, ProjectStatus, ProjectType, SoftwareElement
 
@@ -94,6 +94,11 @@ class CustomProfileField(BaseModel):
     sortOrder: Optional[int] = None
     externallyManaged: bool
     options: Optional[list[MultiChoiceOptions]] = None
+
+    @field_validator("key")
+    @classmethod
+    def lowercase_key(cls, value: str) -> str:
+        return value.lower()
 
 
 class ProfileCreate(BaseModel):
