@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from .page_settings import PageSetting
 
 
-class TemplateType(Enum):
+class TemplateType(str, Enum):
     @classmethod
     def _missing_(cls, value):
         """Enables case-insensitive lookup."""

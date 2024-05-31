@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class ApiKeyPermission(Enum):
+class ApiKeyPermission(str, Enum):
     VIEW_CONTENT = "ViewContent"
     EDIT_CONTENT = "EditContent"
     EDIT_PROFILES = "EditProfiles"
@@ -13,7 +13,7 @@ class ApiKeyPermission(Enum):
     SEND_NOTIFICATIONS = "SendNotifications"
 
 
-class Region(Enum):
+class Region(str, Enum):
     AU = "61a948f2-d505-4b0b-81de-31af6925647e"
     US = "2b9bd3fc-405e-4df5-888d-f5323e2b5093"
     EU = "86f89b50-1bbb-4019-9ca2-b2d9f4167064"
@@ -24,7 +24,7 @@ class ProjectEventInfo(BaseModel):
     endDate: str
 
 
-class ProjectType(Enum):
+class ProjectType(str, Enum):
     EVENT = "Event"
     ONGOING = "Ongoing"
     DEMO = "Demo"
@@ -32,7 +32,7 @@ class ProjectType(Enum):
     DEMO_TEMPLATE = "DemoTemplate"
 
 
-class ProjectStatus(Enum):
+class ProjectStatus(str, Enum):
     DRAFT = "Draft"
     HAND_OVER = "HandOver"
     POPULATE_AND_TESTING = "PopulateAndTesting"
@@ -42,7 +42,7 @@ class ProjectStatus(Enum):
     CANCELED = "Canceled"
 
 
-class SoftwareElement(Enum):
+class SoftwareElement(str, Enum):
     APP = "App"
     STORE_LISTING = "StoreListing"
     ENGAGE = "Engage"
