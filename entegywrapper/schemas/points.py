@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from .profile import Profile
 
 
-class PointType(Enum):
+class PointType(str, Enum):
     COMMENT = "Comment"
     COMMENT_WITH_IMAGE = "CommentWithImage"
     STATUS = "Status"

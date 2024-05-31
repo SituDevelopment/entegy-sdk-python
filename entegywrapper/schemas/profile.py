@@ -6,10 +6,10 @@ from pydantic import BaseModel, field_validator
 from .project import ProjectEventInfo, ProjectStatus, ProjectType, SoftwareElement
 
 
-class ProfileExtendedPrivacy(Enum):
-    PUBLIC = "Public"
-    CONNECTIONS = "Connections"
-    HIDDEN = "Hidden"
+class ProfileExtendedPrivacy(int, Enum):
+    PUBLIC = 0
+    CONNECTIONS = 1
+    HIDDEN = 2
 
 
 class Permissions(BaseModel):
@@ -67,7 +67,7 @@ class ProfileType(BaseModel):
     moduleId: Optional[int] = None
 
 
-class CustomProfileFieldType(Enum):
+class CustomProfileFieldType(str, Enum):
     MULTI_CHOICE = "MultiChoice"
     SHORT_TEXT = "ShortText"
     MEDIUM_TEXT = "MediumText"
@@ -132,21 +132,21 @@ class ProfileUpdate(BaseModel):
     customFields: Optional[dict[str, Any]] = None
 
 
-class ProfileIdentifier(Enum):
+class ProfileIdentifier(str, Enum):
     PROFILE_ID = "profileId"
     EXTERNAL_REFERENCE = "externalReference"
     INTERNAL_REFERENCE = "internalReference"
     BADGE_REFERENCE = "badgeReference"
 
 
-class PaymentStatus(Enum):
+class PaymentStatus(str, Enum):
     PENDING = "Pending"
     CANCELLED = "Cancelled"
     PAID = "Paid"
     REFUNDED = "Refunded"
 
 
-class PaymentMethod(Enum):
+class PaymentMethod(str, Enum):
     NONE = "None"
     CREDIT_CARD = "CreditCard"
     DIRECT_DEPOSIT = "DirectDeposit"

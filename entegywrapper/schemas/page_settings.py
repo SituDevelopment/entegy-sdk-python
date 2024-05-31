@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PageSetting(Enum):
+class PageSetting(str, Enum):
     HIDDEN_IN_APP = "hiddenInApp"
     UNCLICKABLE = "unclickable"
     DISABLE_COMMENTS = "disableComments"

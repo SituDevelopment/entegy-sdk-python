@@ -28,7 +28,7 @@ def all_profiles(
     include_custom_fields: bool = False,
     include_permissions: bool = False,
     status: Optional[str] = None,
-    profile_type: Optional[ProfileType] = None,
+    profile_type: Optional[str] = None,
     updated_after: Optional[str] = None,
     created_after: Optional[str] = None,
 ) -> Generator[Profile, None, None]:
@@ -43,7 +43,7 @@ def all_profiles(
 
         `status` (`str`, optional): only select profiles with this status; defaults to `None`
 
-        `profile_type` (`ProfileType`, optional): only select profiles of this type; defaults to `None`
+        `profile_type` (`str`, optional): only select profiles of this type; defaults to `None`
 
         `updated_after` (`str`, optional): only select profiles updated after this time; defaults to `None`
 
