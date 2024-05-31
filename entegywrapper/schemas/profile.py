@@ -6,10 +6,10 @@ from pydantic import BaseModel, field_validator
 from .project import ProjectEventInfo, ProjectStatus, ProjectType, SoftwareElement
 
 
-class ProfileExtendedPrivacy(Enum):
-    PUBLIC = "Public"
-    CONNECTIONS = "Connections"
-    HIDDEN = "Hidden"
+class ProfileExtendedPrivacy(int, Enum):
+    PUBLIC = 0
+    CONNECTIONS = 1
+    HIDDEN = 2
 
 
 class Permissions(BaseModel):
