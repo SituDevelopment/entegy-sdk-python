@@ -187,19 +187,27 @@ class Content(BaseModel):
         old_content = self  # for improved comparison readability.
         updated_content = {}
 
-        # mainImage is a special case as Entegy mutates what we send them.
+        # These values are a special case as Entegy mutates what we send them.
         # This means that every subsequent comparison will be falsy which would then kick off an update.
         if not old_content.mainImage and new_content.mainImage:
             updated_content["mainImage"] = new_content.mainImage
+        if new_content.sortOrder and old_content.sortOrder != new_content.sortOrder:
+            updated_content["sortOrder"] = new_content.sortOrder
+        # Check if there are any differences between old_content.strings and new_content.strings
+        string_differences = {
+            key: value
+            for key, value in new_content.strings.items()
+            if key not in old_content.strings or old_content.strings[key] != value
+        }
+
+        # Only update updated_content if there are differences
+        if string_differences:
+            updated_content["strings"] = string_differences
 
         if old_content.name != new_content.name:
             updated_content["name"] = new_content.name
-        if old_content.strings != new_content.strings:
-            updated_content["strings"] = new_content.strings
         if old_content.pageSettings != new_content.pageSettings:
             updated_content["pageSettings"] = new_content.pageSettings
-        if old_content.sortOrder != new_content.sortOrder:
-            updated_content["sortOrder"] = new_content.sortOrder
         if old_content.documents != new_content.documents:
             updated_content["documents"] = new_content.documents
         if old_content.links != new_content.links:
@@ -208,6 +216,9 @@ class Content(BaseModel):
             updated_content["multiLinks"] = new_content.multiLinks
         if old_content.selectedCategories != new_content.selectedCategories:
             updated_content["selectedCategories"] = new_content.selectedCategories
+
+        if not updated_content:
+            return {}
 
         # The update of content requires the presence of externalReference even though
         # it may not be one of the fields that have been changed. :(
