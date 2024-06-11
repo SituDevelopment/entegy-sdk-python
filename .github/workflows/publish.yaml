@@ -4,9 +4,6 @@ on:
   push:
     branches: main
 
-permissions:
-  contents: read
-
 jobs:
   check-version:
     runs-on: ubuntu-latest
@@ -25,8 +22,6 @@ jobs:
       GH_TOKEN: ${{ secrets.RELEASE_PAT }}
     if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
     needs: check-version
-    permissions:
-      id-token: write
     steps:
       - uses: actions/checkout@v4
       - run: gh release create --generate-notes --target main "v${{ needs.check-version.outputs.version }}"
@@ -39,6 +34,7 @@ jobs:
     if: ${{ fromJson(needs.check-version.outputs.is-greater) }}
     needs: check-version
     permissions:
+      contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
