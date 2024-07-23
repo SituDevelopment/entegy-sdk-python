@@ -8,7 +8,6 @@ from entegywrapper.schemas.profile import (
     Profile,
     ProfileCreate,
     ProfileIdentifier,
-    ProfileType,
     ProfileUpdate,
 )
 
