@@ -210,7 +210,7 @@ class EntegyAPI:
 
             try:
                 response = response.json()
-            except:
+            except:  # noqa: E722
                 failed_requests += 1
                 if failed_requests >= 5:
                     raise EntegyNoDataError()

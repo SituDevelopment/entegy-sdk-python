@@ -2,13 +2,6 @@
 requires = ["poetry-core>=1.0.0a5"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.black]
-line-length = 100
-
-[tool.isort]
-line_length = 100
-profile = "black"
-
 [tool.poetry]
 name = "entegywrapper"
 version = "8.0.1"
@@ -32,10 +25,11 @@ requests = ">=2.31,<2.33"
 pydantic = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "*"
-isort = "*"
 mypy = "*"
-pylint = "*"
+ruff = "*"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
+
+[tool.ruff]
+line-length = 100
